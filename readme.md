@@ -9,3 +9,4 @@ you probably should use the link in this column to refer/cite/share.
 |Type|Date (yyyy-mm)|Title|Where|Main Repository|Slides|
 |:--:|:------------:|:---:|:---:|:---:|:---:|
 |BSc Thesis|2024-02|[From Combinators to Concatenative and Back Again](./publications/From_Combinators_to_Concatenative_and_Back_Again.pdf)|[UFRJ](https://ufrj.br/en/)|[Pantheon](http://hdl.handle.net/11422/22871)|[slides pt-BR](./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf)|
+|Paper|2024-09|[Converting Combinators to and from Concatenative](./publications/Converting_Combinators_to_and_from_Concatenative.pdf)|[SBLP2024](https://cbsoft.sbc.org.br/2024/sblp/?lang=en)|???|???|
