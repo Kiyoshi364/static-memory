@@ -41,5 +41,8 @@ publication(
   ),
   name_link('SBLP2024', https('cbsoft.sbc.org.br/2024/sblp/?lang=en')),
   to_be_filled,
-  to_be_filled
+  name_link(
+    'slides',
+    publications('Converting_Combinators_to_and_from_Concatenative_slides.pdf')
+  )
 ).
