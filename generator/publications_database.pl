@@ -40,7 +40,7 @@ publication(
     publications('Converting_Combinators_to_and_from_Concatenative.pdf')
   ),
   name_link('SBLP2024', https('cbsoft.sbc.org.br/2024/sblp/?lang=en')),
-  to_be_filled,
+  doi('10.5753/sblp.2024.3460'),
   name_link(
     'slides',
     publications('Converting_Combinators_to_and_from_Concatenative_slides.pdf')
