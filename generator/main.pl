@@ -41,6 +41,7 @@ true.
 
 main :- check_database, current_output(S), run(S).
 main_file(F) :-
+  check_database,
   setup_call_cleanup(
     open(F, write, S, []),
     run(S),
@@ -48,7 +49,6 @@ main_file(F) :-
   ).
 
 run(S) :-
-  check_database,
   write(S, '# Static Memory\n'),
   write_publications(S),
 true.
