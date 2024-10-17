@@ -34,6 +34,7 @@ serialize_body_(S, N, Arity, Func) :-
 serialize_val(S, literal(L)) :- write(S, L).
 serialize_val(S, year_month(Y, M)) :- write(S, Y), write(S, '-'), serialize_month(S, M).
 serialize_val(S, name_link(N, L)) :- write(S, [N]), write(S, '('), serialize_link(S, L), write(S, ')').
+serialize_val(S, doi(ID)) :- write(S, ['DOI']), write(S, '('), serialize_link(S, doi(ID)), write(S, ')').
 serialize_val(S, to_be_filled) :- write(S, '???').
 
 serialize_month(S, M) :- ( M < 10 -> write(S, 0) ), write(S, M).
@@ -41,3 +42,4 @@ serialize_month(S, M) :- ( M < 10 -> write(S, 0) ), write(S, M).
 serialize_link(S, publications(L)) :- write(S, './publications/'), write(S, L).
 serialize_link(S, https(L)) :- write(S, 'https://'), write(S, L).
 serialize_link(S, http(L)) :- write(S, 'http://'), write(S, L).
+serialize_link(S, doi(ID)) :- write(S, 'https://doi.org/'), write(S, ID).

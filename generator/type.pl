@@ -22,6 +22,8 @@ type_(name_link, Val, Ctx) :-
   ( Val = name_link(N, L) ->
     check_(atom, N, Ctx),
     type_(link_target, L, Ctx)
+  ; Val = doi(ID) ->
+    check_(atom, ID, Ctx)
   ; check_error(name_link, Val, Ctx)
   ).
 type_(link_target, Val, Ctx) :-
