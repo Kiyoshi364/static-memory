@@ -16,6 +16,7 @@ check_publication(P, L) :-
   type(link, P, 4),
   type(link, P, 5),
   type(link, P, 6),
+  L = 6,
 true.
 
 publication(
