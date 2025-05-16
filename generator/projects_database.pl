@@ -3,9 +3,9 @@
   , check_project/2
 ]).
 
-project_header(['Kind', 'Name', 'Summary', 'Language', 'Main Repository', 'Mirrors', 'Last Updated']).
-project_body(project(Kind, Name, Summary, Language, MainRepository, Mirrors, LastUpdated)) :-
-  project(Kind, Name, Summary, Language, MainRepository, Mirrors, LastUpdated).
+project_header(['Name', 'Kind', 'Summary', 'Language', 'Main Repository', 'Mirrors', 'Last Updated']).
+project_body(project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated)) :-
+  project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated).
 
 project_type([
   % or([text, link]),
@@ -42,7 +42,7 @@ project(
 
 project(
   % link(name_link('struct.pl', mygitlab('struct-pl/blob/main/struct.pl'))),
-  literal('cbor.pl'),
+  literal('struct.pl'),
   literal('file library'),
   literal('A prolog library for defining and using structs-like functors'),
   proglang(prolog),
