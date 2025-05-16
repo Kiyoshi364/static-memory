@@ -4,6 +4,8 @@
 
 :- use_module(serialize, [serialize_header/2, serialize_body/2]).
 
+%%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
+
 :- use_module(publications_database, [
   publication_header/1, publication_body/1, check_publication/2
 ]).
@@ -23,6 +25,8 @@ true.
 check_publications :-
   check_database(publication_header, publication_body, check_publication).
 
+%%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
+
 serialize_database(S, Preamble, Header_1, Body_1) :-
   maplist(write(S), Preamble),
   nl(S),
@@ -40,18 +44,18 @@ check_database(Header_1, Body_1, Check_2) :-
   ( call(Header_1, H),
     length(H, L),
     call(Body_1, P),
-    ( call(Check_2, P, L) -> true ; throw(expected_success(check_publication(P, L))) ),
+    ( call(Check_2, P, L) -> true ; throw(expected_success(check(Check_2, P, L))) ),
     false
   ; true
   ).
 
-check_database :-
+check_databases :-
   check_publications,
 true.
 
-main :- check_database, current_output(S), run(S).
+main :- check_databases, current_output(S), run(S).
 main_file(F) :-
-  check_database,
+  check_databases,
   setup_call_cleanup(
     open(F, write, S, []),
     run(S),
