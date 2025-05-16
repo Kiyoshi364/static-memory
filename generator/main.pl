@@ -2,12 +2,12 @@
 :- use_module(library(lists), [length/2, maplist/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
-:- use_module(serialize, [serialize_header/2, serialize_body/2]).
+:- use_module(serialize, [serialize_header/2, serialize_body/3]).
 
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
 
 :- use_module(publications_database, [
-  publication_header/1, publication_body/1, check_publication/2
+  publication_header/1, publication_body/1, publication_type/1, check_publication/2
 ]).
 
 publications_preamble -->
@@ -19,7 +19,7 @@ publications_preamble -->
 
 write_publications(S) :-
   phrase(publications_preamble, Preamble),
-  serialize_database(S, Preamble, publication_header, publication_body),
+  serialize_database(S, Preamble, publication_header, publication_type, publication_body),
 true.
 
 check_publications :-
@@ -27,13 +27,14 @@ check_publications :-
 
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
-serialize_database(S, Preamble, Header_1, Body_1) :-
+serialize_database(S, Preamble, Header_1, Type_1, Body_1) :-
   maplist(write(S), Preamble),
   nl(S),
   call(Header_1, H),
   serialize_header(S, H),
+  call(Type_1, T),
   ( call(Body_1, B),
-    serialize_body(S, B),
+    serialize_body(S, T, B),
     false
   ; true
   ),
