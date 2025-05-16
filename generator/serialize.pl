@@ -2,7 +2,7 @@
   serialize_header/2, serialize_body/3
 ]).
 
-:- use_module(library(lists), [maplist/2]).
+:- use_module(library(lists), [member/2, maplist/2]).
 
 :- use_module(proglangs, [proglang_val/2]).
 :- use_module(me, [mygithub/1, mygitlab/1]).
@@ -44,9 +44,10 @@ serialize_type_val(link, Val, S) :- !,
   ).
 serialize_type_val(proglang, proglang(PL), S) :- !, proglang_val(PL, Val), serialize_type_val(link, Val, S).
 serialize_type_val(list(T, J, E, N), L, S) :- !, serialize_list(L, T, J, E, N, S).
-serialize_type_val(to_be_filled, S) :- !, write(S, '???').
-serialize_type_val(Val, _) :-
-  throw(unknown_val_while_serializing(Val)).
+serialize_type_val(or(Ts), O, S) :- !, serialize_or(Ts, O, S).
+serialize_type_val(_, to_be_filled, S) :- !, write(S, '???').
+serialize_type_val(T, Val, _) :-
+  throw(unknown_type_val_while_serializing(T, Val)).
 
 serialize_month(M, S) :- ( M < 10 -> write(S, 0) ), write(S, M).
 
@@ -65,3 +66,8 @@ serialize_list([Val0 | Vals], T, Join, End, _, S) :- serialize_list_(Vals, Val0,
 serialize_list_([], Val0, T, _, End, S) :- serialize_type_val(T, Val0, S), write(S, End).
 serialize_list_([Val1 | Vals], Val0, T, Join, End, S) :-
   serialize_type_val(T, Val0, S), write(S, Join), serialize_list(Vals, Val1, T, Join, End, S).
+
+serialize_or(Ts, O, S) :-
+  ( O = or(T, Val), member(T, Ts) -> serialize_type_val(T, Val, S)
+  ; throw(unknown_or_while_serializing(Ts, Val))
+  ).

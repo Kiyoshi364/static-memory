@@ -2,6 +2,8 @@
   type/3
 ]).
 
+:- use_module(library(lists), [member/2]).
+
 :- use_module(proglangs, [proglang/1]).
 
 type(text, F, Arg) :- !, arg(Arg, F, Val), type_(text, Val, F-Arg).
@@ -9,6 +11,7 @@ type(date, F, Arg) :- !, arg(Arg, F, Val), type_(date, Val, F-Arg).
 type(link, F, Arg) :- !, arg(Arg, F, Val), type_(link, Val, F-Arg).
 type(proglang, F, Arg) :- !, arg(Arg, F, Val), type_(proglang, Val, F-Arg).
 type(list(T, J, E, N), F, Arg) :- !, arg(Arg, F, Val), type_list(T, J, E, N, Val, F-Arg).
+type(or(Ts), F, Arg) :- !, arg(Arg, F, Val), type_or(Ts, Val, F-Arg).
 type(T, F, Arg) :- arg(Arg, F, Val), throw(unknown_type_while_checking(T, Val)).
 
 type_(_, to_be_filled, _) :- !.
@@ -57,6 +60,11 @@ type_list(Type, Join, End, None, List, Ctx) :-
 type_list_([], _, _).
 type_list_([Val | Vals], Type, Ctx) :-
   type_(Type, Val, Ctx), type_list_(Vals, Type, Ctx).
+
+type_or(Ts, Val, Ctx) :-
+  ( Val = or(T, V), member(T, Ts) -> type_(T, V, Ctx)
+  ; check_error(or(Ts), Val, Ctx)
+  ).
 
 :- meta_predicate(check_(1, ?, ?, ?)).
 check_(Pred, Val, Ctx) :- ( call(Pred, Val) -> true ; check_error(Pred, Val, Ctx) ).
