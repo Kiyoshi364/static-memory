@@ -16,21 +16,37 @@ publications_preamble -->
   "The link from _Title_ is local to the git repository.\n",
   "The link from _Main Repository_ is to somewhere else,\n",
   "you probably should use the link in this column to refer/cite/share.\n",
+  "\n",
 [].
-
-write_publications(S) :-
-  phrase(publications_preamble, Preamble),
-  serialize_database(S, Preamble, publication_header, publication_type, publication_body),
-true.
 
 check_publications :-
   check_database(publication, publication_header, publication_body, publication_type).
 
+write_publications(S) :-
+  phrase(publications_preamble, Preamble),
+  serialize_database(S, Preamble, publication_header, publication_body, publication_type).
+
+%%%%%%%%%%%%%%%%%%%% Projects %%%%%%%%%%%%%%%%%%%%
+
+:- use_module(projects_database, [
+  project_header/1, project_body/1, project_type/1
+]).
+
+projects_preamble -->
+  "\n## Projects\n\n",
+[].
+
+check_projects :-
+  check_database(project, project_header, project_body, project_type).
+
+write_projects(S) :-
+  phrase(projects_preamble, Preamble),
+  serialize_database(S, Preamble, project_header, project_body, project_type).
+
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
-serialize_database(S, Preamble, Header_1, Type_1, Body_1) :-
+serialize_database(S, Preamble, Header_1, Body_1, Type_1) :-
   maplist(write(S), Preamble),
-  nl(S),
   call(Header_1, H),
   serialize_header(S, H),
   call(Type_1, T),
@@ -66,6 +82,7 @@ check_body_([T | Ts], B, N, Arity) :-
 
 check_databases :-
   check_publications,
+  check_projects,
 true.
 
 main :- check_databases, current_output(S), run(S).
@@ -80,4 +97,5 @@ main_file(F) :-
 run(S) :-
   write(S, '# Static Memory\n'),
   write_publications(S),
+  write_projects(S),
 true.

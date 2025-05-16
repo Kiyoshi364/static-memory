@@ -1,0 +1,85 @@
+:- module(projects_database, [
+  project_header/1, project_body/1, project_type/1
+  , check_project/2
+]).
+
+project_header(['Kind', 'Name', 'Summary', 'Language', 'Main Repository', 'Mirrors', 'Last Updated']).
+project_body(project(Kind, Name, Summary, Language, MainRepository, Mirrors, LastUpdated)) :-
+  project(Kind, Name, Summary, Language, MainRepository, Mirrors, LastUpdated).
+
+project_type([
+  text,
+  % or([text, link]),
+  text,
+  text,
+  proglang,
+  link,
+  list(link, ', ', '', '-'),
+  date
+]).
+
+project(
+  literal('library/executable'),
+  % text(literal('wam')),
+  literal('wam'),
+  literal('8-bit WAM interpreter, focusing on learning the abstract machine'),
+  proglang(c),
+  mygithub('wam'),
+  [],
+  year_month(2025, 03)
+).
+
+project(
+  literal('file library'),
+  % link(name_link('cbor.pl', mygitlab('cbor-pl/blob/main/cbor.pl'))),
+  literal('cbor.pl'),
+  literal('A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)'),
+  proglang(prolog),
+  mygitlab('cbor-pl'),
+  [mygithub('cbor-pl')],
+  year_month(2025, 02)
+).
+
+project(
+  literal('file library'),
+  % link(name_link('struct.pl', mygitlab('struct-pl/blob/main/struct.pl'))),
+  literal('cbor.pl'),
+  literal('A prolog library for defining and using structs-like functors'),
+  proglang(prolog),
+  mygitlab('struct-pl'),
+  [mygithub('struct-pl')],
+  year_month(2025, 02)
+).
+
+project(
+  literal('executable'),
+  % text(literal('Yellowstone')),
+  literal('Yellowstone'),
+  literal('A Minecraft\'s Redstone inspired simulation'),
+  proglang(zig),
+  mygithub('yellowstone'),
+  [],
+  year_month(2024, 06)
+).
+
+project(
+  literal('many executables'),
+  % text(literal('Cutils')),
+  literal('Cutils'),
+  literal('Some self-contained small utilities written in C'),
+  proglang(c),
+  mygithub('cutils'),
+  [],
+  year_month(2024, 06)
+).
+
+project(
+  literal('executable'),
+  % text(literal('crlf')),
+  literal('crlf'),
+  literal('Converts files from linux to windows text file format or the other way around'),
+  proglang(zig),
+  mygithub('crlf'),
+  [],
+  year_month(2022, 08)
+).

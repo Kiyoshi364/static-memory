@@ -4,6 +4,9 @@
 
 :- use_module(library(lists), [maplist/2]).
 
+:- use_module(proglangs, [proglang_val/2]).
+:- use_module(me, [mygithub/1, mygitlab/1]).
+
 serialize_header(S, H) :-
   serialize_header_names(S, H), serialize_header_align(S, H).
 
@@ -35,8 +38,12 @@ serialize_type_val(date, year_month(Y, M), S) :- !, write(S, Y), write(S, '-'), 
 serialize_type_val(link, Val, S) :- !,
   ( Val = name_link(N, L) -> write(S, [N]), write(S, '('), serialize_linktarget(L, S), write(S, ')')
   ; Val = doi(ID)         -> write(S, ['DOI']), write(S, '('), serialize_linktarget(doi(ID), S), write(S, ')')
+  ; Val = mygithub(Path)  -> mygithub(GITHUB), write(S, '['), write(S, GITHUB), write(S, /), write(S, Path), write(S, ']('), serialize_linktarget(mygithub(Path), S), write(S, ')')
+  ; Val = mygitlab(Path)  -> mygitlab(GITLAB), write(S, '['), write(S, GITLAB), write(S, /), write(S, Path), write(S, ']('), serialize_linktarget(mygitlab(Path), S), write(S, ')')
   ; throw(unknown_link_while_serializing(Val))
   ).
+serialize_type_val(proglang, proglang(PL), S) :- !, proglang_val(PL, Val), serialize_type_val(link, Val, S).
+serialize_type_val(list(T, J, E, N), L, S) :- !, serialize_list(L, T, J, E, N, S).
 serialize_type_val(to_be_filled, S) :- !, write(S, '???').
 serialize_type_val(Val, _) :-
   throw(unknown_val_while_serializing(Val)).
@@ -52,4 +59,9 @@ serialize_linktarget(mygitlab(Path), S) :- !, mygitlab(GITLAB), write(S, 'https:
 serialize_linktarget(Link, _) :-
   throw(unknown_link_while_serializing(Link)).
 
+serialize_list([], _, _, _, None, S) :- write(S, None).
+serialize_list([Val0 | Vals], T, Join, End, _, S) :- serialize_list_(Vals, Val0, T, Join, End, S).
 
+serialize_list_([], Val0, T, _, End, S) :- serialize_type_val(T, Val0, S), write(S, End).
+serialize_list_([Val1 | Vals], Val0, T, Join, End, S) :-
+  serialize_type_val(T, Val0, S), write(S, Join), serialize_list(Vals, Val1, T, Join, End, S).
