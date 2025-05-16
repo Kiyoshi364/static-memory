@@ -1,9 +1,6 @@
 :- module(publications_database, [
   publication_header/1, publication_body/1, publication_type/1
-  , check_publication/2
 ]).
-
-:- use_module(type, [type/3]).
 
 publication_header(['Type', 'Date (yyyy-mm)', 'Title', 'Where', 'Main Repository', 'Slides']).
 publication_body(publication(Type, Date, Title, Where, MainRepository, Slides)) :-
@@ -17,18 +14,6 @@ publication_type([
   link,
   link
 ]).
-
-% TODO: remove
-check_publication(P, L) :-
-  functor(P, publication, L),
-  type(text, P, 1),
-  type(date, P, 2),
-  type(link, P, 3),
-  type(link, P, 4),
-  type(link, P, 5),
-  type(link, P, 6),
-  L = 6,
-true.
 
 publication(
   literal('BSc Thesis'),

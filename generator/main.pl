@@ -3,11 +3,12 @@
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
 :- use_module(serialize, [serialize_header/2, serialize_body/3]).
+:- use_module(type, [type/3]).
 
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
 
 :- use_module(publications_database, [
-  publication_header/1, publication_body/1, publication_type/1, check_publication/2
+  publication_header/1, publication_body/1, publication_type/1
 ]).
 
 publications_preamble -->
@@ -23,7 +24,7 @@ write_publications(S) :-
 true.
 
 check_publications :-
-  check_database(publication_header, publication_body, check_publication).
+  check_database(publication, publication_header, publication_body, publication_type).
 
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
@@ -41,14 +42,27 @@ serialize_database(S, Preamble, Header_1, Type_1, Body_1) :-
   nl(S),
 true.
 
-check_database(Header_1, Body_1, Check_2) :-
+check_database(Name, Header_1, Body_1, Type_1) :-
   ( call(Header_1, H),
     length(H, L),
-    call(Body_1, P),
-    ( call(Check_2, P, L) -> true ; throw(expected_success(check(Check_2, P, L))) ),
+    call(Type_1, Ts),
+    length(Ts, L),
+    call(Body_1, B),
+    ( check_body(Ts, Name, B) -> true ; throw(expected_success(check_body(Ts, Name, B))) ),
     false
   ; true
   ).
+
+check_body(Ts, Name, B) :-
+  functor(B, Name, Arity),
+  check_body_(Ts, B, 1, Arity).
+
+check_body_([], _, N, Arity) :- N is Arity + 1.
+check_body_([T | Ts], B, N, Arity) :-
+  N =< Arity,
+  N1 is N + 1,
+  type(T, B, N),
+  check_body_(Ts, B, N1, Arity).
 
 check_databases :-
   check_publications,
