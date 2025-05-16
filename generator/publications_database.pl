@@ -5,8 +5,8 @@
 :- use_module(type, [type/3]).
 
 publication_header(['Type', 'Date (yyyy-mm)', 'Title', 'Where', 'Main Repository', 'Slides']).
-publication_body(publication(Type, Date, Title,  Where, MainRepository, Slides)) :-
-  publication(Type, Date, Title,  Where, MainRepository, Slides).
+publication_body(publication(Type, Date, Title, Where, MainRepository, Slides)) :-
+  publication(Type, Date, Title, Where, MainRepository, Slides).
 
 check_publication(P, L) :-
   functor(P, publication, L),
