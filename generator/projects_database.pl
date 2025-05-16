@@ -8,8 +8,8 @@ project_body(project(Kind, Name, Summary, Language, MainRepository, Mirrors, Las
   project(Kind, Name, Summary, Language, MainRepository, Mirrors, LastUpdated).
 
 project_type([
-  text,
   % or([text, link]),
+  text,
   text,
   text,
   proglang,
@@ -19,9 +19,9 @@ project_type([
 ]).
 
 project(
-  literal('library/executable'),
   % text(literal('wam')),
   literal('wam'),
+  literal('library/executable'),
   literal('8-bit WAM interpreter, focusing on learning the abstract machine'),
   proglang(c),
   mygithub('wam'),
@@ -30,9 +30,9 @@ project(
 ).
 
 project(
-  literal('file library'),
   % link(name_link('cbor.pl', mygitlab('cbor-pl/blob/main/cbor.pl'))),
   literal('cbor.pl'),
+  literal('file library'),
   literal('A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)'),
   proglang(prolog),
   mygitlab('cbor-pl'),
@@ -41,9 +41,9 @@ project(
 ).
 
 project(
-  literal('file library'),
   % link(name_link('struct.pl', mygitlab('struct-pl/blob/main/struct.pl'))),
   literal('cbor.pl'),
+  literal('file library'),
   literal('A prolog library for defining and using structs-like functors'),
   proglang(prolog),
   mygitlab('struct-pl'),
@@ -52,9 +52,9 @@ project(
 ).
 
 project(
-  literal('executable'),
   % text(literal('Yellowstone')),
   literal('Yellowstone'),
+  literal('executable'),
   literal('A Minecraft\'s Redstone inspired simulation'),
   proglang(zig),
   mygithub('yellowstone'),
@@ -63,9 +63,9 @@ project(
 ).
 
 project(
-  literal('many executables'),
   % text(literal('Cutils')),
   literal('Cutils'),
+  literal('many executables'),
   literal('Some self-contained small utilities written in C'),
   proglang(c),
   mygithub('cutils'),
@@ -74,9 +74,9 @@ project(
 ).
 
 project(
-  literal('executable'),
   % text(literal('crlf')),
   literal('crlf'),
+  literal('executable'),
   literal('Converts files from linux to windows text file format or the other way around'),
   proglang(zig),
   mygithub('crlf'),
