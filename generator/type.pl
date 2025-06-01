@@ -16,7 +16,7 @@ type(T, F, Arg) :- arg(Arg, F, Val), throw(unknown_type_while_checking(T, Val)).
 
 type_(_, to_be_filled, _) :- !.
 type_(text, Val, Ctx) :-
-  ( Val = literal(L) -> check_(atom, L, Ctx)
+  ( Val = literal(L) -> check_(string, L, Ctx)
   ; check_error(literal, Val, Ctx)
   ).
 type_(date, Val, Ctx) :-
@@ -27,23 +27,23 @@ type_(date, Val, Ctx) :-
   ).
 type_(link, Val, Ctx) :-
   ( Val = name_link(_, _) -> type_(name_link, Val, Ctx)
-  ; Val = doi(ID)         -> check_(atom, ID, Ctx)
-  ; Val = mygithub(Path)  -> check_(atom, Path, Ctx)
-  ; Val = mygitlab(Path)  -> check_(atom, Path, Ctx)
+  ; Val = doi(ID)         -> check_(string, ID, Ctx)
+  ; Val = mygithub(Path)  -> check_(string, Path, Ctx)
+  ; Val = mygitlab(Path)  -> check_(string, Path, Ctx)
   ; check_error(link, Val, Ctx)
   ).
 type_(name_link, Val, Ctx) :-
   ( Val = name_link(N, L) ->
-    check_(atom, N, Ctx),
+    check_(string, N, Ctx),
     type_(link_target, L, Ctx)
   ; check_error(name_link, Val, Ctx)
   ).
 type_(link_target, Val, Ctx) :-
-  ( Val = publications(Path) -> check_(atom, Path, Ctx)
-  ; Val = https(Path)        -> check_(atom, Path, Ctx)
-  ; Val = http(Path)         -> check_(atom, Path, Ctx)
-  ; Val = mygithub(Path)     -> check_(atom, Path, Ctx)
-  ; Val = mygitlab(Path)     -> check_(atom, Path, Ctx)
+  ( Val = publications(Path) -> check_(string, Path, Ctx)
+  ; Val = https(Path)        -> check_(string, Path, Ctx)
+  ; Val = http(Path)         -> check_(string, Path, Ctx)
+  ; Val = mygithub(Path)     -> check_(string, Path, Ctx)
+  ; Val = mygitlab(Path)     -> check_(string, Path, Ctx)
   ; check_error(link_target, Val, Ctx)
   ).
 type_(proglang, Val, Ctx) :-
@@ -52,9 +52,9 @@ type_(proglang, Val, Ctx) :-
   ).
 
 type_list(Type, Join, End, None, List, Ctx) :-
-  check_(atom, Join, Ctx),
-  check_(atom, End, Ctx),
-  check_(atom, None, Ctx),
+  check_(string, Join, Ctx),
+  check_(string, End, Ctx),
+  check_(string, None, Ctx),
   type_list_(List, Type, Ctx).
 
 type_list_([], _, _).
@@ -64,6 +64,12 @@ type_list_([Val | Vals], Type, Ctx) :-
 type_or(Ts, Val, Ctx) :-
   ( Val = or(T, V), member(T, Ts) -> type_(T, V, Ctx)
   ; check_error(or(Ts), Val, Ctx)
+  ).
+
+string(V) :-
+  nonvar(V),
+  ( V = [] -> true
+  ; V = [H | T] -> atom(H), atom_length(H, 1), string(T)
   ).
 
 :- meta_predicate(check_(1, ?, ?, ?)).

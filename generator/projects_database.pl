@@ -3,7 +3,7 @@
   , check_project/2
 ]).
 
-project_header(['Name', 'Kind', 'Summary', 'Language', 'Main Repository', 'Mirrors', 'Last Updated']).
+project_header(["Name", "Kind", "Summary", "Language", "Main Repository", "Mirrors", "Last Updated"]).
 project_body(project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated)) :-
   project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated).
 
@@ -13,66 +13,66 @@ project_type([
   text,
   proglang,
   link,
-  list(link, ', ', '', '-'),
+  list(link, ", ", "", "-"),
   date
 ]).
 
 project(
-  or(text, literal('wam')),
-  literal('library/executable'),
-  literal('8-bit WAM interpreter, focusing on learning the abstract machine'),
+  or(text, literal("wam")),
+  literal("library/executable"),
+  literal("8-bit WAM interpreter, focusing on learning the abstract machine"),
   proglang(c),
-  mygithub('wam'),
+  mygithub("wam"),
   [],
   year_month(2025, 03)
 ).
 
 project(
-  or(link, name_link('cbor.pl', mygitlab('cbor-pl/blob/main/cbor.pl'))),
-  literal('file library'),
-  literal('A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)'),
+  or(link, name_link("cbor.pl", mygitlab("cbor-pl/blob/main/cbor.pl"))),
+  literal("file library"),
+  literal("A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"),
   proglang(prolog),
-  mygitlab('cbor-pl'),
-  [mygithub('cbor-pl')],
+  mygitlab("cbor-pl"),
+  [mygithub("cbor-pl")],
   year_month(2025, 02)
 ).
 
 project(
-  or(link, name_link('struct.pl', mygitlab('struct-pl/blob/main/struct.pl'))),
-  literal('file library'),
-  literal('A prolog library for defining and using structs-like functors'),
+  or(link, name_link("struct.pl", mygitlab("struct-pl/blob/main/struct.pl"))),
+  literal("file library"),
+  literal("A prolog library for defining and using structs-like functors"),
   proglang(prolog),
-  mygitlab('struct-pl'),
-  [mygithub('struct-pl')],
+  mygitlab("struct-pl"),
+  [mygithub("struct-pl")],
   year_month(2025, 02)
 ).
 
 project(
-  or(text, literal('Yellowstone')),
-  literal('executable'),
-  literal('A Minecraft\'s Redstone inspired simulation'),
+  or(text, literal("Yellowstone")),
+  literal("executable"),
+  literal("A Minecraft\'s Redstone inspired simulation"),
   proglang(zig),
-  mygithub('yellowstone'),
+  mygithub("yellowstone"),
   [],
   year_month(2024, 06)
 ).
 
 project(
-  or(text, literal('Cutils')),
-  literal('many executables'),
-  literal('Some self-contained small utilities written in C'),
+  or(text, literal("Cutils")),
+  literal("many executables"),
+  literal("Some self-contained small utilities written in C"),
   proglang(c),
-  mygithub('cutils'),
+  mygithub("cutils"),
   [],
   year_month(2024, 06)
 ).
 
 project(
-  or(text, literal('crlf')),
-  literal('executable'),
-  literal('Converts files from linux to windows text file format or the other way around'),
+  or(text, literal("crlf")),
+  literal("executable"),
+  literal("Converts files from linux to windows text file format or the other way around"),
   proglang(zig),
-  mygithub('crlf'),
+  mygithub("crlf"),
   [],
   year_month(2022, 08)
 ).
