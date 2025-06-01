@@ -34,7 +34,7 @@ write_publications(S) :-
 ]).
 
 projects_preamble -->
-  "\n## Projects\n\n",
+  "\n## Programming Projects\n\n",
 [].
 
 check_projects :-
