@@ -39,7 +39,7 @@ serialize_type_val(text, literal(L)) --> !, serialize_atom(L).
 serialize_type_val(date, year_month(Y, M)) --> !, serialize_number(Y), "-", serialize_month(M).
 serialize_type_val(link, Val) --> !,
   ( { Val = name_link(N, L) } -> "[", serialize_atom(N), "](", serialize_linktarget(L), ")"
-  ; { Val = doi(ID)         } -> "[DOI](", serialize_linktarget(doi(ID)), ")"
+  ; { Val = doi(ID)         } -> "[DOI(", serialize_atom(ID), ")](", serialize_linktarget(doi(ID)), ")"
   ; { Val = mygithub(Path)  } -> { mygithub(GITHUB) }, "[", serialize_atom(GITHUB), "/", serialize_atom(Path), "](", serialize_linktarget(mygithub(Path)), ")"
   ; { Val = mygitlab(Path)  } -> { mygitlab(GITLAB) }, "[", serialize_atom(GITLAB), "/", serialize_atom(Path), "](", serialize_linktarget(mygitlab(Path)), ")"
   ; { throw(unknown_link_while_serializing(Val)) }
