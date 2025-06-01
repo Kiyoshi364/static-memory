@@ -1,8 +1,9 @@
-:- use_module(library(dcgs), [phrase/2]).
-:- use_module(library(lists), [length/2, maplist/2]).
+:- use_module(library(dcgs), []).
+:- use_module(library(lists), [length/2]).
+:- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
-:- use_module(serialize, [serialize_header/2, serialize_body/3]).
+:- use_module(serialize, [serialize_header//1, serialize_body//2]).
 :- use_module(type, [type/3]).
 
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
@@ -23,8 +24,8 @@ check_publications :-
   check_database(publication, publication_header, publication_body, publication_type).
 
 write_publications(S) :-
-  phrase(publications_preamble, Preamble),
-  serialize_database(S, Preamble, publication_header, publication_body, publication_type).
+  phrase_to_stream(publications_preamble, S),
+  serialize_database(S, publication_header, publication_body, publication_type).
 
 %%%%%%%%%%%%%%%%%%%% Projects %%%%%%%%%%%%%%%%%%%%
 
@@ -40,18 +41,17 @@ check_projects :-
   check_database(project, project_header, project_body, project_type).
 
 write_projects(S) :-
-  phrase(projects_preamble, Preamble),
-  serialize_database(S, Preamble, project_header, project_body, project_type).
+  phrase_to_stream(projects_preamble, S),
+  serialize_database(S, project_header, project_body, project_type).
 
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
-serialize_database(S, Preamble, Header_1, Body_1, Type_1) :-
-  maplist(write(S), Preamble),
+serialize_database(S, Header_1, Body_1, Type_1) :-
   call(Header_1, H),
-  serialize_header(S, H),
+  phrase_to_stream(serialize_header(H), S),
   call(Type_1, T),
   ( call(Body_1, B),
-    serialize_body(S, T, B),
+    phrase_to_stream(serialize_body(T, B), S),
     false
   ; true
   ),

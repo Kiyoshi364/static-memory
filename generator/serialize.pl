@@ -1,73 +1,77 @@
 :- module(serialize, [
-  serialize_header/2, serialize_body/3
+  serialize_header//1, serialize_body//2
 ]).
 
-:- use_module(library(lists), [member/2, maplist/2]).
+:- use_module(library(lists), [member/2, foldl/4]).
+:- use_module(library(dcgs), [phrase/3, seq//1]).
 
 :- use_module(proglangs, [proglang_val/2]).
 :- use_module(me, [mygithub/1, mygitlab/1]).
 
-serialize_header(S, H) :-
-  serialize_header_names(S, H), serialize_header_align(S, H).
+serialize_header(H) -->
+  serialize_header_names(H), serialize_header_align(H).
 
-serialize_header_names(S, H) :-
-  maplist(serialize_header_names_(S), H), write(S, '|\n').
+serialize_header_names(H) -->
+  foldl(serialize_header_name_, H), "|\n".
 
-serialize_header_names_(S, Name) :- write(S, '|'), write(S, Name).
+serialize_header_name_(Name) --> "|", serialize_atom(Name).
 
-serialize_header_align(S, H) :-
-  maplist(serialize_header_align_(S), H), write(S, '|\n').
+serialize_header_align(H) -->
+  foldl(serialize_header_align_, H), "|\n".
 
-serialize_header_align_(S, _) :- write(S, '|:---:').
+serialize_header_align_(_) --> "|:---:".
 
-serialize_body(S, Ts, Func) :-
-  functor(Func, _, Arity),
-  serialize_body_(Ts, S, 0, Arity, Func),
-  write(S, '|\n'),
-true.
+serialize_body(Ts, Func) -->
+  { functor(Func, _, Arity) },
+  serialize_body_(Ts, 0, Arity, Func),
+  "|\n",
+[].
 
-serialize_body_([], _, Arity, Arity, _).
-serialize_body_([T | Ts], S, N, Arity, Func) :-
-  N < Arity,
-  N1 is N+1, arg(N1, Func, Val),
-  write(S, '|'), serialize_type_val(T, Val, S),
-  serialize_body_(Ts, S, N1, Arity, Func).
+serialize_body_([], Arity, Arity, _) --> [].
+serialize_body_([T | Ts], N, Arity, Func) -->
+  { N < Arity,
+    N1 is N+1, arg(N1, Func, Val)
+  },
+  "|", serialize_type_val(T, Val),
+  serialize_body_(Ts, N1, Arity, Func).
 
-serialize_type_val(text, literal(L), S) :- !, write(S, L).
-serialize_type_val(date, year_month(Y, M), S) :- !, write(S, Y), write(S, '-'), serialize_month(M, S).
-serialize_type_val(link, Val, S) :- !,
-  ( Val = name_link(N, L) -> write(S, [N]), write(S, '('), serialize_linktarget(L, S), write(S, ')')
-  ; Val = doi(ID)         -> write(S, ['DOI']), write(S, '('), serialize_linktarget(doi(ID), S), write(S, ')')
-  ; Val = mygithub(Path)  -> mygithub(GITHUB), write(S, '['), write(S, GITHUB), write(S, /), write(S, Path), write(S, ']('), serialize_linktarget(mygithub(Path), S), write(S, ')')
-  ; Val = mygitlab(Path)  -> mygitlab(GITLAB), write(S, '['), write(S, GITLAB), write(S, /), write(S, Path), write(S, ']('), serialize_linktarget(mygitlab(Path), S), write(S, ')')
-  ; throw(unknown_link_while_serializing(Val))
+serialize_type_val(text, literal(L)) --> !, serialize_atom(L).
+serialize_type_val(date, year_month(Y, M)) --> !, serialize_number(Y), "-", serialize_month(M).
+serialize_type_val(link, Val) --> !,
+  ( { Val = name_link(N, L) } -> "[", serialize_atom(N), "](", serialize_linktarget(L), ")"
+  ; { Val = doi(ID)         } -> "[DOI](", serialize_linktarget(doi(ID)), ")"
+  ; { Val = mygithub(Path)  } -> { mygithub(GITHUB) }, "[", serialize_atom(GITHUB), "/", serialize_atom(Path), "](", serialize_linktarget(mygithub(Path)), ")"
+  ; { Val = mygitlab(Path)  } -> { mygitlab(GITLAB) }, "[", serialize_atom(GITLAB), "/", serialize_atom(Path), "](", serialize_linktarget(mygitlab(Path)), ")"
+  ; { throw(unknown_link_while_serializing(Val)) }
   ).
-serialize_type_val(proglang, proglang(PL), S) :- !, proglang_val(PL, Val), serialize_type_val(link, Val, S).
-serialize_type_val(list(T, J, E, N), L, S) :- !, serialize_list(L, T, J, E, N, S).
-serialize_type_val(or(Ts), O, S) :- !, serialize_or(Ts, O, S).
-serialize_type_val(_, to_be_filled, S) :- !, write(S, '???').
-serialize_type_val(T, Val, _) :-
-  throw(unknown_type_val_while_serializing(T, Val)).
+serialize_type_val(proglang, proglang(PL)) --> !, { proglang_val(PL, Val) }, serialize_type_val(link, Val).
+serialize_type_val(list(T, J, E, N), L) --> !, serialize_list(L, T, J, E, N).
+serialize_type_val(or(Ts), O) --> !, serialize_or(Ts, O).
+serialize_type_val(_, to_be_filled) --> !, "???".
+serialize_type_val(T, Val) -->
+  { throw(unknown_type_val_while_serializing(T, Val)) }.
 
-serialize_month(M, S) :- ( M < 10 -> write(S, 0) ), write(S, M).
+serialize_atom(A) --> { atom_chars(A, Cs) }, seq(Cs).
+serialize_number(N) --> { number_chars(N, Cs) }, seq(Cs).
+serialize_month(M) --> ( { M < 10 } -> "0" ; [] ), serialize_number(M).
 
-serialize_linktarget(publications(L), S) :- !, write(S, './publications/'), write(S, L).
-serialize_linktarget(https(L), S) :- !, write(S, 'https://'), write(S, L).
-serialize_linktarget(http(L), S) :- !, write(S, 'http://'), write(S, L).
-serialize_linktarget(doi(ID), S) :- !, write(S, 'https://doi.org/'), write(S, ID).
-serialize_linktarget(mygithub(Path), S) :- !, mygithub(GITHUB), write(S, 'https://'), write(S, GITHUB), write(S, /), write(S, Path).
-serialize_linktarget(mygitlab(Path), S) :- !, mygitlab(GITLAB), write(S, 'https://'), write(S, GITLAB), write(S, /), write(S, Path).
-serialize_linktarget(Link, _) :-
-  throw(unknown_link_while_serializing(Link)).
+serialize_linktarget(publications(L)) --> !, "./publications/", serialize_atom(L).
+serialize_linktarget(https(L)) --> !, "https://", serialize_atom(L).
+serialize_linktarget(http(L)) --> !, "http://", serialize_atom(L).
+serialize_linktarget(doi(ID)) --> !, "https://doi.org/", serialize_atom(ID).
+serialize_linktarget(mygithub(Path)) --> !, { mygithub(GITHUB) }, "https://", serialize_atom(GITHUB), "/", serialize_atom(Path).
+serialize_linktarget(mygitlab(Path)) --> !, { mygitlab(GITLAB) }, "https://", serialize_atom(GITLAB), "/", serialize_atom(Path).
+serialize_linktarget(Link) -->
+  { throw(unknown_link_while_serializing(Link)) }.
 
-serialize_list([], _, _, _, None, S) :- write(S, None).
-serialize_list([Val0 | Vals], T, Join, End, _, S) :- serialize_list_(Vals, Val0, T, Join, End, S).
+serialize_list([], _, _, _, None) --> serialize_atom(None).
+serialize_list([Val0 | Vals], T, Join, End, _) --> serialize_list_(Vals, Val0, T, Join, End).
 
-serialize_list_([], Val0, T, _, End, S) :- serialize_type_val(T, Val0, S), write(S, End).
-serialize_list_([Val1 | Vals], Val0, T, Join, End, S) :-
-  serialize_type_val(T, Val0, S), write(S, Join), serialize_list(Vals, Val1, T, Join, End, S).
+serialize_list_([], Val0, T, _, End) --> serialize_type_val(T, Val0), serialize_atom(End).
+serialize_list_([Val1 | Vals], Val0, T, Join, End) -->
+  serialize_type_val(T, Val0), serialize_atom(Join), serialize_list(Vals, Val1, T, Join, End).
 
-serialize_or(Ts, O, S) :-
-  ( O = or(T, Val), member(T, Ts) -> serialize_type_val(T, Val, S)
-  ; throw(unknown_or_while_serializing(Ts, Val))
+serialize_or(Ts, O) -->
+  ( { O = or(T, Val), member(T, Ts) } -> serialize_type_val(T, Val)
+  ; { throw(unknown_or_while_serializing(Ts, Val)) }
   ).
