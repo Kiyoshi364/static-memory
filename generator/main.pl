@@ -1,5 +1,5 @@
 :- use_module(library(dcgs), []).
-:- use_module(library(lists), [length/2]).
+:- use_module(library(lists), [length/2, foldl/4]).
 :- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
@@ -12,6 +12,9 @@
   publication_header/1, publication_body/1, publication_type/1
 ]).
 
+check_publications :-
+  check_database(publication, publication_header, publication_body, publication_type).
+
 publications_preamble -->
   "\n## Publications\n\n",
   "The link from _Title_ is local to the git repository.\n",
@@ -20,12 +23,9 @@ publications_preamble -->
   "\n",
 [].
 
-check_publications :-
-  check_database(publication, publication_header, publication_body, publication_type).
-
-write_publications(S) :-
-  phrase_to_stream(publications_preamble, S),
-  serialize_database(S, publication_header, publication_body, publication_type).
+publications -->
+  publications_preamble,
+  serialize_database(publication_header, publication_body, publication_type).
 
 %%%%%%%%%%%%%%%%%%%% Projects %%%%%%%%%%%%%%%%%%%%
 
@@ -33,30 +33,28 @@ write_publications(S) :-
   project_header/1, project_body/1, project_type/1
 ]).
 
+check_projects :-
+  check_database(project, project_header, project_body, project_type).
+
 projects_preamble -->
   "\n## Programming Projects\n\n",
 [].
 
-check_projects :-
-  check_database(project, project_header, project_body, project_type).
-
-write_projects(S) :-
-  phrase_to_stream(projects_preamble, S),
-  serialize_database(S, project_header, project_body, project_type).
+projects -->
+  projects_preamble,
+  serialize_database(project_header, project_body, project_type).
 
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
-serialize_database(S, Header_1, Body_1, Type_1) :-
-  call(Header_1, H),
-  phrase_to_stream(serialize_header(H), S),
-  call(Type_1, T),
-  ( call(Body_1, B),
-    phrase_to_stream(serialize_body(T, B), S),
-    false
-  ; true
-  ),
-  nl(S),
-true.
+serialize_database(Header_1, Body_1, Type_1) -->
+  { call(Header_1, H) },
+  serialize_header(H),
+  { call(Type_1, T),
+    findall(B, call(Body_1, B), Bs)
+  },
+  foldl(serialize_body(T), Bs),
+  "\n",
+[].
 
 check_database(Name, Header_1, Body_1, Type_1) :-
   ( call(Header_1, H),
@@ -95,7 +93,9 @@ main_file(F) :-
   ).
 
 run(S) :-
-  write(S, '# Static Memory\n'),
-  write_publications(S),
-  write_projects(S),
-true.
+  Body = (
+    "# Static Memory\n",
+    publications,
+    projects
+  ),
+  phrase_to_stream(Body, S).
