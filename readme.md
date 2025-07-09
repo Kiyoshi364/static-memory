@@ -12,7 +12,7 @@ you probably should use the link in this column to refer/cite/share.
 |Paper|2024-09|[Converting Combinators to and from Concatenative](./publications/Converting_Combinators_to_and_from_Concatenative.pdf)|[SBLP2024](https://cbsoft.sbc.org.br/2024/sblp/?lang=en)|[DOI(10.5753/sblp.2024.3460)](https://doi.org/10.5753/sblp.2024.3460)|[slides](./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf)|
 
 
-## Projects
+## Programming Projects
 
 |Name|Kind|Summary|Language|Main Repository|Mirrors|Last Updated|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
