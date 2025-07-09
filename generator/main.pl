@@ -56,13 +56,18 @@ serialize_database(Header_1, Body_1, Type_1) -->
   "\n",
 [].
 
+cassert(Goal) :-
+  ( \+ call(Goal) -> throw(expected_success(Goal))
+  ; call(Goal)
+  ).
+
 check_database(Name, Header_1, Body_1, Type_1) :-
-  ( call(Header_1, H),
-    length(H, L),
-    call(Type_1, Ts),
-    length(Ts, L),
-    call(Body_1, B),
-    ( check_body(Ts, Name, B) -> true ; throw(expected_success(check_body(Ts, Name, B))) ),
+  call(Header_1, H),
+  length(H, L),
+  call(Type_1, Ts),
+  cassert(length(Ts, L)),
+  ( call(Body_1, B),
+    cassert(check_body(Ts, Name, B)),
     false
   ; true
   ).
