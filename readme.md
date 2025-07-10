@@ -63,18 +63,18 @@ about what is in this `readme.md`.
   :slides :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
   :type "BSc Thesis"^^xsd:string ;
   :where <https://ufrj.br/en/> ;
-  foaf:name :publications\/From_Combinators_to_Concatenative_and_Back_Again.pdf ;
+  foaf:name "From Combinators to Concatenative and Back Again"^^xsd:string ;
   foaf:page <http://hdl.handle.net/11422/22871> ;
-  rdfs:label :publications\/From_Combinators_to_Concatenative_and_Back_Again.pdf .
+  rdfs:label "From Combinators to Concatenative and Back Again"^^xsd:string .
 
 <https://doi.org/10.5753/sblp.2024.3460>
   :date "2024-09"^^xsd:gYearMonth ;
   :slides :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
   :type "Paper"^^xsd:string ;
   :where <https://cbsoft.sbc.org.br/2024/sblp/?lang=en> ;
-  foaf:name :publications\/Converting_Combinators_to_and_from_Concatenative.pdf ;
+  foaf:name "Converting Combinators to and from Concatenative"^^xsd:string ;
   foaf:page <https://doi.org/10.5753/sblp.2024.3460> ;
-  rdfs:label :publications\/Converting_Combinators_to_and_from_Concatenative.pdf .
+  rdfs:label "Converting Combinators to and from Concatenative"^^xsd:string .
 
 <https://github.com/Kiyoshi364/crlf>
   :kind "executable"^^xsd:string ;
@@ -122,11 +122,11 @@ about what is in this `readme.md`.
   :programming_language <https://en.wikipedia.org/wiki/Prolog> ;
   :summary "A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"^^xsd:string ;
   foaf:homePage <https://gitlab.com/Hashi364/cbor-pl> ;
-  foaf:name <https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl> ;
+  foaf:name "cbor.pl"^^xsd:string ;
   foaf:page
     <https://github.com/Kiyoshi364/cbor-pl> ,
     <https://gitlab.com/Hashi364/cbor-pl> ;
-  rdfs:label <https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl> .
+  rdfs:label "cbor.pl"^^xsd:string .
 
 <https://gitlab.com/Hashi364/struct-pl>
   :kind "file library"^^xsd:string ;
@@ -134,9 +134,9 @@ about what is in this `readme.md`.
   :programming_language <https://en.wikipedia.org/wiki/Prolog> ;
   :summary "A prolog library for defining and using structs-like functors"^^xsd:string ;
   foaf:homePage <https://gitlab.com/Hashi364/struct-pl> ;
-  foaf:name <https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl> ;
+  foaf:name "struct.pl"^^xsd:string ;
   foaf:page
     <https://github.com/Kiyoshi364/struct-pl> ,
     <https://gitlab.com/Hashi364/struct-pl> ;
-  rdfs:label <https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl> .
+  rdfs:label "struct.pl"^^xsd:string .
 ```

@@ -38,14 +38,14 @@ serialize_body_([T | Ts], N, Arity, Func) -->
 
 serialize_type_val(text, literal(L)) --> !, seq(L).
 serialize_type_val(date, year_month(Y, M)) --> !, serialize_number(Y), "-", serialize_month(M).
-serialize_type_val(link, Val) --> !,
+serialize_type_val(link(_), Val) --> !,
   ( { Val = name_link(N, L) } -> "[", seq(N), "](", serialize_linktarget(L), ")"
   ; { Val = doi(ID)         } -> "[DOI(", seq(ID), ")](", serialize_linktarget(Val), ")"
   ; { Val = mygithub(Path)  } -> { mygithub(GITHUB) }, "[", seq(GITHUB), "/", seq(Path), "](", serialize_linktarget(Val), ")"
   ; { Val = mygitlab(Path)  } -> { mygitlab(GITLAB) }, "[", seq(GITLAB), "/", seq(Path), "](", serialize_linktarget(Val), ")"
   ; { throw(unknown_link_while_serializing(Val)) }
   ).
-serialize_type_val(proglang, proglang(PL)) --> !, { proglang_val(PL, Val) }, serialize_type_val(link, Val).
+serialize_type_val(proglang, proglang(PL)) --> !, { proglang_val(PL, Val) }, serialize_type_val(link(_), Val).
 serialize_type_val(listeach(T, J, E, N), L) --> !, serialize_listeach(L, T, J, E, N).
 serialize_type_val(or(Ts), O) --> !, serialize_or(Ts, O).
 serialize_type_val(_, to_be_filled) --> !, "???".

@@ -9,12 +9,12 @@ project_body(project(Name, Kind, Summary, Language, MainRepository, Mirrors, Las
   project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated).
 
 project_type([
-  or([text, link]),
+  or([text, link(text)]),
   text,
   text,
   proglang,
-  link,
-  listeach(link, ", ", "", "-"),
+  link(ref),
+  listeach(link(ref), ", ", "", "-"),
   date
 ]).
 
@@ -29,7 +29,7 @@ project(
 ).
 
 project(
-  or(link, name_link("cbor.pl", mygitlab("cbor-pl/blob/main/cbor.pl"))),
+  or(link(text), name_link("cbor.pl", mygitlab("cbor-pl/blob/main/cbor.pl"))),
   literal("file library"),
   literal("A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"),
   proglang(prolog),
@@ -39,7 +39,7 @@ project(
 ).
 
 project(
-  or(link, name_link("struct.pl", mygitlab("struct-pl/blob/main/struct.pl"))),
+  or(link(text), name_link("struct.pl", mygitlab("struct-pl/blob/main/struct.pl"))),
   literal("file library"),
   literal("A prolog library for defining and using structs-like functors"),
   proglang(prolog),

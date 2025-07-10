@@ -38,14 +38,8 @@ triple_predicate_(Sub, Pred, Obj) --> [t(Sub, Pred, Obj)].
 
 type_val_resources(text, literal(L)) --> !, [literal(xsd:string, L)].
 type_val_resources(date, year_month(Y, M)) --> !, { format_year_month(Y, M, S) }, [literal(xsd:gYearMonth, S)].
-type_val_resources(link, Val) --> !,
-  ( { Val = name_link(_, L) } -> linktarget_resource(L)
-  ; { Val = doi(_)          } -> linktarget_resource(Val)
-  ; { Val = mygithub(_)     } -> linktarget_resource(Val)
-  ; { Val = mygitlab(_)     } -> linktarget_resource(Val)
-  ; { throw(unknown_link_while_serializing(Val)) }
-  ).
-type_val_resources(proglang, proglang(PL)) --> !, { proglang_val(PL, Val) }, type_val_resources(link, Val).
+type_val_resources(link(T), Val) --> !, type_val_resources_link(T, Val).
+type_val_resources(proglang, proglang(PL)) --> !, { proglang_val(PL, Val) }, type_val_resources(link(ref), Val).
 type_val_resources(listeach(T, _, _, _), L) --> !, foldl(type_val_resources(T), L).
 type_val_resources(or(Ts), O) --> !, or_resource(Ts, O).
 type_val_resources(T, Val) -->
@@ -54,6 +48,22 @@ type_val_resources(T, Val) -->
 format_year_month(Y, M, S) :-
   Body = ( serialize_number(Y), "-", serialize_month(M) ),
   phrase(Body, S, []).
+
+type_val_resources_link(text, Val) -->
+  [literal(xsd:string, Text)],
+  { ( Val = name_link(N, _) -> Text = N
+    ; Val = doi(ID)         -> append("DOI(", S0, Text), append(ID, ")", S0)
+    ; Val = mygithub(Path)  -> mygithub(GITHUB), append(GITHUB, [(/) | Path], Text)
+    ; Val = mygitlab(Path)  -> mygitlab(GITLAB), append(GITLAB, [(/) | Path], Text)
+    ; throw(unknown_link_while_serializing(Val))
+    ) }.
+type_val_resources_link(ref, Val) -->
+  ( { Val = name_link(_, L) } -> linktarget_resource(L)
+  ; { Val = doi(_)          } -> linktarget_resource(Val)
+  ; { Val = mygithub(_)     } -> linktarget_resource(Val)
+  ; { Val = mygitlab(_)     } -> linktarget_resource(Val)
+  ; { throw(unknown_link_while_serializing(Val)) }
+  ).
 
 linktarget_resource(publications(L)) --> !, { append("publications/", L, Iri), atom_chars(A, Iri) }, [:(A)].
 linktarget_resource(https(L)) --> !, { append("https://", L, Iri) }, [iri(Iri)].

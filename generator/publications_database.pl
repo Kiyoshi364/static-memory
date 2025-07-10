@@ -11,10 +11,10 @@ publication_body(publication(Type, Date, Title, Where, MainRepository, Slides)) 
 publication_type([
   text,
   date,
-  link,
-  link,
-  link,
-  link
+  link(text),
+  link(ref),
+  link(ref),
+  link(ref)
 ]).
 
 publication(

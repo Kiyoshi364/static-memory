@@ -8,7 +8,7 @@
 
 type(text, F, Arg) :- !, arg(Arg, F, Val), type_(text, Val, F-Arg).
 type(date, F, Arg) :- !, arg(Arg, F, Val), type_(date, Val, F-Arg).
-type(link, F, Arg) :- !, arg(Arg, F, Val), type_(link, Val, F-Arg).
+type(link(A), F, Arg) :- !, arg(Arg, F, Val), type_(link(A), Val, F-Arg).
 type(proglang, F, Arg) :- !, arg(Arg, F, Val), type_(proglang, Val, F-Arg).
 type(listeach(T, J, E, N), F, Arg) :- !, arg(Arg, F, Val), type_listeach(T, J, E, N, Val, F-Arg).
 type(or(Ts), F, Arg) :- !, arg(Arg, F, Val), type_or(Ts, Val, F-Arg).
@@ -25,7 +25,11 @@ type_(date, Val, Ctx) :-
     check_(integer, M, Ctx)
   ; check_error(year_month, Val, Ctx)
   ).
-type_(link, Val, Ctx) :-
+type_(link(T), Val, Ctx) :-
+  ( T = text -> true
+  ; T = ref  -> true
+  ; throw(unknown_link_target_while_checking(link(T), Val, Ctx))
+  ),
   ( Val = name_link(_, _) -> type_(name_link, Val, Ctx)
   ; Val = doi(ID)         -> check_(string, ID, Ctx)
   ; Val = mygithub(Path)  -> check_(string, Path, Ctx)
@@ -52,6 +56,7 @@ type_(proglang, Val, Ctx) :-
   ).
 
 type_listeach(Type, Join, End, None, List, Ctx) :-
+  ( List = [H | _] -> check_type(Type, H, List, Ctx) ; true ),
   check_(string, Join, Ctx),
   check_(string, End, Ctx),
   check_(string, None, Ctx),
@@ -72,15 +77,21 @@ string(V) :-
   ; V = [H | T] -> atom(H), atom_length(H, 1), string(T)
   ).
 
-valid_subject_type(text).
-valid_subject_type(date).
-valid_subject_type(link).
+valid_subject_type(text) :- false.
+valid_subject_type(date) :- false.
+valid_subject_type(link(text)) :- false.
+valid_subject_type(link(ref)).
 valid_subject_type(proglang).
 valid_subject_type(listeach(_, _, _, _)) :- false.
 valid_subject_type(or(_)).
 
 :- meta_predicate(check_(1, ?, ?, ?)).
 check_(Pred, Val, Ctx) :- ( call(Pred, Val) -> true ; check_error(Pred, Val, Ctx) ).
+
+check_type(T, Val, ErrVal, Ctx) :-
+  ( type_(T, Val, Ctx) -> true
+  ; throw(unknown_type_while_checking(T, ErrVal))
+  ).
 
 check_error(Expected, Found, F-Arg) :-
   throw(error(expected_found_functor_colunm(Expected, Found, F, Arg))).
