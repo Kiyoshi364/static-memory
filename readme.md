@@ -60,21 +60,21 @@ about what is in this `readme.md`.
 
 <http://hdl.handle.net/11422/22871>
   :date "2024-02"^^xsd:gYearMonth ;
-  :slides :publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
+  :slides :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
   :type "BSc Thesis"^^xsd:string ;
   :where <https://ufrj.br/en/> ;
-  foaf:name :publications/From_Combinators_to_Concatenative_and_Back_Again.pdf ;
+  foaf:name :publications\/From_Combinators_to_Concatenative_and_Back_Again.pdf ;
   foaf:page <http://hdl.handle.net/11422/22871> ;
-  rdfs:label :publications/From_Combinators_to_Concatenative_and_Back_Again.pdf .
+  rdfs:label :publications\/From_Combinators_to_Concatenative_and_Back_Again.pdf .
 
 <https://doi.org/10.5753/sblp.2024.3460>
   :date "2024-09"^^xsd:gYearMonth ;
-  :slides :publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
+  :slides :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
   :type "Paper"^^xsd:string ;
   :where <https://cbsoft.sbc.org.br/2024/sblp/?lang=en> ;
-  foaf:name :publications/Converting_Combinators_to_and_from_Concatenative.pdf ;
+  foaf:name :publications\/Converting_Combinators_to_and_from_Concatenative.pdf ;
   foaf:page <https://doi.org/10.5753/sblp.2024.3460> ;
-  rdfs:label :publications/Converting_Combinators_to_and_from_Concatenative.pdf .
+  rdfs:label :publications\/Converting_Combinators_to_and_from_Concatenative.pdf .
 
 <https://github.com/Kiyoshi364/crlf>
   :kind "executable"^^xsd:string ;

@@ -8,7 +8,7 @@
   member/2, append/3, foldl/4, maplist/3
 ]).
 :- use_module(library(dcgs), [phrase/3, seq//1]).
-:- use_module(library(reif), [if_/3, (=)/3]).
+:- use_module(library(reif), [if_/3, (=)/3, memberd_t/3]).
 
 :- use_module(proglangs, [proglang_val/2]).
 :- use_module(me, [rdf_me/1, rdf_prefixes/2, mygithub/1, mygitlab/1]).
@@ -72,8 +72,8 @@ or_resource(Ts, O) -->
 serialize_prefixes --> { rdf_prefixes(B, Ps) }, serialize_prefixes(B, Ps).
 serialize_prefixes(B, Ps) --> foldl(serialize_prefix, Ps), serialize_base_prefix(B).
 
-serialize_prefix(P-L) --> "@prefix ", serialize_atom(P), ": <", seq(L), "> .\n".
-serialize_base_prefix(L) --> "@prefix : <", seq(L), "> .\n".
+serialize_prefix(P-L) --> "@prefix ", name(P), ": <", iri(L), "> .\n".
+serialize_base_prefix(L) --> "@prefix : <", iri(L), "> .\n".
 
 serialize_triples(Ts0) --> { sort(Ts0, Ts) }, serialize_sorted_triples(Ts).
 
@@ -141,20 +141,84 @@ indent_(N) -->
   ; { 0 < N, N1 is N - 1 }, "  ", indent_(N1)
   ).
 
-serialize_resource(iri(Iri)) --> "<", seq(Iri), ">".
+serialize_resource(iri(Iri)) --> "<", iri(Iri), ">".
 serialize_resource(literal(Type, Repr)) --> serialize_repr(Repr, Type).
 serialize_resource(list(Rs)) --> serialize_list(Rs).
-serialize_resource(:(N)) --> ":", serialize_atom(N).
-serialize_resource(P:N) --> serialize_atom(P), ":", serialize_atom(N).
+serialize_resource(:(N)) --> ":", name(N).
+serialize_resource(P:N) --> name(P), ":", name(N).
 
-serialize_atom(A) --> { atom_chars(A, As) }, seq(As).
-
-serialize_repr(@(Str, Lang), _) --> "\"", seq(Str), "\"@", seq(Lang).
+serialize_repr(@(Str, Lang), _) --> str(Str), "@", lang(Lang).
 serialize_repr([], Type) --> "\"\"^^", serialize_resource(Type).
-serialize_repr([H | T], Type) --> "\"", seq([H | T]), "\"^^", serialize_resource(Type).
+serialize_repr([H | T], Type) --> str([H | T]), "^^", serialize_resource(Type).
 
 serialize_list([]) --> "()".
 serialize_list([R | Rs]) --> "( ", serialize_list_(Rs, R), " )".
 
 serialize_list_([], R0) --> serialize_resource(R0).
 serialize_list_([R | Rs], R0) --> serialize_resource(R0), ", ", serialize_list_(Rs, R).
+
+iri(Iri) --> foldl(iri_, Iri).
+iri_(C, S0, S) :-
+  if_(memberd_t(C, "\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f\ <>\"{}|^`\\"),
+    ( char_code(C, N), escape_ascii_u(N, S0, S) ),
+    S0 = [C | S]
+  ).
+
+name(A) --> { atom_chars(A, [C | Cs]) }, name_(C), name_after(Cs).
+name_(C, S0, S) :-
+  if_(memberd_t(C, "~.-!$&'()*+,;=/?#@%"),
+    S0 = [(\), C | S],
+    S0 = [C | S]
+  ).
+
+name_after_(C, S0, S) :-
+  if_(memberd_t(C, "~-!$&'()*+,;=/?#@%"),
+    S0 = [(\), C | S],
+    S0 = [C | S]
+  ).
+
+name_after([]) --> [].
+name_after([C | Cs]) --> name_after_(Cs, C).
+
+name_after_([], C) --> name_(C).
+name_after_([C | Cs], C0) --> name_after_(C0), name_after_(Cs, C).
+
+str(Str) --> "\"", foldl(str_, Str), "\"".
+str_(C, S0, S) :-
+  if_(memberd_t(C, "\"\\"),
+    S0 = [(\), C | S],
+    if_(memberd_t(C, "\r\n"),
+      ( if_(C = '\n', L = n, L = r), S0 = [(\), L | S] ),
+      S0 = [C | S]
+    )
+  ).
+
+lang(Lang) --> seq(Lang).
+
+ascii_nums(N, N1, N0) :-
+  N < 0x100, N1 is mod(div(N, 0x10), 0x10), N0 is mod(N, 0x10).
+
+escape_percent(N) -->
+  { ascii_nums(N, N1, N0) },
+  "%", hex(N1), hex(N0).
+
+escape_ascii_u(N) -->
+  { ascii_nums(N, N1, N0) },
+  "\\u00", hex(N1), hex(N0).
+
+hex(0) --> "0".
+hex(1) --> "1".
+hex(2) --> "2".
+hex(3) --> "3".
+hex(4) --> "4".
+hex(5) --> "5".
+hex(6) --> "6".
+hex(7) --> "7".
+hex(8) --> "8".
+hex(9) --> "9".
+hex(10) --> "A".
+hex(11) --> "B".
+hex(12) --> "C".
+hex(13) --> "D".
+hex(14) --> "E".
+hex(15) --> "F".
