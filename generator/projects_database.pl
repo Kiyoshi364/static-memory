@@ -1,9 +1,10 @@
 :- module(projects_database, [
-  project_header/1, project_body/1, project_type/1
-  , check_project/2
+  project_header/1, project_predicates/2,
+  project_body/1, project_type/1
 ]).
 
 project_header(["Name", "Kind", "Summary", "Language", "Main Repository", "Mirrors", "Last Updated"]).
+project_predicates(5, [[rdfs:label, foaf:name], [:(kind)], [:(summary)], [:(programming_language)], [foaf:homePage, foaf:page], [foaf:page], [:(last_updated)]]).
 project_body(project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated)) :-
   project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated).
 
@@ -13,7 +14,7 @@ project_type([
   text,
   proglang,
   link,
-  list(link, ", ", "", "-"),
+  listeach(link, ", ", "", "-"),
   date
 ]).
 
