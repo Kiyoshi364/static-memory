@@ -75,12 +75,71 @@ serialize_prefixes(B, Ps) --> foldl(serialize_prefix, Ps), serialize_base_prefix
 serialize_prefix(P-L) --> "@prefix ", serialize_atom(P), ": <", seq(L), "> .\n".
 serialize_base_prefix(L) --> "@prefix : <", seq(L), "> .\n".
 
-serialize_triples(Ts) --> foldl(serialize_triple, Ts).
+serialize_triples(Ts0) --> { sort(Ts0, Ts) }, serialize_sorted_triples(Ts).
 
-serialize_triple(t(S, P, O)) -->
+serialize_sorted_triples([]) --> [].
+serialize_sorted_triples([t(S, P, O) | Ts]) --> serialize_sorted_triples_(Ts, start, S, P, O).
+
+serialize_sorted_triples_([], A, S, P, O) --> finish(A, S, P, O).
+serialize_sorted_triples_([t(S, P, O) | Ts], A0, S0, P0, O0) -->
+  { if_(S = S0,
+      if_(P = P0,
+        if_(O = O0,
+          throw(error(dupplicated_triples(t(S, P, O)))),
+          A = sp
+        ),
+        A = s
+      ),
+      A = start
+    )
+  },
+  transition(A, A0, S0, P0, O0),
+  serialize_sorted_triples_(Ts, A, S, P, O).
+
+transition(start, A0, S0, P0, O0) --> finish(A0, S0, P0, O0), "\n".
+transition(s    , A0, S0, P0, O0) --> transition_s(A0, S0, P0, O0).
+transition(sp   , A0, S0, P0, O0) --> transition_sp(A0, S0, P0, O0).
+
+transition_s(start, S, P, O) -->
+  serialize_resource(S),
+  indent(1), serialize_resource(P),
+  " ", serialize_resource(O).
+transition_s(s, _, P, O) -->
+  " ;",
+  indent(1), serialize_resource(P),
+  " ", serialize_resource(O).
+transition_s(sp, _, _, O) -->
+  " ,",
+  indent(2), serialize_resource(O).
+
+transition_sp(start, S, P, O) -->
+  serialize_resource(S),
+  indent(1), serialize_resource(P),
+  indent(2), serialize_resource(O).
+transition_sp(s, _, P, O) -->
+  " ;",
+  indent(1), serialize_resource(P),
+  indent(2), serialize_resource(O).
+transition_sp(sp, _, _, O) -->
+  " ,", indent(2), serialize_resource(O).
+
+finish(start, S, P, O) -->
   serialize_resource(S), " ",
   serialize_resource(P), " ",
-  serialize_resource(O), ".\n".
+  serialize_resource(O), " .\n".
+finish(s, _, P, O) -->
+  " ;\n  ", serialize_resource(P),
+  " ", serialize_resource(O),
+  " .\n".
+finish(sp, _, _, O) -->
+  "\n  , ", serialize_resource(O),
+  " .\n".
+
+indent(N) --> "\n", indent_(N).
+indent_(N) -->
+  ( { N == 0 } -> []
+  ; { 0 < N, N1 is N - 1 }, "  ", indent_(N1)
+  ).
 
 serialize_resource(iri(Iri)) --> "<", seq(Iri), ">".
 serialize_resource(literal(Type, Repr)) --> serialize_repr(Repr, Type).
