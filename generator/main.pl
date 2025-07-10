@@ -62,15 +62,16 @@ triples_database(Predicates_2, Body_1, Type_1) -->
   },
   foldl(triples_predicates(T, Ps, SubN), Bs).
 
-triples_preamble -->
+triples_preamble(FileTtl) -->
   "\n## Triples\n\n",
   "Machine-readable data (in [Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))\n",
   "about what is in this `readme.md`.\n",
+  "This data is also available at [", atom(FileTtl), "](./", atom(FileTtl), ").\n",
   "\n",
 [].
 
-triples_md -->
-  triples_preamble,
+triples_md(FileTtl) -->
+  triples_preamble(FileTtl),
   "```ttl\n",
   triples,
   "```\n",
@@ -87,6 +88,8 @@ triples -->
   serialize_prefixes,
   "\n",
   serialize_triples(Ts).
+
+atom(A) --> { atom_chars(A, As) }, As.
 
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
@@ -136,20 +139,30 @@ check_databases :-
   check_projects,
 true.
 
-main :- check_databases, current_output(S), run(S).
-main_file(F) :-
+main_md :- check_databases, current_output(S), run_md(S, 'ttl.ttl').
+main_ttl :- check_databases, current_output(S), run_ttl(S).
+
+main_md_ttl(FileMd, FileTtl) :-
   check_databases,
   setup_call_cleanup(
-    open(F, write, S, []),
-    run(S),
-    close(S)
+    open(FileMd, write, MD, []),
+    run_md(MD, FileTtl),
+    close(MD)
+  ),
+  setup_call_cleanup(
+    open(FileTtl, write, TTL, []),
+    run_ttl(TTL),
+    close(TTL)
   ).
 
-run(S) :-
+run_md(S, FileTtl) :-
   Body = (
     "# Static Memory\n",
     publications,
     projects,
-    triples_md
+    triples_md(FileTtl)
   ),
   phrase_to_stream(Body, S).
+
+run_ttl(S) :-
+  phrase_to_stream(triples, S).
