@@ -29,5 +29,5 @@ me_triples -->
     t(Me, foaf:homepage, Homepage),
     t(Me, foaf:publications, Homepage),
     t(Me, foaf:schoolHomepage, SchoolHomepage),
-    t(Me, foaf:mbox_sha1sum, literal(xsd:hexBytes, "a638c7eafa7ba4bbe8b9cab7281113798d09da13"))
+    t(Me, foaf:mbox_sha1sum, literal(xsd:hexBinary, "a638c7eafa7ba4bbe8b9cab7281113798d09da13"))
   ].

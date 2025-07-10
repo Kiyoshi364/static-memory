@@ -48,7 +48,7 @@ about what is in this `readme.md`.
     <https://github.com/Kiyoshi364/yellowstone> ,
     <https://gitlab.com/Hashi364/cbor-pl> ,
     <https://gitlab.com/Hashi364/struct-pl> ;
-  foaf:mbox_sha1sum "a638c7eafa7ba4bbe8b9cab7281113798d09da13"^^xsd:hexBytes ;
+  foaf:mbox_sha1sum "a638c7eafa7ba4bbe8b9cab7281113798d09da13"^^xsd:hexBinary ;
   foaf:name "Daniel K Hashimoto"@pt-BR ;
   foaf:nick
     "Hashi364"^^xsd:string ,
