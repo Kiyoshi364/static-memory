@@ -3,7 +3,7 @@
 :- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
-:- use_module(me, [me_triples//0]).
+:- use_module(me, [me_triples//0, mygithub/1]).
 :- use_module(type, [type/3, valid_subject_type/1]).
 
 :- use_module(serialize_md, [serialize_header//1, serialize_body//2]).
@@ -155,9 +155,16 @@ main_md_ttl(FileMd, FileTtl) :-
     close(TTL)
   ).
 
+md_preamble -->
+  { mygithub(GITHUB) },
+  "# Static Memory\n",
+  "\n",
+  "This markdown is avaliable at [", GITHUB, "/static-memory](", GITHUB, "/static-memory).\n",
+[].
+
 run_md(S, FileTtl) :-
   Body = (
-    "# Static Memory\n",
+    md_preamble,
     publications,
     projects,
     triples_md(FileTtl)

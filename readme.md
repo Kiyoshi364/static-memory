@@ -1,5 +1,7 @@
 # Static Memory
 
+This markdown is avaliable at [github.com/Kiyoshi364/static-memory](github.com/Kiyoshi364/static-memory).
+
 ## Publications
 
 The link from _Title_ is local to the git repository.
