@@ -17,7 +17,7 @@ publication_type([
   link
 ]).
 
-publication_predicates(5, [ref], [
+publication_predicates(5, ref, [
   :(type),
   :(date),
   link(text, [rdfs:label, foaf:name]),

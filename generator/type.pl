@@ -1,5 +1,5 @@
 :- module(type, [
-  type/3, valid_subject_type/2
+  type/3
 ]).
 
 :- use_module(library(lists), [member/2]).
@@ -72,18 +72,6 @@ string(V) :-
   ( V = [] -> true
   ; V = [H | T] -> atom(H), atom_length(H, 1), string(T)
   ).
-
-valid_subject_type(text, _) :- false.
-valid_subject_type(date, _) :- false.
-valid_subject_type(link, Ex) :-
-  ( Ex = [text] -> false
-  ; Ex = [ref]  -> true
-  ; throw(unknown_subject_type_while_checking(link, Ex))
-  ).
-valid_subject_type(link, [ref]).
-valid_subject_type(proglang, _).
-valid_subject_type(list(_, _, _, _), Ex).
-valid_subject_type(or(_), Ex).
 
 :- meta_predicate(check_(1, ?, ?, ?)).
 check_(Pred, Val, Ctx) :- ( call(Pred, Val) -> true ; check_error(Pred, Val, Ctx) ).

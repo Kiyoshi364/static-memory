@@ -4,10 +4,11 @@
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
 :- use_module(me, [me_triples//0, mygithub/1]).
-:- use_module(type, [type/3, valid_subject_type/2]).
+:- use_module(type, [type/3]).
+:- use_module(triples, [triples_predicates//5, check_triplification/4]).
 
 :- use_module(serialize_md, [serialize_header//1, serialize_body//2]).
-:- use_module(serialize_ttl, [triples_predicates//5, serialize_prefixes//0, serialize_triples//1]).
+:- use_module(serialize_ttl, [serialize_prefixes//0, serialize_triples//1]).
 
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
 
@@ -111,21 +112,17 @@ cassert(Goal) :-
 check_database(Name, Header_1, Body_1, Type_1, Predicates_3) :-
   call(Header_1, H),
   length(H, L),
-  call(Predicates_3, SubjN, SubjEx, Ps),
-  cassert(length(Ps, L)),
-  cassert(SubjN < L),
   call(Type_1, Ts),
   cassert(length(Ts, L)),
-  cassert(( nth1(SubjN, Ts, TSubj), valid_subject_type(TSubj, SubjEx) )),
   ( call(Body_1, B),
     cassert(check_body(Ts, Name, B)),
     false
   ; true
-  ).
-  % call(Predicates_3, SubjN, SubjEx, Ps),
-  % cassert(length(Ps, L)),
-  % cassert(SubjN < L),
-  % cassert(check_triplification(Ts, SubjN, SubjEx, Ps)).
+  ),
+  call(Predicates_3, SubN, SubEx, Ps),
+  cassert(length(Ps, L)),
+  cassert(SubN < L),
+  cassert(check_triplification(Ts, SubN, SubEx, Ps)).
 
 check_body(Ts, Name, B) :-
   functor(B, Name, Arity),
