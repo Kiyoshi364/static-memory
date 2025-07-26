@@ -140,6 +140,11 @@ check_predicate_link(PL, Ctx) :-
     ; check_error(link_tag, Tag, Ctx)
     ),
     check_predicate_simple(P, Ctx)
+  ; PL = [] -> true
+  ; PL = [A | B] ->
+    ( check_predicate_link(A, Ctx),
+      check_predicate_link(B, Ctx)
+    )
   ; check_error(link_predicate, PL, Ctx)
   ).
 

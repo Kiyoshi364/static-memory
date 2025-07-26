@@ -63,18 +63,26 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
 
 <http://hdl.handle.net/11422/22871>
   :date "2024-02"^^xsd:gYearMonth ;
-  :slides :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
+  :doc :publications\/From_Combinators_to_Concatenative_and_Back_Again.pdf ;
+  :slides_link :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
+  :slides_name "slides pt-BR"^^xsd:string ;
   :type "BSc Thesis"^^xsd:string ;
-  :where <https://ufrj.br/en/> ;
+  :where_link <https://ufrj.br/en/> ;
+  :where_name "UFRJ"^^xsd:string ;
+  foaf:homepage <http://hdl.handle.net/11422/22871> ;
   foaf:name "From Combinators to Concatenative and Back Again"^^xsd:string ;
   foaf:page <http://hdl.handle.net/11422/22871> ;
   rdfs:label "From Combinators to Concatenative and Back Again"^^xsd:string .
 
 <https://doi.org/10.5753/sblp.2024.3460>
   :date "2024-09"^^xsd:gYearMonth ;
-  :slides :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
+  :doc :publications\/Converting_Combinators_to_and_from_Concatenative.pdf ;
+  :slides_link :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
+  :slides_name "slides"^^xsd:string ;
   :type "Paper"^^xsd:string ;
-  :where <https://cbsoft.sbc.org.br/2024/sblp/?lang=en> ;
+  :where_link <https://cbsoft.sbc.org.br/2024/sblp/?lang=en> ;
+  :where_name "SBLP2024"^^xsd:string ;
+  foaf:homepage <https://doi.org/10.5753/sblp.2024.3460> ;
   foaf:name "Converting Combinators to and from Concatenative"^^xsd:string ;
   foaf:page <https://doi.org/10.5753/sblp.2024.3460> ;
   rdfs:label "Converting Combinators to and from Concatenative"^^xsd:string .
@@ -82,7 +90,8 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
 <https://github.com/Kiyoshi364/crlf>
   :kind "executable"^^xsd:string ;
   :last_updated "2022-08"^^xsd:gYearMonth ;
-  :programming_language <https://ziglang.org/> ;
+  :programming_language_link <https://ziglang.org/> ;
+  :programming_language_name "Zig"^^xsd:string ;
   :summary "Converts files from linux to windows text file format or the other way around"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/crlf> ;
   foaf:name "crlf"^^xsd:string ;
@@ -92,7 +101,8 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
 <https://github.com/Kiyoshi364/cutils>
   :kind "many executables"^^xsd:string ;
   :last_updated "2024-06"^^xsd:gYearMonth ;
-  :programming_language <https://en.wikipedia.org/wiki/C_(programming_language)> ;
+  :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
+  :programming_language_name "C"^^xsd:string ;
   :summary "Some self-contained small utilities written in C"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/cutils> ;
   foaf:name "Cutils"^^xsd:string ;
@@ -102,7 +112,8 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
 <https://github.com/Kiyoshi364/wam>
   :kind "library/executable"^^xsd:string ;
   :last_updated "2025-03"^^xsd:gYearMonth ;
-  :programming_language <https://en.wikipedia.org/wiki/C_(programming_language)> ;
+  :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
+  :programming_language_name "C"^^xsd:string ;
   :summary "8-bit WAM interpreter, focusing on learning the abstract machine"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/wam> ;
   foaf:name "wam"^^xsd:string ;
@@ -112,7 +123,8 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
 <https://github.com/Kiyoshi364/yellowstone>
   :kind "executable"^^xsd:string ;
   :last_updated "2024-06"^^xsd:gYearMonth ;
-  :programming_language <https://ziglang.org/> ;
+  :programming_language_link <https://ziglang.org/> ;
+  :programming_language_name "Zig"^^xsd:string ;
   :summary "A Minecraft's Redstone inspired simulation"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/yellowstone> ;
   foaf:name "Yellowstone"^^xsd:string ;
@@ -122,7 +134,8 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
 <https://gitlab.com/Hashi364/cbor-pl>
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
-  :programming_language <https://en.wikipedia.org/wiki/Prolog> ;
+  :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
+  :programming_language_name "Prolog"^^xsd:string ;
   :summary "A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"^^xsd:string ;
   foaf:homePage <https://gitlab.com/Hashi364/cbor-pl> ;
   foaf:name "cbor.pl"^^xsd:string ;
@@ -134,7 +147,8 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
 <https://gitlab.com/Hashi364/struct-pl>
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
-  :programming_language <https://en.wikipedia.org/wiki/Prolog> ;
+  :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
+  :programming_language_name "Prolog"^^xsd:string ;
   :summary "A prolog library for defining and using structs-like functors"^^xsd:string ;
   foaf:homePage <https://gitlab.com/Hashi364/struct-pl> ;
   foaf:name "struct.pl"^^xsd:string ;

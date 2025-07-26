@@ -22,7 +22,7 @@ project_predicates(5, ref, [
   or([text-[rdfs:label, foaf:name], link-link(text, [rdfs:label, foaf:name])]),
   :(kind),
   :(summary),
-  link(ref, :(programming_language)),
+  [link(text, :(programming_language_name)), link(ref, :(programming_language_link))],
   link(ref, [foaf:homePage, foaf:page]),
   list_each(link(ref, foaf:page)),
   :(last_updated)

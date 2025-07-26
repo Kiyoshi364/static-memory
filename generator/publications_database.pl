@@ -20,10 +20,10 @@ publication_type([
 publication_predicates(5, ref, [
   :(type),
   :(date),
-  link(text, [rdfs:label, foaf:name]),
-  link(ref, :(where)),
-  link(ref, foaf:page),
-  link(ref, :(slides))
+  [link(text, [rdfs:label, foaf:name]), link(ref, :(doc))],
+  [link(text, :(where_name)), link(ref, :(where_link))],
+  link(ref, [foaf:homepage, foaf:page]),
+  [link(text, :(slides_name)), link(ref, :(slides_link))]
 ]).
 
 publication(
