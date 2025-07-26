@@ -4,19 +4,19 @@
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
 :- use_module(me, [me_triples//0, mygithub/1]).
-:- use_module(type, [type/3, valid_subject_type/1]).
+:- use_module(type, [type/3, valid_subject_type/2]).
 
 :- use_module(serialize_md, [serialize_header//1, serialize_body//2]).
-:- use_module(serialize_ttl, [triples_predicates//4, serialize_prefixes//0, serialize_triples//1]).
+:- use_module(serialize_ttl, [triples_predicates//5, serialize_prefixes//0, serialize_triples//1]).
 
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
 
 :- use_module(publications_database, [
-  publication_header/1, publication_predicates/2, publication_body/1, publication_type/1
+  publication_header/1, publication_body/1, publication_type/1, publication_predicates/3
 ]).
 
 check_publications :-
-  check_database(publication, publication_header, publication_predicates, publication_body, publication_type).
+  check_database(publication, publication_header, publication_body, publication_type, publication_predicates).
 
 publications_preamble -->
   "\n## Publications\n\n",
@@ -31,16 +31,16 @@ publications -->
   serialize_database(publication_header, publication_body, publication_type).
 
 publications_triples -->
-  triples_database(publication_predicates, publication_body, publication_type).
+  triples_database(publication_body, publication_type, publication_predicates).
 
 %%%%%%%%%%%%%%%%%%%% Projects %%%%%%%%%%%%%%%%%%%%
 
 :- use_module(projects_database, [
-  project_header/1, project_predicates/2, project_body/1, project_type/1
+  project_header/1, project_body/1, project_type/1, project_predicates/3
 ]).
 
 check_projects :-
-  check_database(project, project_header, project_predicates, project_body, project_type).
+  check_database(project, project_header, project_body, project_type, project_predicates).
 
 projects_preamble -->
   "\n## Programming Projects\n\n",
@@ -51,16 +51,16 @@ projects -->
   serialize_database(project_header, project_body, project_type).
 
 projects_triples -->
-  triples_database(project_predicates, project_body, project_type).
+  triples_database(project_body, project_type, project_predicates).
 
 %%%%%%%%%%%%%%%%%%%% RDF %%%%%%%%%%%%%%%%%%%%
 
-triples_database(Predicates_2, Body_1, Type_1) -->
-  { call(Predicates_2, SubN, Ps),
+triples_database(Body_1, Type_1, Predicates_3) -->
+  { call(Predicates_3, SubN, SubEx, Ps),
     call(Type_1, T),
     findall(B, call(Body_1, B), Bs)
   },
-  foldl(triples_predicates(T, Ps, SubN), Bs).
+  foldl(triples_predicates(T, Ps, SubN, SubEx), Bs).
 
 triples_preamble(FileTtl) -->
   "\n## Triples\n\n",
@@ -108,20 +108,24 @@ cassert(Goal) :-
   ; call(Goal)
   ).
 
-check_database(Name, Header_1, Predicates_2, Body_1, Type_1) :-
+check_database(Name, Header_1, Body_1, Type_1, Predicates_3) :-
   call(Header_1, H),
   length(H, L),
-  call(Predicates_2, SubjN, Ps),
+  call(Predicates_3, SubjN, SubjEx, Ps),
   cassert(length(Ps, L)),
   cassert(SubjN < L),
   call(Type_1, Ts),
   cassert(length(Ts, L)),
-  cassert(( nth1(SubjN, Ts, TSubj), valid_subject_type(TSubj) )),
+  cassert(( nth1(SubjN, Ts, TSubj), valid_subject_type(TSubj, SubjEx) )),
   ( call(Body_1, B),
     cassert(check_body(Ts, Name, B)),
     false
   ; true
   ).
+  % call(Predicates_3, SubjN, SubjEx, Ps),
+  % cassert(length(Ps, L)),
+  % cassert(SubjN < L),
+  % cassert(check_triplification(Ts, SubjN, SubjEx, Ps)).
 
 check_body(Ts, Name, B) :-
   functor(B, Name, Arity),

@@ -1,21 +1,31 @@
 :- module(projects_database, [
-  project_header/1, project_predicates/2,
-  project_body/1, project_type/1
+  project_header/1, project_body/1,
+  project_type/1,
+  project_predicates/3
 ]).
 
 project_header(["Name", "Kind", "Summary", "Language", "Main Repository", "Mirrors", "Last Updated"]).
-project_predicates(5, [[rdfs:label, foaf:name], [:(kind)], [:(summary)], [:(programming_language)], [foaf:homePage, foaf:page], [foaf:page], [:(last_updated)]]).
 project_body(project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated)) :-
   project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated).
 
 project_type([
-  or([text, link(text)]),
+  or([text, link]),
   text,
   text,
   proglang,
-  link(ref),
-  listeach(link(ref), ", ", "", "-"),
+  link,
+  list(link, ", ", "", "-"),
   date
+]).
+
+project_predicates(5, [ref], [
+  or([text-[rdfs:label, foaf:name], link-link(text, [rdfs:label, foaf:name])]),
+  :(kind),
+  :(summary),
+  link(ref, :(programming_language)),
+  link(ref, [foaf:homePage, foaf:page]),
+  list_each(link(ref, foaf:page)),
+  :(last_updated)
 ]).
 
 project(
@@ -29,7 +39,7 @@ project(
 ).
 
 project(
-  or(link(text), name_link("cbor.pl", mygitlab("cbor-pl/blob/main/cbor.pl"))),
+  or(link, name_link("cbor.pl", mygitlab("cbor-pl/blob/main/cbor.pl"))),
   literal("file library"),
   literal("A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"),
   proglang(prolog),
@@ -39,7 +49,7 @@ project(
 ).
 
 project(
-  or(link(text), name_link("struct.pl", mygitlab("struct-pl/blob/main/struct.pl"))),
+  or(link, name_link("struct.pl", mygitlab("struct-pl/blob/main/struct.pl"))),
   literal("file library"),
   literal("A prolog library for defining and using structs-like functors"),
   proglang(prolog),

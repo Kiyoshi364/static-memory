@@ -1,20 +1,29 @@
 :- module(publications_database, [
-  publication_header/1, publication_predicates/2,
-  publication_body/1, publication_type/1
+  publication_header/1, publication_body/1,
+  publication_type/1,
+  publication_predicates/3
 ]).
 
 publication_header(["Type", "Date (yyyy-mm)", "Title", "Where", "Main Repository", "Slides"]).
-publication_predicates(5, [[:(type)], [:(date)], [rdfs:label, foaf:name], [:(where)], [foaf:page], [:(slides)]]).
 publication_body(publication(Type, Date, Title, Where, MainRepository, Slides)) :-
   publication(Type, Date, Title, Where, MainRepository, Slides).
 
 publication_type([
   text,
   date,
-  link(text),
-  link(ref),
-  link(ref),
-  link(ref)
+  link,
+  link,
+  link,
+  link
+]).
+
+publication_predicates(5, [ref], [
+  :(type),
+  :(date),
+  link(text, [rdfs:label, foaf:name]),
+  link(ref, :(where)),
+  link(ref, foaf:page),
+  link(ref, :(slides))
 ]).
 
 publication(
