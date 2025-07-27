@@ -18,7 +18,10 @@ project_type([
   date
 ]).
 
-project_predicates(5, ref, [
+project_predicates(1, or([
+  text-[lowercase, prepend("projects/"), local],
+  link-text([lowercase, prepend("projects/"), local])
+]), [
   or([text-[rdfs:label, foaf:name], link-link(text, [rdfs:label, foaf:name])]),
   :(kind),
   :(summary),

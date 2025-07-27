@@ -43,14 +43,14 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
   foaf:firstName "Daniel Kiyoshi"@pt-BR ;
   foaf:homepage <https://github.com/Kiyoshi364/static-memory> ;
   foaf:made
-    <http://hdl.handle.net/11422/22871> ,
-    <https://doi.org/10.5753/sblp.2024.3460> ,
-    <https://github.com/Kiyoshi364/crlf> ,
-    <https://github.com/Kiyoshi364/cutils> ,
-    <https://github.com/Kiyoshi364/wam> ,
-    <https://github.com/Kiyoshi364/yellowstone> ,
-    <https://gitlab.com/Hashi364/cbor-pl> ,
-    <https://gitlab.com/Hashi364/struct-pl> ;
+    :projects\/cbor.pl ,
+    :projects\/crlf ,
+    :projects\/cutils ,
+    :projects\/struct.pl ,
+    :projects\/wam ,
+    :projects\/yellowstone ,
+    :publications\/converting%20combinators%20to%20and%20from%20concatenative.pdf ,
+    :publications\/from%20combinators%20to%20concatenative%20and%20back%20again.pdf ;
   foaf:mbox_sha1sum "a638c7eafa7ba4bbe8b9cab7281113798d09da13"^^xsd:hexBinary ;
   foaf:name "Daniel K Hashimoto"@pt-BR ;
   foaf:nick
@@ -61,77 +61,7 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
   rdf:type foaf:Person ;
   rdfs:label "Daniel K Hashimoto"@pt-BR .
 
-<http://hdl.handle.net/11422/22871>
-  :date "2024-02"^^xsd:gYearMonth ;
-  :doc :publications\/From_Combinators_to_Concatenative_and_Back_Again.pdf ;
-  :slides_link :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
-  :slides_name "slides pt-BR"^^xsd:string ;
-  :type "BSc Thesis"^^xsd:string ;
-  :where_link <https://ufrj.br/en/> ;
-  :where_name "UFRJ"^^xsd:string ;
-  foaf:homepage <http://hdl.handle.net/11422/22871> ;
-  foaf:name "From Combinators to Concatenative and Back Again"^^xsd:string ;
-  foaf:page <http://hdl.handle.net/11422/22871> ;
-  rdfs:label "From Combinators to Concatenative and Back Again"^^xsd:string .
-
-<https://doi.org/10.5753/sblp.2024.3460>
-  :date "2024-09"^^xsd:gYearMonth ;
-  :doc :publications\/Converting_Combinators_to_and_from_Concatenative.pdf ;
-  :slides_link :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
-  :slides_name "slides"^^xsd:string ;
-  :type "Paper"^^xsd:string ;
-  :where_link <https://cbsoft.sbc.org.br/2024/sblp/?lang=en> ;
-  :where_name "SBLP2024"^^xsd:string ;
-  foaf:homepage <https://doi.org/10.5753/sblp.2024.3460> ;
-  foaf:name "Converting Combinators to and from Concatenative"^^xsd:string ;
-  foaf:page <https://doi.org/10.5753/sblp.2024.3460> ;
-  rdfs:label "Converting Combinators to and from Concatenative"^^xsd:string .
-
-<https://github.com/Kiyoshi364/crlf>
-  :kind "executable"^^xsd:string ;
-  :last_updated "2022-08"^^xsd:gYearMonth ;
-  :programming_language_link <https://ziglang.org/> ;
-  :programming_language_name "Zig"^^xsd:string ;
-  :summary "Converts files from linux to windows text file format or the other way around"^^xsd:string ;
-  foaf:homePage <https://github.com/Kiyoshi364/crlf> ;
-  foaf:name "crlf"^^xsd:string ;
-  foaf:page <https://github.com/Kiyoshi364/crlf> ;
-  rdfs:label "crlf"^^xsd:string .
-
-<https://github.com/Kiyoshi364/cutils>
-  :kind "many executables"^^xsd:string ;
-  :last_updated "2024-06"^^xsd:gYearMonth ;
-  :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
-  :programming_language_name "C"^^xsd:string ;
-  :summary "Some self-contained small utilities written in C"^^xsd:string ;
-  foaf:homePage <https://github.com/Kiyoshi364/cutils> ;
-  foaf:name "Cutils"^^xsd:string ;
-  foaf:page <https://github.com/Kiyoshi364/cutils> ;
-  rdfs:label "Cutils"^^xsd:string .
-
-<https://github.com/Kiyoshi364/wam>
-  :kind "library/executable"^^xsd:string ;
-  :last_updated "2025-03"^^xsd:gYearMonth ;
-  :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
-  :programming_language_name "C"^^xsd:string ;
-  :summary "8-bit WAM interpreter, focusing on learning the abstract machine"^^xsd:string ;
-  foaf:homePage <https://github.com/Kiyoshi364/wam> ;
-  foaf:name "wam"^^xsd:string ;
-  foaf:page <https://github.com/Kiyoshi364/wam> ;
-  rdfs:label "wam"^^xsd:string .
-
-<https://github.com/Kiyoshi364/yellowstone>
-  :kind "executable"^^xsd:string ;
-  :last_updated "2024-06"^^xsd:gYearMonth ;
-  :programming_language_link <https://ziglang.org/> ;
-  :programming_language_name "Zig"^^xsd:string ;
-  :summary "A Minecraft's Redstone inspired simulation"^^xsd:string ;
-  foaf:homePage <https://github.com/Kiyoshi364/yellowstone> ;
-  foaf:name "Yellowstone"^^xsd:string ;
-  foaf:page <https://github.com/Kiyoshi364/yellowstone> ;
-  rdfs:label "Yellowstone"^^xsd:string .
-
-<https://gitlab.com/Hashi364/cbor-pl>
+:projects\/cbor.pl
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
   :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
@@ -144,7 +74,29 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
     <https://gitlab.com/Hashi364/cbor-pl> ;
   rdfs:label "cbor.pl"^^xsd:string .
 
-<https://gitlab.com/Hashi364/struct-pl>
+:projects\/crlf
+  :kind "executable"^^xsd:string ;
+  :last_updated "2022-08"^^xsd:gYearMonth ;
+  :programming_language_link <https://ziglang.org/> ;
+  :programming_language_name "Zig"^^xsd:string ;
+  :summary "Converts files from linux to windows text file format or the other way around"^^xsd:string ;
+  foaf:homePage <https://github.com/Kiyoshi364/crlf> ;
+  foaf:name "crlf"^^xsd:string ;
+  foaf:page <https://github.com/Kiyoshi364/crlf> ;
+  rdfs:label "crlf"^^xsd:string .
+
+:projects\/cutils
+  :kind "many executables"^^xsd:string ;
+  :last_updated "2024-06"^^xsd:gYearMonth ;
+  :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
+  :programming_language_name "C"^^xsd:string ;
+  :summary "Some self-contained small utilities written in C"^^xsd:string ;
+  foaf:homePage <https://github.com/Kiyoshi364/cutils> ;
+  foaf:name "Cutils"^^xsd:string ;
+  foaf:page <https://github.com/Kiyoshi364/cutils> ;
+  rdfs:label "Cutils"^^xsd:string .
+
+:projects\/struct.pl
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
   :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
@@ -156,4 +108,52 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
     <https://github.com/Kiyoshi364/struct-pl> ,
     <https://gitlab.com/Hashi364/struct-pl> ;
   rdfs:label "struct.pl"^^xsd:string .
+
+:projects\/wam
+  :kind "library/executable"^^xsd:string ;
+  :last_updated "2025-03"^^xsd:gYearMonth ;
+  :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
+  :programming_language_name "C"^^xsd:string ;
+  :summary "8-bit WAM interpreter, focusing on learning the abstract machine"^^xsd:string ;
+  foaf:homePage <https://github.com/Kiyoshi364/wam> ;
+  foaf:name "wam"^^xsd:string ;
+  foaf:page <https://github.com/Kiyoshi364/wam> ;
+  rdfs:label "wam"^^xsd:string .
+
+:projects\/yellowstone
+  :kind "executable"^^xsd:string ;
+  :last_updated "2024-06"^^xsd:gYearMonth ;
+  :programming_language_link <https://ziglang.org/> ;
+  :programming_language_name "Zig"^^xsd:string ;
+  :summary "A Minecraft's Redstone inspired simulation"^^xsd:string ;
+  foaf:homePage <https://github.com/Kiyoshi364/yellowstone> ;
+  foaf:name "Yellowstone"^^xsd:string ;
+  foaf:page <https://github.com/Kiyoshi364/yellowstone> ;
+  rdfs:label "Yellowstone"^^xsd:string .
+
+:publications\/converting%20combinators%20to%20and%20from%20concatenative.pdf
+  :date "2024-09"^^xsd:gYearMonth ;
+  :doc :publications\/Converting_Combinators_to_and_from_Concatenative.pdf ;
+  :slides_link :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
+  :slides_name "slides"^^xsd:string ;
+  :type "Paper"^^xsd:string ;
+  :where_link <https://cbsoft.sbc.org.br/2024/sblp/?lang=en> ;
+  :where_name "SBLP2024"^^xsd:string ;
+  foaf:homepage <https://doi.org/10.5753/sblp.2024.3460> ;
+  foaf:name "Converting Combinators to and from Concatenative"^^xsd:string ;
+  foaf:page <https://doi.org/10.5753/sblp.2024.3460> ;
+  rdfs:label "Converting Combinators to and from Concatenative"^^xsd:string .
+
+:publications\/from%20combinators%20to%20concatenative%20and%20back%20again.pdf
+  :date "2024-02"^^xsd:gYearMonth ;
+  :doc :publications\/From_Combinators_to_Concatenative_and_Back_Again.pdf ;
+  :slides_link :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
+  :slides_name "slides pt-BR"^^xsd:string ;
+  :type "BSc Thesis"^^xsd:string ;
+  :where_link <https://ufrj.br/en/> ;
+  :where_name "UFRJ"^^xsd:string ;
+  foaf:homepage <http://hdl.handle.net/11422/22871> ;
+  foaf:name "From Combinators to Concatenative and Back Again"^^xsd:string ;
+  foaf:page <http://hdl.handle.net/11422/22871> ;
+  rdfs:label "From Combinators to Concatenative and Back Again"^^xsd:string .
 ```

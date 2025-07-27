@@ -1,5 +1,6 @@
 :- module(type, [
-  type/3
+  type/3,
+  string/1
 ]).
 
 :- use_module(library(lists), [member/2]).
