@@ -7,9 +7,9 @@
 :- use_module(library(dcgs), [seq//1]).
 :- use_module(library(reif), [if_/3, (=)/3, memberd_t/3]).
 
-:- use_module(me, [rdf_prefixes/2]).
+:- use_module(serialize, [serialize_number//1, serialize_month//1]).
 
-:- use_module(serialize_md, [serialize_number//1, serialize_month//1]).
+:- use_module(me, [rdf_prefixes/2]).
 
 serialize_prefixes --> { rdf_prefixes(B, Ps) }, serialize_prefixes(B, Ps).
 serialize_prefixes(B, Ps) --> foldl(serialize_prefix, Ps), serialize_base_prefix(B).

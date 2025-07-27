@@ -1,10 +1,13 @@
 :- module(serialize_md, [
-  serialize_header//1, serialize_body//2,
-  serialize_number//1, serialize_month//1
+  serialize_header//1, serialize_body//2
 ]).
 
 :- use_module(library(lists), [member/2, foldl/4]).
 :- use_module(library(dcgs), [phrase/3, seq//1]).
+
+:- use_module(serialize, [
+  serialize_number//1, serialize_month//1
+]).
 
 :- use_module(proglangs, [proglang_val/2]).
 :- use_module(me, [mygithub/1, mygitlab/1]).
@@ -52,8 +55,6 @@ serialize_type_val(_, to_be_filled) --> !, "???".
 serialize_type_val(T, Val) -->
   { throw(unknown_type_val_while_serializing(T, Val)) }.
 
-serialize_number(N) --> { number_chars(N, Cs) }, seq(Cs).
-serialize_month(M) --> ( { M < 10 } -> "0" ; [] ), serialize_number(M).
 
 serialize_linktarget(publications(L)) --> !, "./publications/", seq(L).
 serialize_linktarget(https(L)) --> !, "https://", seq(L).

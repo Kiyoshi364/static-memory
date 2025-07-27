@@ -14,7 +14,7 @@
 :- use_module(type, [string/1]).
 
 :- use_module(text, [lowercase/2]).
-:- use_module(serialize_md, [serialize_number//1, serialize_month//1]).
+:- use_module(serialize, [serialize_number//1, serialize_month//1]).
 
 triples_predicates(Ts, Ps, SubN, SubEx, Func) -->
   { functor(Func, _, Arity), rdf_me(Me) },
