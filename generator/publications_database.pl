@@ -31,13 +31,13 @@ publication_predicates(3, text([
 publication(
   literal("BSc Thesis"),
   year_month(2024, 02),
-  name_link(
+  text_link(
     "From Combinators to Concatenative and Back Again",
     publications("From_Combinators_to_Concatenative_and_Back_Again.pdf")
   ),
-  name_link("UFRJ", https("ufrj.br/en/")),
-  name_link("Pantheon", http("hdl.handle.net/11422/22871")),
-  name_link("slides pt-BR",
+  text_link("UFRJ", https("ufrj.br/en/")),
+  text_link("Pantheon", http("hdl.handle.net/11422/22871")),
+  text_link("slides pt-BR",
     publications("From_Combinators_to_Concatenative_and_Back_Again_slides.pdf")
   )
 ).
@@ -45,13 +45,13 @@ publication(
 publication(
   literal("Paper"),
   year_month(2024, 09),
-  name_link(
+  text_link(
     "Converting Combinators to and from Concatenative",
     publications("Converting_Combinators_to_and_from_Concatenative.pdf")
   ),
-  name_link("SBLP2024", https("cbsoft.sbc.org.br/2024/sblp/?lang=en")),
+  text_link("SBLP2024", https("cbsoft.sbc.org.br/2024/sblp/?lang=en")),
   doi("10.5753/sblp.2024.3460"),
-  name_link(
+  text_link(
     "slides",
     publications("Converting_Combinators_to_and_from_Concatenative_slides.pdf")
   )

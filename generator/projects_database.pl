@@ -42,7 +42,7 @@ project(
 ).
 
 project(
-  or(link, name_link("cbor.pl", mygitlab("cbor-pl/blob/main/cbor.pl"))),
+  or(link, text_link("cbor.pl", mygitlab("cbor-pl/blob/main/cbor.pl"))),
   literal("file library"),
   literal("A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"),
   proglang(prolog),
@@ -52,7 +52,7 @@ project(
 ).
 
 project(
-  or(link, name_link("struct.pl", mygitlab("struct-pl/blob/main/struct.pl"))),
+  or(link, text_link("struct.pl", mygitlab("struct-pl/blob/main/struct.pl"))),
   literal("file library"),
   literal("A prolog library for defining and using structs-like functors"),
   proglang(prolog),

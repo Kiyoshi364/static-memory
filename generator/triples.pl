@@ -69,14 +69,14 @@ format_year_month(Y, M, S) :-
   phrase(Body, S, []).
 
 type_val_object_link_text(Val, literal(xsd:string, Text)) :-
-  ( Val = name_link(N, _) -> Text = N
+  ( Val = text_link(N, _) -> Text = N
   ; Val = doi(ID)         -> append("DOI(", S0, Text), append(ID, ")", S0)
   ; Val = mygithub(Path)  -> mygithub(GITHUB), append(GITHUB, [(/) | Path], Text)
   ; Val = mygitlab(Path)  -> mygitlab(GITLAB), append(GITLAB, [(/) | Path], Text)
   ; throw(unknown_link_while_serializing(Val))
   ).
 type_val_object_link_ref(Val, Obj) :-
-  ( Val = name_link(_, L) -> linktarget_object(L, Obj)
+  ( Val = text_link(_, L) -> linktarget_object(L, Obj)
   ; Val = doi(_)          -> linktarget_object(Val, Obj)
   ; Val = mygithub(_)     -> linktarget_object(Val, Obj)
   ; Val = mygitlab(_)     -> linktarget_object(Val, Obj)

@@ -39,7 +39,7 @@ serialize_body_([T | Ts], N, Arity, Func) -->
 serialize_type_val(text, literal(L)) --> !, seq(L).
 serialize_type_val(date, year_month(Y, M)) --> !, serialize_number(Y), "-", serialize_month(M).
 serialize_type_val(link, Val) --> !,
-  ( { Val = name_link(N, L) } -> "[", seq(N), "](", serialize_linktarget(L), ")"
+  ( { Val = text_link(N, L) } -> "[", seq(N), "](", serialize_linktarget(L), ")"
   ; { Val = doi(ID)         } -> "[DOI(", seq(ID), ")](", serialize_linktarget(Val), ")"
   ; { Val = mygithub(Path)  } -> { mygithub(GITHUB) }, "[", seq(GITHUB), "/", seq(Path), "](", serialize_linktarget(Val), ")"
   ; { Val = mygitlab(Path)  } -> { mygitlab(GITLAB) }, "[", seq(GITLAB), "/", seq(Path), "](", serialize_linktarget(Val), ")"

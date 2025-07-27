@@ -27,17 +27,17 @@ type_(date, Val, Ctx) :-
   ; check_error(year_month, Val, Ctx)
   ).
 type_(link, Val, Ctx) :-
-  ( Val = name_link(_, _) -> type_(name_link, Val, Ctx)
+  ( Val = text_link(_, _) -> type_(text_link, Val, Ctx)
   ; Val = doi(ID)         -> check_(string, ID, Ctx)
   ; Val = mygithub(Path)  -> check_(string, Path, Ctx)
   ; Val = mygitlab(Path)  -> check_(string, Path, Ctx)
   ; check_error(link, Val, Ctx)
   ).
-type_(name_link, Val, Ctx) :-
-  ( Val = name_link(N, L) ->
+type_(text_link, Val, Ctx) :-
+  ( Val = text_link(N, L) ->
     check_(string, N, Ctx),
     type_(link_target, L, Ctx)
-  ; check_error(name_link, Val, Ctx)
+  ; check_error(text_link, Val, Ctx)
   ).
 type_(link_target, Val, Ctx) :-
   ( Val = publications(Path) -> check_(string, Path, Ctx)
