@@ -1,5 +1,5 @@
 :- module(triples, [
-  triples_predicates//5,
+  triples_predicates//6,
   check_triplification/4
 ]).
 
@@ -7,8 +7,6 @@
   member/2, append/3, foldl/4, maplist/3
 ]).
 :- use_module(library(dcgs), [phrase/3]).
-
-:- use_module(me, [rdf_me/1]).
 
 :- use_module(type, [string/1]).
 
@@ -18,8 +16,8 @@
   serialize_number//1, serialize_month//1
 ]).
 
-triples_predicates(Ts, Ps, SubN, SubEx, Func) -->
-  { functor(Func, _, Arity), rdf_me(Me) },
+triples_predicates(Ts, Ps, Me, SubN, SubEx, Func) -->
+  { functor(Func, _, Arity) },
   triple(Me, foaf:made, Sub),
   triples_predicates_(Ts, Ps, SubN, SubEx, Sub, 0, Arity, Func).
 

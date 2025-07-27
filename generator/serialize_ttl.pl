@@ -1,5 +1,5 @@
 :- module(serialize_ttl, [
-  serialize_prefixes//0, serialize_prefixes//2,
+  serialize_prefixes//2,
   serialize_triples//1
 ]).
 
@@ -9,9 +9,6 @@
 
 :- use_module(serialize, [serialize_number//1, serialize_month//1]).
 
-:- use_module(me, [rdf_prefixes/2]).
-
-serialize_prefixes --> { rdf_prefixes(B, Ps) }, serialize_prefixes(B, Ps).
 serialize_prefixes(B, Ps) --> foldl(serialize_prefix, Ps), serialize_base_prefix(B).
 
 serialize_prefix(P-L) --> "@prefix ", name(P), ": <", iri(L), "> .\n".

@@ -1,14 +1,17 @@
 :- use_module(library(dcgs), [phrase/3]).
-:- use_module(library(lists), [length/2, foldl/4, nth1/3]).
+:- use_module(library(lists), [length/2, foldl/4]).
 :- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
-:- use_module(me, [me_triples//0, mygithub/1]).
+:- use_module(me, [
+  rdf_me/1, rdf_prefixes/2, me_triples//0,
+  mygithub/1
+]).
 :- use_module(type, [type/3]).
-:- use_module(triples, [triples_predicates//5, check_triplification/4]).
+:- use_module(triples, [triples_predicates//6, check_triplification/4]).
 
 :- use_module(serialize_md, [serialize_header//1, serialize_body//2]).
-:- use_module(serialize_ttl, [serialize_prefixes//0, serialize_triples//1]).
+:- use_module(serialize_ttl, [serialize_prefixes//2, serialize_triples//1]).
 
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
 
@@ -59,9 +62,10 @@ projects_triples -->
 triples_database(Body_1, Type_1, Predicates_3) -->
   { call(Predicates_3, SubN, SubEx, Ps),
     call(Type_1, T),
+    rdf_me(Me),
     findall(B, call(Body_1, B), Bs)
   },
-  foldl(triples_predicates(T, Ps, SubN, SubEx), Bs).
+  foldl(triples_predicates(T, Ps, Me, SubN, SubEx), Bs).
 
 triples_preamble(FileTtl) -->
   "\n## Triples\n\n",
@@ -79,14 +83,15 @@ triples_md(FileTtl) -->
 [].
 
 triples -->
-  { Body = (
+  { rdf_prefixes(B, Ps),
+    Body = (
       me_triples,
       publications_triples,
       projects_triples
     ),
     phrase(Body, Ts, [])
   },
-  serialize_prefixes,
+  serialize_prefixes(B, Ps),
   "\n",
   serialize_triples(Ts).
 

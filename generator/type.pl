@@ -49,7 +49,7 @@ type_(link_target, Val, Ctx) :-
   ; check_error(link_target, Val, Ctx)
   ).
 type_(proglang, Val, Ctx) :-
-  ( Val = proglang(PL) -> check_(atom, PL, Ctx), proglang(PL)
+  ( Val = proglang(PL) -> check_(atom, PL, Ctx), check_(proglang, PL, Ctx)
   ; check_error(proglang, Val, Ctx)
   ).
 

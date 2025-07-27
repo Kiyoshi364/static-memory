@@ -3,7 +3,7 @@
 ]).
 
 :- use_module(library(lists), [member/2, foldl/4]).
-:- use_module(library(dcgs), [phrase/3, seq//1]).
+:- use_module(library(dcgs), [seq//1]).
 
 :- use_module(serialize, [
   link_normalized/3, proglang_normalized/3,
