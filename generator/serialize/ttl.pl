@@ -1,4 +1,4 @@
-:- module(serialize_ttl, [
+:- module(ttl, [
   serialize_prefixes//2,
   serialize_triples//1
 ]).

@@ -1,4 +1,4 @@
-:- module(publications_database, [
+:- module(publications, [
   publication_header/1, publication_body/1,
   publication_type/1,
   publication_predicates/3

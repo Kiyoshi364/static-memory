@@ -1,4 +1,4 @@
-:- module(serialize_md, [
+:- module(md, [
   serialize_header//1, serialize_body//2
 ]).
 

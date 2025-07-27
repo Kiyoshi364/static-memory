@@ -8,14 +8,15 @@
   mygithub/1
 ]).
 :- use_module(type, [type/3]).
-:- use_module(triples, [triples_predicates//6, check_triplification/4]).
 
-:- use_module(serialize_md, [serialize_header//1, serialize_body//2]).
-:- use_module(serialize_ttl, [serialize_prefixes//2, serialize_triples//1]).
+:- use_module(serialize/md, [serialize_header//1, serialize_body//2]).
+
+:- use_module(serialize/triples, [triples_predicates//6, check_triplification/4]).
+:- use_module(serialize/ttl, [serialize_prefixes//2, serialize_triples//1]).
 
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
 
-:- use_module(publications_database, [
+:- use_module(database/publications, [
   publication_header/1, publication_body/1, publication_type/1, publication_predicates/3
 ]).
 
@@ -39,7 +40,7 @@ publications_triples -->
 
 %%%%%%%%%%%%%%%%%%%% Projects %%%%%%%%%%%%%%%%%%%%
 
-:- use_module(projects_database, [
+:- use_module(database/projects, [
   project_header/1, project_body/1, project_type/1, project_predicates/3
 ]).
 

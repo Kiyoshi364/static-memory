@@ -6,8 +6,8 @@
 :- use_module(library(lists), [append/3]).
 :- use_module(library(dcgs), [seq//1]).
 
-:- use_module(proglangs, [proglang_val/2]).
-:- use_module(me, [mygithub/1, mygitlab/1]).
+:- use_module('..'/proglangs, [proglang_val/2]).
+:- use_module('..'/me, [mygithub/1, mygitlab/1]).
 
 link_normalized(Val, Text, Link) :-
   ( Val = text_link(N, L) -> Text = N, linktarget_link(L, Link)

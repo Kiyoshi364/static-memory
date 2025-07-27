@@ -8,7 +8,7 @@
 ]).
 :- use_module(library(dcgs), [phrase/3]).
 
-:- use_module(type, [string/1]).
+:- use_module('..'/type, [string/1]).
 
 :- use_module(text, [lowercase/2]).
 :- use_module(serialize, [

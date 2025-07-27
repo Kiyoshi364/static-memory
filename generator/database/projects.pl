@@ -1,4 +1,4 @@
-:- module(projects_database, [
+:- module(projects, [
   project_header/1, project_body/1,
   project_type/1,
   project_predicates/3
