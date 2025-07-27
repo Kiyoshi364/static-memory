@@ -6,11 +6,9 @@
 :- use_module(library(dcgs), [phrase/3, seq//1]).
 
 :- use_module(serialize, [
+  link_normalized/3, proglang_normalized/3,
   serialize_number//1, serialize_month//1
 ]).
-
-:- use_module(proglangs, [proglang_val/2]).
-:- use_module(me, [mygithub/1, mygitlab/1]).
 
 serialize_header(H) -->
   serialize_header_names(H), serialize_header_align(H).
@@ -41,29 +39,20 @@ serialize_body_([T | Ts], N, Arity, Func) -->
 
 serialize_type_val(text, literal(L)) --> !, seq(L).
 serialize_type_val(date, year_month(Y, M)) --> !, serialize_number(Y), "-", serialize_month(M).
-serialize_type_val(link, Val) --> !,
-  ( { Val = text_link(N, L) } -> "[", seq(N), "](", serialize_linktarget(L), ")"
-  ; { Val = doi(ID)         } -> "[DOI(", seq(ID), ")](", serialize_linktarget(Val), ")"
-  ; { Val = mygithub(Path)  } -> { mygithub(GITHUB) }, "[", seq(GITHUB), "/", seq(Path), "](", serialize_linktarget(Val), ")"
-  ; { Val = mygitlab(Path)  } -> { mygitlab(GITLAB) }, "[", seq(GITLAB), "/", seq(Path), "](", serialize_linktarget(Val), ")"
-  ; { throw(unknown_link_while_serializing(Val)) }
-  ).
-serialize_type_val(proglang, proglang(PL)) --> !, { proglang_val(PL, Val) }, serialize_type_val(link, Val).
+serialize_type_val(link, Val) --> !, { link_normalized(Val, Text, Link) }, serialize_link(Text, Link).
+serialize_type_val(proglang, proglang(PL)) --> !, { proglang_normalized(PL, Text, Link) }, serialize_link(Text, Link).
 serialize_type_val(list(T, J, E, N), L) --> !, serialize_list(L, T, J, E, N).
 serialize_type_val(or(Ts), O) --> !, serialize_or(Ts, O).
 serialize_type_val(_, to_be_filled) --> !, "???".
 serialize_type_val(T, Val) -->
   { throw(unknown_type_val_while_serializing(T, Val)) }.
 
+serialize_link(Text, Link) --> "[", seq(Text), "](", serialize_linktarget(Link), ")".
 
 serialize_linktarget(publications(L)) --> !, "./publications/", seq(L).
-serialize_linktarget(https(L)) --> !, "https://", seq(L).
-serialize_linktarget(http(L)) --> !, "http://", seq(L).
-serialize_linktarget(doi(ID)) --> !, "https://doi.org/", seq(ID).
-serialize_linktarget(mygithub(Path)) --> !, { mygithub(GITHUB) }, "https://", seq(GITHUB), "/", seq(Path).
-serialize_linktarget(mygitlab(Path)) --> !, { mygitlab(GITLAB) }, "https://", seq(GITLAB), "/", seq(Path).
+serialize_linktarget(external(L)) --> !, seq(L).
 serialize_linktarget(Link) -->
-  { throw(unknown_link_while_serializing(Link)) }.
+  { throw(unknown_linktarget_while_serializing(Link)) }.
 
 serialize_list([], _, _, _, None) --> seq(None).
 serialize_list([Val0 | Vals], T, Join, End, _) --> serialize_list_(Vals, Val0, T, Join, End).

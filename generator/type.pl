@@ -43,6 +43,7 @@ type_(link_target, Val, Ctx) :-
   ( Val = publications(Path) -> check_(string, Path, Ctx)
   ; Val = https(Path)        -> check_(string, Path, Ctx)
   ; Val = http(Path)         -> check_(string, Path, Ctx)
+  ; Val = doi(Path)          -> check_(string, Path, Ctx)
   ; Val = mygithub(Path)     -> check_(string, Path, Ctx)
   ; Val = mygitlab(Path)     -> check_(string, Path, Ctx)
   ; check_error(link_target, Val, Ctx)

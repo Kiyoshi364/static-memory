@@ -8,13 +8,15 @@
 ]).
 :- use_module(library(dcgs), [phrase/3]).
 
-:- use_module(proglangs, [proglang_val/2]).
-:- use_module(me, [rdf_me/1, mygithub/1, mygitlab/1]).
+:- use_module(me, [rdf_me/1]).
 
 :- use_module(type, [string/1]).
 
 :- use_module(text, [lowercase/2]).
-:- use_module(serialize, [serialize_number//1, serialize_month//1]).
+:- use_module(serialize, [
+  link_normalized/3, proglang_normalized/3,
+  serialize_number//1, serialize_month//1
+]).
 
 triples_predicates(Ts, Ps, SubN, SubEx, Func) -->
   { functor(Func, _, Arity), rdf_me(Me) },
@@ -57,8 +59,8 @@ triple(Sub, Pred, Obj) --> [t(Sub, Pred, Obj)].
 
 type_val_object(text, literal(L), literal(xsd:string, L)) :- !.
 type_val_object(date, year_month(Y, M), literal(xsd:gYearMonth, S)) :- !, format_year_month(Y, M, S).
-type_val_object(link, Val, link(Text, Ref)) :- !, type_val_object_link_text(Val, Text), type_val_object_link_ref(Val, Ref).
-type_val_object(proglang, proglang(PL), Obj) :- !, proglang_val(PL, Val), type_val_object(link, Val, Obj).
+type_val_object(link, Val, link(literal(xsd:string, Text), Ref)) :- !, link_normalized(Val, Text, Link), linktarget_object(Link, Ref).
+type_val_object(proglang, proglang(PL), link(literal(xsd:string, Text), Ref)) :- !, proglang_normalized(PL, Text, Link), linktarget_object(Link, Ref).
 type_val_object(list(T, _, _, _), L, Obj) :- !, maplist(type_val_object(T), L, Obj).
 type_val_object(or(Ts), O, Obj) :- !, or_resource(Ts, O, Obj).
 type_val_object(T, Val, Obj) :-
@@ -68,29 +70,10 @@ format_year_month(Y, M, S) :-
   Body = ( serialize_number(Y), "-", serialize_month(M) ),
   phrase(Body, S, []).
 
-type_val_object_link_text(Val, literal(xsd:string, Text)) :-
-  ( Val = text_link(N, _) -> Text = N
-  ; Val = doi(ID)         -> append("DOI(", S0, Text), append(ID, ")", S0)
-  ; Val = mygithub(Path)  -> mygithub(GITHUB), append(GITHUB, [(/) | Path], Text)
-  ; Val = mygitlab(Path)  -> mygitlab(GITLAB), append(GITLAB, [(/) | Path], Text)
-  ; throw(unknown_link_while_serializing(Val))
-  ).
-type_val_object_link_ref(Val, Obj) :-
-  ( Val = text_link(_, L) -> linktarget_object(L, Obj)
-  ; Val = doi(_)          -> linktarget_object(Val, Obj)
-  ; Val = mygithub(_)     -> linktarget_object(Val, Obj)
-  ; Val = mygitlab(_)     -> linktarget_object(Val, Obj)
-  ; throw(unknown_link_while_serializing(Val))
-  ).
-
 linktarget_object(publications(L), :(A)) :- !, append("publications/", L, Iri), atom_chars(A, Iri).
-linktarget_object(https(L), iri(Iri)) :- !, append("https://", L, Iri).
-linktarget_object(http(L), iri(Iri)) :- !, append("http://", L, Iri).
-linktarget_object(doi(ID), iri(Iri)) :- !, append("https://doi.org/", ID, Iri).
-linktarget_object(mygithub(Path), iri(Iri)) :- !, mygithub(GITHUB), append("https://", S0, Iri), append(GITHUB, ['/' | Path], S0).
-linktarget_object(mygitlab(Path), iri(Iri)) :- !, mygitlab(GITLAB), append("https://", S0, Iri), append(GITLAB, ['/' | Path], S0).
-linktarget_object(Link, _) :-
-  throw(unknown_link_while_converting_to_resource(Link)).
+linktarget_object(external(L), iri(L)) :- !.
+linktarget_object(Link, _) :- !,
+  throw(unknown_linktarget_while_converting_to_resource(Link)).
 
 or_resource(Ts, O, or(T, Obj)) :-
   ( O = or(T, Val), member(T, Ts) -> type_val_object(T, Val, Obj)
