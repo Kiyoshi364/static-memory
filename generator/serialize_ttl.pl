@@ -116,7 +116,10 @@ name_(C, S0, S) :-
 name_after_(C, S0, S) :-
   if_(memberd_t(C, "~-!$&'()*+,;=/?#@%"),
     S0 = [(\), C | S],
-    S0 = [C | S]
+    if_(memberd_t(C, " "),
+      ( char_code(C, N), escape_percent(N, S0, S) ),
+      S0 = [C | S]
+    )
   ).
 
 name_after([]) --> [].
