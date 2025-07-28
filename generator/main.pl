@@ -149,6 +149,7 @@ check_databases :-
   check_projects,
 true.
 
+main :- main_md_ttl('readme.md', 'static-memory.ttl').
 main_md :- check_databases, current_output(S), run_md(S, 'ttl.ttl').
 main_ttl :- check_databases, current_output(S), run_ttl(S).
 
