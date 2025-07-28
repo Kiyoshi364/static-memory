@@ -79,6 +79,7 @@ triples_preamble(FileTtl) -->
 triples_md(FileTtl) -->
   triples_preamble(FileTtl),
   "<details><summary>Turtle Triples</summary>\n",
+  "\n",
   "```ttl\n",
   triples,
   "```\n",
