@@ -1,4 +1,4 @@
-:- use_module(library(dcgs), [phrase/3]).
+:- use_module(library(dcgs), [phrase/3, seq//1]).
 :- use_module(library(lists), [length/2, foldl/4]).
 :- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
@@ -99,7 +99,7 @@ triples -->
   "\n",
   serialize_triples(Ts).
 
-atom(A) --> { atom_chars(A, As) }, As.
+atom(A) --> { atom_chars(A, As) }, seq(As).
 
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
