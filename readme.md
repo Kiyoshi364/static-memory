@@ -32,6 +32,7 @@ Machine-readable data (in [Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)
 about what is in this `readme.md`.
 This data is also available at [static-memory.ttl](./static-memory.ttl).
 
+<details><summary>Turtle Triples</summary>
 ```ttl
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -157,3 +158,4 @@ This data is also available at [static-memory.ttl](./static-memory.ttl).
   foaf:page <http://hdl.handle.net/11422/22871> ;
   rdfs:label "From Combinators to Concatenative and Back Again"^^xsd:string .
 ```
+</details>
