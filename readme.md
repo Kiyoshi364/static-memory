@@ -24,6 +24,10 @@ you probably should use the link in this column to refer/cite/share.
 |Cutils|many executables|Some self-contained small utilities written in C|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/Kiyoshi364/cutils](https://github.com/Kiyoshi364/cutils)|-|2024-06|
 |crlf|executable|Converts files from linux to windows text file format or the other way around|[Zig](https://ziglang.org/)|[github.com/Kiyoshi364/crlf](https://github.com/Kiyoshi364/crlf)|-|2022-08|
 
+## About
+
+This markdown format was inspired by [github.com/codereport/Content](https://github.com/codereport/Content)
+
 ## Triples
 
 Machine-readable data (in [Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))

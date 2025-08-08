@@ -167,9 +167,13 @@ main_md_ttl(FileMd, FileTtl) :-
 
 md_preamble -->
   { mygithub(GITHUB) },
-  "# Static Memory\n",
-  "\n",
+  "# Static Memory\n\n",
   "This markdown is avaliable at [", GITHUB, "/static-memory](", GITHUB, "/static-memory).\n",
+[].
+
+md_about -->
+  "\n## About\n\n",
+  "This markdown format was inspired by [github.com/codereport/Content](https://github.com/codereport/Content)\n",
 [].
 
 run_md(S, FileTtl) :-
@@ -177,6 +181,7 @@ run_md(S, FileTtl) :-
     md_preamble,
     publications,
     projects,
+    md_about,
     triples_md(FileTtl)
   ),
   phrase_to_stream(Body, S).
