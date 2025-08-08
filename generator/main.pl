@@ -168,7 +168,7 @@ main_md_ttl(FileMd, FileTtl) :-
 md_preamble -->
   { mygithub(GITHUB) },
   "# Static Memory\n\n",
-  "This markdown is avaliable at [", GITHUB, "/static-memory](", GITHUB, "/static-memory).\n",
+  "This markdown is avaliable at [", seq(GITHUB), "/static-memory](", seq(GITHUB), "/static-memory).\n",
 [].
 
 md_about -->
