@@ -110,7 +110,6 @@ serialize_database(Header_1, Body_1, Type_1) -->
     findall(B, call(Body_1, B), Bs)
   },
   foldl(serialize_body(T), Bs),
-  "\n",
 [].
 
 cassert(Goal) :-
