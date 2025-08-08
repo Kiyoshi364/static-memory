@@ -38,7 +38,7 @@ is available in [serializations/](./serializations/) folder.
 
 This data is also available at [serializations/static-memory.ttl](./serializations/static-memory.ttl).
 
-<details><summary>Turtle Triples</summary>
+<details><summary>Turtle RDF Triples</summary>
 
 ```ttl
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .

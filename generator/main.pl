@@ -109,7 +109,7 @@ triples_preamble(Dir, FileTtl) -->
 
 triples_md(Dir, FileTtl) -->
   triples_preamble(Dir, FileTtl),
-  "<details><summary>Turtle Triples</summary>\n",
+  "<details><summary>Turtle RDF Triples</summary>\n",
   "\n",
   "```ttl\n",
   triples,
