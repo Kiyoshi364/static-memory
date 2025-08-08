@@ -28,11 +28,15 @@ you probably should use the link in this column to refer/cite/share.
 
 This markdown format was inspired by [github.com/codereport/Content](https://github.com/codereport/Content)
 
-## Triples
+## Available Serializations
 
-Machine-readable data (in [Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))
-about what is in this `readme.md`.
-This data is also available at [static-memory.ttl](./static-memory.ttl).
+Machine-readable data
+about what is in this `readme.md`
+is available in [serializations/](./serializations/) folder.
+
+### RDF Triples ([Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))
+
+This data is also available at [serializations/static-memory.ttl](./serializations/static-memory.ttl).
 
 <details><summary>Turtle Triples</summary>
 

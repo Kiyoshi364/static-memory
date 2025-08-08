@@ -58,6 +58,39 @@ projects -->
 projects_triples -->
   triples_database(project_body, project_type, project_predicates).
 
+%%%%%%%%%%%%%%%%%%%% Markdown %%%%%%%%%%%%%%%%%%%%
+
+markdown(FileTtl) -->
+  md_preamble,
+  publications,
+  projects,
+  md_about,
+  md_serialization(FileTtl),
+[].
+
+md_preamble -->
+  { mygithub(GITHUB) },
+  "# Static Memory\n\n",
+  "This markdown is avaliable at [", seq(GITHUB), "/static-memory](", seq(GITHUB), "/static-memory).\n",
+[].
+
+md_about -->
+  "\n## About\n\n",
+  "This markdown format was inspired by [github.com/codereport/Content](https://github.com/codereport/Content)\n",
+[].
+
+md_serialization_preamble(Dir) -->
+  "\n## Available Serializations\n\n",
+  "Machine-readable data\n",
+  "about what is in this `readme.md`\n",
+  "is available in [", seq(Dir), "](./", seq(Dir), ") folder.\n",
+[].
+
+md_serialization(FileTtl) -->
+  { Dir = "serializations/" },
+  md_serialization_preamble(Dir),
+  triples_md(Dir, FileTtl).
+
 %%%%%%%%%%%%%%%%%%%% RDF %%%%%%%%%%%%%%%%%%%%
 
 triples_database(Body_1, Type_1, Predicates_3) -->
@@ -68,16 +101,14 @@ triples_database(Body_1, Type_1, Predicates_3) -->
   },
   foldl(triples_predicates(T, Ps, Me, SubN, SubEx), Bs).
 
-triples_preamble(FileTtl) -->
-  "\n## Triples\n\n",
-  "Machine-readable data (in [Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))\n",
-  "about what is in this `readme.md`.\n",
-  "This data is also available at [", atom(FileTtl), "](./", atom(FileTtl), ").\n",
+triples_preamble(Dir, FileTtl) -->
+  "\n### RDF Triples ([Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))\n\n",
+  "This data is also available at [", seq(Dir), atom(FileTtl), "](./", seq(Dir), atom(FileTtl), ").\n",
   "\n",
 [].
 
-triples_md(FileTtl) -->
-  triples_preamble(FileTtl),
+triples_md(Dir, FileTtl) -->
+  triples_preamble(Dir, FileTtl),
   "<details><summary>Turtle Triples</summary>\n",
   "\n",
   "```ttl\n",
@@ -101,7 +132,7 @@ triples -->
 
 atom(A) --> { atom_chars(A, As) }, seq(As).
 
-%%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% HELPERS %%%%%%%%%%%%%%%%%%%%
 
 serialize_database(Header_1, Body_1, Type_1) -->
   { call(Header_1, H) },
@@ -148,6 +179,8 @@ check_databases :-
   check_projects,
 true.
 
+%%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
+
 main :- main_md_ttl('readme.md', 'static-memory.ttl').
 main_md :- check_databases, current_output(S), run_md(S, 'ttl.ttl').
 main_ttl :- check_databases, current_output(S), run_ttl(S).
@@ -165,26 +198,8 @@ main_md_ttl(FileMd, FileTtl) :-
     close(TTL)
   ).
 
-md_preamble -->
-  { mygithub(GITHUB) },
-  "# Static Memory\n\n",
-  "This markdown is avaliable at [", seq(GITHUB), "/static-memory](", seq(GITHUB), "/static-memory).\n",
-[].
-
-md_about -->
-  "\n## About\n\n",
-  "This markdown format was inspired by [github.com/codereport/Content](https://github.com/codereport/Content)\n",
-[].
-
 run_md(S, FileTtl) :-
-  Body = (
-    md_preamble,
-    publications,
-    projects,
-    md_about,
-    triples_md(FileTtl)
-  ),
-  phrase_to_stream(Body, S).
+  phrase_to_stream(markdown(FileTtl), S).
 
 run_ttl(S) :-
   phrase_to_stream(triples, S).
