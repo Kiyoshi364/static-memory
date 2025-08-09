@@ -1,5 +1,5 @@
 :- use_module(library(dcgs), [phrase/3, seq//1]).
-:- use_module(library(lists), [length/2, foldl/4]).
+:- use_module(library(lists), [append/3, foldl/4, length/2]).
 :- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
@@ -60,12 +60,12 @@ projects_triples -->
 
 %%%%%%%%%%%%%%%%%%%% Markdown %%%%%%%%%%%%%%%%%%%%
 
-markdown(FileTtl) -->
+markdown(Dir, FileTtl) -->
   md_preamble,
   publications,
   projects,
   md_about,
-  md_serialization(FileTtl),
+  md_serialization(Dir, FileTtl),
 [].
 
 md_preamble -->
@@ -86,8 +86,7 @@ md_serialization_preamble(Dir) -->
   "is available in [", seq(Dir), "](./", seq(Dir), ") folder.\n",
 [].
 
-md_serialization(FileTtl) -->
-  { Dir = "serializations/" },
+md_serialization(Dir, FileTtl) -->
   md_serialization_preamble(Dir),
   triples_md(Dir, FileTtl).
 
@@ -103,7 +102,7 @@ triples_database(Body_1, Type_1, Predicates_3) -->
 
 triples_preamble(Dir, FileTtl) -->
   "\n### RDF Triples ([Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))\n\n",
-  "This data is also available at [", seq(Dir), atom(FileTtl), "](./", seq(Dir), atom(FileTtl), ").\n",
+  "This data is also available at [", seq(Dir), seq(FileTtl), "](./", seq(Dir), seq(FileTtl), ").\n",
   "\n",
   "> [!WARNING]\n",
   "> I don't own a server,\n",
@@ -201,25 +200,26 @@ true.
 
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
-main :- main_md_ttl('readme.md', 'static-memory.ttl').
-main_md :- check_databases, current_output(S), run_md(S, 'ttl.ttl').
+main :- main_md_ttl('readme.md', "serializations/", "static-memory.ttl").
+main_md :- check_databases, current_output(S), run_md(S, "./",  "ttl.ttl").
 main_ttl :- check_databases, current_output(S), run_ttl(S).
 
-main_md_ttl(FileMd, FileTtl) :-
+main_md_ttl(FileMd, Dir, FileTtl) :-
   check_databases,
   setup_call_cleanup(
     open(FileMd, write, MD, []),
-    run_md(MD, FileTtl),
+    run_md(MD, Dir, FileTtl),
     close(MD)
   ),
+  append(Dir, FileTtl, OpenPathTtl),
   setup_call_cleanup(
-    open(FileTtl, write, TTL, []),
+    open(OpenPathTtl, write, TTL, []),
     run_ttl(TTL),
     close(TTL)
   ).
 
-run_md(S, FileTtl) :-
-  phrase_to_stream(markdown(FileTtl), S).
+run_md(S, Dir, FileTtl) :-
+  phrase_to_stream(markdown(Dir, FileTtl), S).
 
 run_ttl(S) :-
   phrase_to_stream(triples, S).
