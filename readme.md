@@ -41,22 +41,25 @@ This data is also available at [serializations/static-memory.ttl](./serializatio
 > [!WARNING]
 > I don't own a server,
 > so it is hard to do [Cool URIs](https://w3.org/TR/2008/NOTE-cooluris-20081203).
+> The only URIs I consider what are safe to dereference
+> are the one surrounded by `<>`.
+> In another words,
+> DO NOT dereference URIs from the `:` prefix.
 
-> [!WARNING]
-> Everything with the `:` prefix is custom made.
-> So, there is no formal specification/ontology for them.
-
-> [!WARNING]
-> The identifiers of the resources I made are experimental.
-> Because of that,
-> consider using a structural approach
-> instead of relying on the resources identifiers.
-> For example,
-> find a publication via
-> its name (`rdfs:label`)
-> or its homepage (`foaf:homepage`).
-> ([Cool URIs - Section 6.2. Reference by Description](https://w3.org/TR/2008/NOTE-cooluris-20081203#blanknodes)
-> has some info on what I mean by this structural approach)
+Everything with the `:` prefix is custom made.
+So, there is no formal specification/ontology for them.
+The `:`-prefixed predicates are pretty much stable,
+they are based on the tables from this readme.
+However, the `:`-prefixed things/objects are experimental.
+Because of that,
+consider using a structural approach
+instead of relying on the resources identifiers.
+For example,
+find a publication via
+its name (`rdfs:label`)
+or its homepage (`foaf:homepage`).
+([Cool URIs - Section 6.2. Reference by Description](https://w3.org/TR/2008/NOTE-cooluris-20081203#blanknodes)
+has some info on what I mean by this structural approach)
 
 <details><summary>Turtle RDF Triples</summary>
 
