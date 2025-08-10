@@ -60,12 +60,12 @@ projects_triples -->
 
 %%%%%%%%%%%%%%%%%%%% Markdown %%%%%%%%%%%%%%%%%%%%
 
-markdown(Dir, FileTtl) -->
+markdown(SerDir, FileTtl) -->
   md_preamble,
   publications,
   projects,
   md_about,
-  md_serialization(Dir, FileTtl),
+  md_serialization(SerDir, FileTtl),
 [].
 
 md_preamble -->
@@ -79,16 +79,16 @@ md_about -->
   "This markdown format was inspired by [github.com/codereport/Content](https://github.com/codereport/Content)\n",
 [].
 
-md_serialization_preamble(Dir) -->
+md_serialization_preamble(SerDir) -->
   "\n## Available Serializations\n\n",
   "Machine-readable data\n",
   "about what is in this `readme.md`\n",
-  "is available in [", seq(Dir), "](./", seq(Dir), ") folder.\n",
+  "is available in [", seq(SerDir), "](./", seq(SerDir), ") folder.\n",
 [].
 
-md_serialization(Dir, FileTtl) -->
-  md_serialization_preamble(Dir),
-  triples_md(Dir, FileTtl).
+md_serialization(SerDir, FileTtl) -->
+  md_serialization_preamble(SerDir),
+  triples_md(SerDir, FileTtl).
 
 %%%%%%%%%%%%%%%%%%%% RDF %%%%%%%%%%%%%%%%%%%%
 
@@ -100,9 +100,9 @@ triples_database(Body_1, Type_1, Predicates_3) -->
   },
   foldl(triples_predicates(T, Ps, Me, SubN, SubEx), Bs).
 
-triples_preamble(Dir, FileTtl) -->
+triples_preamble(SerDir, FileTtl) -->
   "\n### RDF Triples ([Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))\n\n",
-  "This data is also available at [", seq(Dir), seq(FileTtl), "](./", seq(Dir), seq(FileTtl), ").\n",
+  "This data is also available at [", seq(SerDir), seq(FileTtl), "](./", seq(SerDir), seq(FileTtl), ").\n",
   "\n",
   "> [!WARNING]\n",
   "> I don't own a server,\n",
@@ -129,8 +129,8 @@ triples_preamble(Dir, FileTtl) -->
   "\n",
 [].
 
-triples_md(Dir, FileTtl) -->
-  triples_preamble(Dir, FileTtl),
+triples_md(SerDir, FileTtl) -->
+  triples_preamble(SerDir, FileTtl),
   "<details><summary>Turtle RDF Triples</summary>\n",
   "\n",
   "```ttl\n",
@@ -207,22 +207,22 @@ main :- main_md_ttl('readme.md', "serializations/", "static-memory.ttl").
 main_md :- check_databases, current_output(S), run_md(S, "./",  "ttl.ttl").
 main_ttl :- check_databases, current_output(S), run_ttl(S).
 
-main_md_ttl(FileMd, Dir, FileTtl) :-
+main_md_ttl(FileMd, SerDir, FileTtl) :-
   check_databases,
   setup_call_cleanup(
     open(FileMd, write, MD, []),
-    run_md(MD, Dir, FileTtl),
+    run_md(MD, SerDir, FileTtl),
     close(MD)
   ),
-  append(Dir, FileTtl, OpenPathTtl),
+  append(SerDir, FileTtl, OpenPathTtl),
   setup_call_cleanup(
     open(OpenPathTtl, write, TTL, []),
     run_ttl(TTL),
     close(TTL)
   ).
 
-run_md(S, Dir, FileTtl) :-
-  phrase_to_stream(markdown(Dir, FileTtl), S).
+run_md(S, SerDir, FileTtl) :-
+  phrase_to_stream(markdown(SerDir, FileTtl), S).
 
 run_ttl(S) :-
   phrase_to_stream(triples, S).
