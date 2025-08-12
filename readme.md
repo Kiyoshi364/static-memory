@@ -29,7 +29,7 @@ you probably should use the link in this column to refer/cite/share.
 ### About me
 
 I am Daniel K Hashimoto (my first name is Daniel Kiyoshi),
-a master student at [UFRJ](https://dcc.ufrj.br/).
+a master student at [PPGI (UFRJ)](https://ppgi.ufrj.br/).
 My github account is [Kiyoshi364](https://github.com/Kiyoshi364),
 my gitlab is [Hashi364](https://gitlab.com/Hashi364).
 
@@ -145,7 +145,7 @@ has some info on what I mean by this structural approach)
     "Hashi364"^^xsd:string ,
     "Kiyoshi364"^^xsd:string ;
   foaf:publications <https://github.com/Kiyoshi364/static-memory> ;
-  foaf:schoolHomepage <https://dcc.ufrj.br/> ;
+  foaf:schoolHomepage <https://ppgi.ufrj.br/> ;
   rdf:type foaf:Person ;
   rdfs:label "Daniel K Hashimoto"@pt-BR .
 

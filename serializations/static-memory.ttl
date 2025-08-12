@@ -22,7 +22,7 @@
     "Hashi364"^^xsd:string ,
     "Kiyoshi364"^^xsd:string ;
   foaf:publications <https://github.com/Kiyoshi364/static-memory> ;
-  foaf:schoolHomepage <https://dcc.ufrj.br/> ;
+  foaf:schoolHomepage <https://ppgi.ufrj.br/> ;
   rdf:type foaf:Person ;
   rdfs:label "Daniel K Hashimoto"@pt-BR .
 

@@ -78,7 +78,7 @@ md_about(SerDir) -->
   "\n## About ...\n",
   "\n### About me\n\n",
   "I am Daniel K Hashimoto (my first name is Daniel Kiyoshi),\n",
-  "a master student at [UFRJ](https://dcc.ufrj.br/).\n",
+  "a master student at [PPGI (UFRJ)](https://ppgi.ufrj.br/).\n",
   "My github account is [Kiyoshi364](https://github.com/Kiyoshi364),\n",
   "my gitlab is [Hashi364](https://gitlab.com/Hashi364).\n",
   "\n",

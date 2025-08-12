@@ -18,7 +18,7 @@ rdf_prefixes("http://github.com/Kiyoshi364/static-memory#", [
 me_triples -->
   { rdf_me(Me),
     Homepage = iri("https://github.com/Kiyoshi364/static-memory"),
-    SchoolHomepage = iri("https://dcc.ufrj.br/")
+    SchoolHomepage = iri("https://ppgi.ufrj.br/")
   },
   [ t(Me, rdf:type, foaf:'Person'),
     t(Me, rdfs:label, literal(rdf:lang_string, @("Daniel K Hashimoto", "pt-BR"))),
