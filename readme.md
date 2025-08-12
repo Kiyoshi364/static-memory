@@ -24,9 +24,66 @@ you probably should use the link in this column to refer/cite/share.
 |Cutils|many executables|Some self-contained small utilities written in C|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/Kiyoshi364/cutils](https://github.com/Kiyoshi364/cutils)|-|2024-06|
 |crlf|executable|Converts files from linux to windows text file format or the other way around|[Zig](https://ziglang.org/)|[github.com/Kiyoshi364/crlf](https://github.com/Kiyoshi364/crlf)|-|2022-08|
 
-## About
+## About ...
 
-This markdown format was inspired by [github.com/codereport/Content](https://github.com/codereport/Content)
+### About me
+
+I am Daniel K Hashimoto (my first name is Daniel Kiyoshi),
+a master student at [UFRJ](https://dcc.ufrj.br/).
+My github account is [Kiyoshi364](https://github.com/Kiyoshi364),
+my gitlab is [Hashi364](https://gitlab.com/Hashi364).
+
+If you run `$ sha1sum "mailto:$EMAIL"` (where `$EMAIL` is my email),
+you should get `a638c7eafa7ba4bbe8b9cab7281113798d09da13`.
+
+### About this markdown
+
+I called this markdown "static-memory"
+because [static memory](https://en.wikipedia.org/wiki/Static_variable)
+refers to a memory segment
+which holds global constants and variables
+allocated at the start of the program
+(in opposition to the ones allocated on the heap or the stack).
+And so does this markdown.
+
+This markdown format was inspired by [github.com/codereport/Content](https://github.com/codereport/Content).
+It was generated via a Prolog script (see next subsubsection).
+
+### About the generator
+
+From machine-readable *data files*,
+a Prolog script generates the tables in this readme
+and some other data files in different formats in `serializations/`.
+
+That's neat, right?
+If you think so too,
+feel free to take a look and inspire yourselffrom the generator's code.
+However, I won't give you any licences for it.
+Instead I encourage you to build your own generator
+specially tailored for your own needs.
+
+If you choose to make your own generator,
+I suggest starting small and adding more as you go.
+I also suggest spliting the code in some parts:
+  * database: a human-writable and machine-readable file
+    to hold your data.
+    I use the script language for that,
+    but you can also use any data format
+    (JSON, TOML, YAML, ZIGGY, ...).
+  * serializer: a code that transforms your data
+    into your desired format,
+    such as a markdown table, a PDF, other data formats, ...
+  * (optional) checking: a code to verify that
+    you have not done any silly mistakes
+    while hand-editing the database file(s).
+    You do not have to do this,
+    but I am a bit paranoid,
+    so I do it anyways.
+  * script: a glue code to
+    read the database(, check it) and serialize it.
+
+Consider taking a look at the commit
+`398266b20b5e119216b4116ee78b78e1757c53bb`.
 
 ## Available Serializations
 
