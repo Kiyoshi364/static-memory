@@ -57,8 +57,8 @@ triple(Sub, Pred, Obj) --> [t(Sub, Pred, Obj)].
 
 type_val_resource(text, literal(L), literal(xsd:string, L)) :- !.
 type_val_resource(date, year_month(Y, M), literal(xsd:gYearMonth, S)) :- !, format_year_month(Y, M, S).
-type_val_resource(link, Val, link(literal(xsd:string, Text), Ref)) :- !, link_normalized(Val, Text, Link), linktarget_object(Link, Ref).
-type_val_resource(proglang, proglang(PL), link(literal(xsd:string, Text), Ref)) :- !, proglang_normalized(PL, Text, Link), linktarget_object(Link, Ref).
+type_val_resource(link, Val, link(literal(xsd:string, Text), Ref)) :- !, link_normalized(Val, Text, Link), linktarget_resource(Link, Ref).
+type_val_resource(proglang, proglang(PL), link(literal(xsd:string, Text), Ref)) :- !, proglang_normalized(PL, Text, Link), linktarget_resource(Link, Ref).
 type_val_resource(list(T, _, _, _), L, Res) :- !, maplist(type_val_resource(T), L, Res).
 type_val_resource(or(Ts), O, Res) :- !, or_resource(Ts, O, Res).
 type_val_resource(T, Val, Res) :-
@@ -68,9 +68,9 @@ format_year_month(Y, M, S) :-
   Body = ( serialize_number(Y), "-", serialize_month(M) ),
   phrase(Body, S, []).
 
-linktarget_object(publications(L), :(A)) :- !, append("publications/", L, Iri), atom_chars(A, Iri).
-linktarget_object(external(L), iri(L)) :- !.
-linktarget_object(Link, _) :- !,
+linktarget_resource(publications(L), :(A)) :- !, append("publications/", L, Iri), atom_chars(A, Iri).
+linktarget_resource(external(L), iri(L)) :- !.
+linktarget_resource(Link, _) :- !,
   throw(unknown_linktarget_while_converting_to_resource(Link)).
 
 or_resource(Ts, O, or(T, Res)) :-
