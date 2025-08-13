@@ -25,7 +25,7 @@ triples_predicates_([], [], _, _, _, Arity, Arity, _) --> [].
 triples_predicates_([T | Ts], [P | Ps], SubN, SubEx, Sub, N, Arity, Func) -->
   { N < Arity,
     N1 is N+1, arg(N1, Func, Val),
-    type_val_object(T, Val, Obj),
+    type_val_resource(T, Val, Obj),
     ( SubN == N1 -> extract_subject(SubEx, Obj, Sub) ; true )
   },
   triple_predicate(P, Sub, Obj),
@@ -55,14 +55,14 @@ triple_predicate_or(O, Ps, Sub) -->
 
 triple(Sub, Pred, Obj) --> [t(Sub, Pred, Obj)].
 
-type_val_object(text, literal(L), literal(xsd:string, L)) :- !.
-type_val_object(date, year_month(Y, M), literal(xsd:gYearMonth, S)) :- !, format_year_month(Y, M, S).
-type_val_object(link, Val, link(literal(xsd:string, Text), Ref)) :- !, link_normalized(Val, Text, Link), linktarget_object(Link, Ref).
-type_val_object(proglang, proglang(PL), link(literal(xsd:string, Text), Ref)) :- !, proglang_normalized(PL, Text, Link), linktarget_object(Link, Ref).
-type_val_object(list(T, _, _, _), L, Obj) :- !, maplist(type_val_object(T), L, Obj).
-type_val_object(or(Ts), O, Obj) :- !, or_resource(Ts, O, Obj).
-type_val_object(T, Val, Obj) :-
-  throw(unknown_type_val_while_converting_to_object(T, Val, Obj)).
+type_val_resource(text, literal(L), literal(xsd:string, L)) :- !.
+type_val_resource(date, year_month(Y, M), literal(xsd:gYearMonth, S)) :- !, format_year_month(Y, M, S).
+type_val_resource(link, Val, link(literal(xsd:string, Text), Ref)) :- !, link_normalized(Val, Text, Link), linktarget_object(Link, Ref).
+type_val_resource(proglang, proglang(PL), link(literal(xsd:string, Text), Ref)) :- !, proglang_normalized(PL, Text, Link), linktarget_object(Link, Ref).
+type_val_resource(list(T, _, _, _), L, Res) :- !, maplist(type_val_resource(T), L, Res).
+type_val_resource(or(Ts), O, Res) :- !, or_resource(Ts, O, Res).
+type_val_resource(T, Val, Res) :-
+  throw(unknown_type_val_while_converting_to_resource(T, Val, Res)).
 
 format_year_month(Y, M, S) :-
   Body = ( serialize_number(Y), "-", serialize_month(M) ),
@@ -73,8 +73,8 @@ linktarget_object(external(L), iri(L)) :- !.
 linktarget_object(Link, _) :- !,
   throw(unknown_linktarget_while_converting_to_resource(Link)).
 
-or_resource(Ts, O, or(T, Obj)) :-
-  ( O = or(T, Val), member(T, Ts) -> type_val_object(T, Val, Obj)
+or_resource(Ts, O, or(T, Res)) :-
+  ( O = or(T, Val), member(T, Ts) -> type_val_resource(T, Val, Res)
   ; throw(unknown_or_tag_while_converting_to_resource(Ts, Val))
   ).
 
