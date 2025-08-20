@@ -1,5 +1,5 @@
 :- module(type, [
-  type/3,
+  type/2, check_field/3,
   string/1
 ]).
 
@@ -7,13 +7,21 @@
 
 :- use_module(proglangs, [proglang/1]).
 
-type(text, F, Arg) :- !, arg(Arg, F, Val), type_(text, Val, F-Arg).
-type(date, F, Arg) :- !, arg(Arg, F, Val), type_(date, Val, F-Arg).
-type(link, F, Arg) :- !, arg(Arg, F, Val), type_(link, Val, F-Arg).
-type(proglang, F, Arg) :- !, arg(Arg, F, Val), type_(proglang, Val, F-Arg).
-type(list(T, J, E, N), F, Arg) :- !, arg(Arg, F, Val), type_list(T, J, E, N, Val, F-Arg).
-type(or(Ts), F, Arg) :- !, arg(Arg, F, Val), type_or(Ts, Val, F-Arg).
-type(T, F, Arg) :- arg(Arg, F, Val), throw(unknown_type_while_checking(T, Val)).
+check_field(field(N, T), F, Arg) :- type(T, field(N)), arg(Arg, F, Val), type_(T, Val, F-Arg).
+
+type(text, _) :- !.
+type(date, _) :- !.
+type(link, _) :- !.
+type(proglang, _) :- !.
+type(list(T, _, _, _), Ctx) :- !, type(T, list(Ctx)).
+type(or(Ts), Ctx) :- !, typeor(Ts, 0, Ctx).
+type(T, Ctx) :- throw(unknown_type_while_checking(T, Ctx)).
+
+typeor([], _, _).
+typeor([T | Ts], N, Ctx) :-
+  type(T, or(N, Ctx)),
+  N1 is N + 1,
+  typeor(Ts, N1, Ctx).
 
 type_(_, to_be_filled, _) :- !.
 type_(text, Val, Ctx) :-
@@ -52,6 +60,8 @@ type_(proglang, Val, Ctx) :-
   ( Val = proglang(PL) -> check_(atom, PL, Ctx), check_(proglang, PL, Ctx)
   ; check_error(proglang, Val, Ctx)
   ).
+type_(list(T, J, E, N), Val, Ctx) :- type_list(T, J, E, N, Val, Ctx).
+type_(or(Ts), Val, Ctx) :- type_or(Ts, Val, Ctx).
 
 type_list(Type, Join, End, None, List, Ctx) :-
   ( List = [H | _] -> check_type(Type, H, List, Ctx) ; true ),

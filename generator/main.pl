@@ -7,7 +7,7 @@
   rdf_me/1, rdf_prefixes/2, me_triples//0,
   mygithub/1
 ]).
-:- use_module(type, [type/3]).
+:- use_module(type, [check_field/3]).
 
 :- use_module(serialize/md, [serialize_header//1, serialize_body//2]).
 
@@ -17,11 +17,15 @@
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
 
 :- use_module(database/publications, [
-  publication_header/1, publication_body/1, publication_type/1, publication_predicates/3
+  publication_header/1, publication_body/1, publication_type/1,
+  publication_predicates/3
 ]).
 
 check_publications :-
-  check_database(publication, publication_header, publication_body, publication_type, publication_predicates).
+  check_database(
+    publication, publication_header, publication_body, publication_type,
+    publication_predicates
+  ).
 
 publications_preamble -->
   "\n## Publications\n\n",
@@ -41,11 +45,15 @@ publications_triples -->
 %%%%%%%%%%%%%%%%%%%% Projects %%%%%%%%%%%%%%%%%%%%
 
 :- use_module(database/projects, [
-  project_header/1, project_body/1, project_type/1, project_predicates/3
+  project_header/1, project_body/1, project_type/1,
+  project_predicates/3
 ]).
 
 check_projects :-
-  check_database(project, project_header, project_body, project_type, project_predicates).
+  check_database(
+    project, project_header, project_body, project_type,
+    project_predicates
+  ).
 
 projects_preamble -->
   "\n## Programming Projects\n\n",
@@ -246,7 +254,7 @@ check_body_([], _, N, Arity) :- N is Arity + 1.
 check_body_([T | Ts], B, N, Arity) :-
   N =< Arity,
   N1 is N + 1,
-  type(T, B, N),
+  check_field(T, B, N),
   check_body_(Ts, B, N1, Arity).
 
 check_databases :-

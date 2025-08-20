@@ -9,12 +9,12 @@ publication_body(publication(Type, Date, Title, Where, MainRepository, Slides)) 
   publication(Type, Date, Title, Where, MainRepository, Slides).
 
 publication_type([
-  text,
-  date,
-  link,
-  link,
-  link,
-  link
+  field(type, text),
+  field(date, date),
+  field(title, link),
+  field(where, link),
+  field(main_repository, link),
+  field(slides, link)
 ]).
 
 publication_predicates(3, text([

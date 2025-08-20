@@ -9,13 +9,13 @@ project_body(project(Name, Kind, Summary, Language, MainRepository, Mirrors, Las
   project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated).
 
 project_type([
-  or([text, link]),
-  text,
-  text,
-  proglang,
-  link,
-  list(link, ", ", "", "-"),
-  date
+  field(name, or([text, link])),
+  field(kind, text),
+  field(summary, text),
+  field(language, proglang),
+  field(main_repository, link),
+  field(mirrors, list(link, ", ", "", "-")),
+  field(last_updated, date)
 ]).
 
 project_predicates(1, or([

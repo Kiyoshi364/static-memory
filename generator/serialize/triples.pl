@@ -16,20 +16,21 @@
   serialize_number//1, serialize_month//1
 ]).
 
-triples_predicates(Ts, Ps, Me, SubN, SubEx, Func) -->
+triples_predicates(Fs, Ps, Me, SubN, SubEx, Func) -->
   { functor(Func, _, Arity) },
   triple(Me, foaf:made, Sub),
-  triples_predicates_(Ts, Ps, SubN, SubEx, Sub, 0, Arity, Func).
+  triples_predicates_(Fs, Ps, SubN, SubEx, Sub, 0, Arity, Func).
 
 triples_predicates_([], [], _, _, _, Arity, Arity, _) --> [].
-triples_predicates_([T | Ts], [P | Ps], SubN, SubEx, Sub, N, Arity, Func) -->
+triples_predicates_([field(_, T) | Fs], [P | Ps], SubN, SubEx, Sub, N, Arity, Func) -->
+  % TODO: use Name
   { N < Arity,
     N1 is N+1, arg(N1, Func, Val),
     type_val_resource(T, Val, Obj),
     ( SubN == N1 -> extract_subject(SubEx, Obj, Sub) ; true )
   },
   triple_predicate(P, Sub, Obj),
-  triples_predicates_(Ts, Ps, SubN, SubEx, Sub, N1, Arity, Func).
+  triples_predicates_(Fs, Ps, SubN, SubEx, Sub, N1, Arity, Func).
 
 triple_predicate([], _, _) --> !.
 triple_predicate([P | Ps], Sub, Obj) --> !, triple_predicate(P, Sub, Obj), triple_predicate(Ps, Sub, Obj).
@@ -110,7 +111,7 @@ extract_subject_text(pospend(A), [Ex | Exs], Str0, Sub) :-
 check_triplification(Ts, SubN, SubEx, Ps) :- check_triplification_(Ts, Ps, 1, SubN, SubEx).
 
 check_triplification_([], [], _, _, _).
-check_triplification_([T | Ts], [P | Ps], N, SubN, SubEx) :-
+check_triplification_([field(_, T) | Ts], [P | Ps], N, SubN, SubEx) :-
   N1 is N + 1,
   ( N == SubN -> check_extract(T, SubEx, SubN)
   ; true
