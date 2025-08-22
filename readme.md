@@ -105,7 +105,8 @@ This data is also available at [serializations/static-memory.ttl](./serializatio
 
 Everything with the `:` prefix is custom made.
 So, there is no formal specification/ontology for them.
-The `:`-prefixed predicates are pretty much stable,
+The `:`-prefixed predicates are pretty much stable
+(but don't trust me),
 they are based on the tables from this readme.
 However, the `:`-prefixed things/objects are experimental.
 Because of that,
