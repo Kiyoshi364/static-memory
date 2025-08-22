@@ -193,12 +193,11 @@ triples_preamble(SerDir, FileTtl) -->
 
 triples_md(SerDir, FileTtl) -->
   triples_preamble(SerDir, FileTtl),
-  "<details><summary>Turtle RDF Triples</summary>\n",
-  "\n",
+  open_details("Turtle RDF Triples"),
   "```ttl\n",
   triples,
   "```\n",
-  "</details>\n",
+  close_details,
 [].
 
 triples -->
@@ -215,6 +214,9 @@ triples -->
   serialize_triples(Ts).
 
 atom(A) --> { atom_chars(A, As) }, seq(As).
+
+open_details(Summary) --> "<details><summary>", seq(Summary), "</summary>\n\n".
+close_details --> "</details>\n".
 
 %%%%%%%%%%%%%%%%%%%% HELPERS %%%%%%%%%%%%%%%%%%%%
 
