@@ -11,7 +11,7 @@ publication_body(publication(Type, Date, Title, Where, MainRepository, Slides)) 
 publication_type([
   field(type, text),
   field(date, date),
-  field(title, link),
+  field(publication, link),
   field(where, link),
   field(main_repository, link),
   field(slides, link)
@@ -20,12 +20,12 @@ publication_type([
 publication_predicates(3, text([
   lowercase, pospend(".pdf"), prepend("publications/"), local
 ]), [
-  :(type),
-  :(date),
-  [link(text, [rdfs:label, foaf:name]), link(ref, :(doc))],
-  [link(text, :(where_name)), link(ref, :(where_link))],
+  [],
+  [],
+  [link(text, [rdfs:label, foaf:name])],
+  [],
   link(ref, [foaf:homepage, foaf:page]),
-  [link(text, :(slides_name)), link(ref, :(slides_link))]
+  []
 ]).
 
 publication(

@@ -22,14 +22,14 @@ triples_predicates(Fs, Ps, Me, SubN, SubEx, Func) -->
   triples_predicates_(Fs, Ps, SubN, SubEx, Sub, 0, Arity, Func).
 
 triples_predicates_([], [], _, _, _, Arity, Arity, _) --> [].
-triples_predicates_([field(_, T) | Fs], [P | Ps], SubN, SubEx, Sub, N, Arity, Func) -->
-  % TODO: use Name
+triples_predicates_([field(Name, T) | Fs], [P | Ps], SubN, SubEx, Sub, N, Arity, Func) -->
   { N < Arity,
     N1 is N+1, arg(N1, Func, Val),
     type_val_resource(T, Val, Obj),
-    ( SubN == N1 -> extract_subject(SubEx, Obj, Sub) ; true )
+    ( SubN == N1 -> extract_subject(SubEx, Obj, Sub) ; true ),
+    type_fieldname_predicates(T, Name, P, P1)
   },
-  triple_predicate(P, Sub, Obj),
+  triple_predicate(P1, Sub, Obj),
   triples_predicates_(Fs, Ps, SubN, SubEx, Sub, N1, Arity, Func).
 
 triple_predicate([], _, _) --> !.
@@ -55,6 +55,20 @@ triple_predicate_or(O, Ps, Sub) -->
   ).
 
 triple(Sub, Pred, Obj) --> [t(Sub, Pred, Obj)].
+
+type_fieldname_predicates(text, N, Ps0, [:(N) | Ps0]) :- !.
+type_fieldname_predicates(date, N, Ps0, [:(N) | Ps0]) :- !.
+type_fieldname_predicates(link, N, Ps0, [link(text, :(NT)), link(ref, :(NR)) | Ps0]) :- !, atom_concat(N, '_name', NT), atom_concat(N, '_link', NR).
+type_fieldname_predicates(proglang, N, Ps0, [link(text, :(NT)), link(ref, :(NR)) | Ps0]) :- !, atom_concat(N, '_name', NT), atom_concat(N, '_link', NR).
+type_fieldname_predicates(list(T, _, _, _), N, Ps0, [list_each(P) | Ps0]) :- !, type_fieldname_predicates(T, N, [], P).
+type_fieldname_predicates(or(Ts), N, Ps0, [or(P) | Ps0]) :- !, type_fieldname_predicates_or(Ts, N, P).
+type_fieldname_predicates(T, N, Ps0, _) :-
+  throw(unknown_type_fieldname_while_adding_default_predicate(T, N, Ps0)).
+
+type_fieldname_predicates_or([], _, []).
+type_fieldname_predicates_or([T | Ts], N, [T-P | Ps]) :-
+  type_fieldname_predicates(T, N, [], P),
+  type_fieldname_predicates_or(Ts, N, Ps).
 
 type_val_resource(text, literal(L), literal(xsd:string, L)) :- !.
 type_val_resource(date, year_month(Y, M), literal(xsd:gYearMonth, S)) :- !, format_year_month(Y, M, S).

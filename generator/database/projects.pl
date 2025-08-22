@@ -12,7 +12,7 @@ project_type([
   field(name, or([text, link])),
   field(kind, text),
   field(summary, text),
-  field(language, proglang),
+  field(programming_language, proglang),
   field(main_repository, link),
   field(mirrors, list(link, ", ", "", "-")),
   field(last_updated, date)
@@ -23,12 +23,12 @@ project_predicates(1, or([
   link-text([lowercase, prepend("projects/"), local])
 ]), [
   or([text-[rdfs:label, foaf:name], link-link(text, [rdfs:label, foaf:name])]),
-  :(kind),
-  :(summary),
-  [link(text, :(programming_language_name)), link(ref, :(programming_language_link))],
+  [],
+  [],
+  [],
   link(ref, [foaf:homePage, foaf:page]),
   list_each(link(ref, foaf:page)),
-  :(last_updated)
+  []
 ]).
 
 project(
