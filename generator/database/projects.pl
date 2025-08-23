@@ -1,14 +1,15 @@
 :- module(projects, [
-  project_header/1, project_body/1,
-  project_type/1,
+  project_type_data/2,
+  project_header/1,
   project_predicates/3
 ]).
 
-project_header(["Name", "Kind", "Summary", "Language", "Main Repository", "Mirrors", "Last Updated"]).
-project_body(project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated)) :-
-  project(Name, Kind, Summary, Language, MainRepository, Mirrors, LastUpdated).
+project_type_data(Type, Data) :-
+  type(Type),
+  G = project(_Name, _Kind, _Summary, _Language, _MainRepository, _Mirrors, _LastUpdated),
+  findall(G, G, Data).
 
-project_type([
+type([
   field(name, or([text, link])),
   field(kind, text),
   field(summary, text),
@@ -17,6 +18,8 @@ project_type([
   field(mirrors, list(link, ", ", "", "-")),
   field(last_updated, date)
 ]).
+
+project_header(["Name", "Kind", "Summary", "Language", "Main Repository", "Mirrors", "Last Updated"]).
 
 project_predicates(1, or([
   text-[lowercase, prepend("projects/"), local],

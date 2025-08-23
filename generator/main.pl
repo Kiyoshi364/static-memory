@@ -1,5 +1,5 @@
 :- use_module(library(dcgs), [phrase/3, seq//1]).
-:- use_module(library(lists), [append/3, foldl/4, length/2]).
+:- use_module(library(lists), [append/3, foldl/4, length/2, maplist/2]).
 :- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
@@ -17,13 +17,16 @@
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
 
 :- use_module(database/publications, [
-  publication_header/1, publication_body/1, publication_type/1,
+  publication_type_data/2,
+  publication_header/1,
   publication_predicates/3
 ]).
 
 check_publications :-
   check_database(
-    publication, publication_header, publication_body, publication_type,
+    publication,
+    publication_type_data,
+    publication_header,
     publication_predicates
   ).
 
@@ -37,21 +40,24 @@ publications_preamble -->
 
 publications -->
   publications_preamble,
-  serialize_database(publication_header, publication_body, publication_type).
+  serialize_database(publication_type_data, publication_header).
 
 publications_triples -->
-  triples_database(publication_body, publication_type, publication_predicates).
+  triples_database(publication_type_data, publication_predicates).
 
 %%%%%%%%%%%%%%%%%%%% Projects %%%%%%%%%%%%%%%%%%%%
 
 :- use_module(database/projects, [
-  project_header/1, project_body/1, project_type/1,
+  project_type_data/2,
+  project_header/1,
   project_predicates/3
 ]).
 
 check_projects :-
   check_database(
-    project, project_header, project_body, project_type,
+    project,
+    project_type_data,
+    project_header,
     project_predicates
   ).
 
@@ -61,10 +67,10 @@ projects_preamble -->
 
 projects -->
   projects_preamble,
-  serialize_database(project_header, project_body, project_type).
+  serialize_database(project_type_data, project_header).
 
 projects_triples -->
-  triples_database(project_body, project_type, project_predicates).
+  triples_database(project_type_data, project_predicates).
 
 %%%%%%%%%%%%%%%%%%%% Markdown %%%%%%%%%%%%%%%%%%%%
 
@@ -153,11 +159,10 @@ md_serialization(SerDir, FileTtl) -->
 
 %%%%%%%%%%%%%%%%%%%% RDF %%%%%%%%%%%%%%%%%%%%
 
-triples_database(Body_1, Type_1, Predicates_3) -->
+triples_database(Type_Data_2, Predicates_3) -->
   { call(Predicates_3, SubN, SubEx, Ps),
-    call(Type_1, T),
-    rdf_me(Me),
-    findall(B, call(Body_1, B), Bs)
+    call(Type_Data_2, T, Bs),
+    rdf_me(Me)
   },
   foldl(triples_predicates(T, Ps, Me, SubN, SubEx), Bs).
 
@@ -220,12 +225,10 @@ close_details --> "</details>\n".
 
 %%%%%%%%%%%%%%%%%%%% HELPERS %%%%%%%%%%%%%%%%%%%%
 
-serialize_database(Header_1, Body_1, Type_1) -->
+serialize_database(Type_Data_2, Header_1) -->
   { call(Header_1, H) },
   serialize_header(H),
-  { call(Type_1, T),
-    findall(B, call(Body_1, B), Bs)
-  },
+  { call(Type_Data_2, T, Bs) },
   foldl(serialize_body(T), Bs),
 [].
 
@@ -233,17 +236,17 @@ cassert(Goal) :-
   ( \+ call(Goal) -> throw(expected_success(Goal))
   ; call(Goal)
   ).
+cassert(Goal, A) :-
+  ( \+ call(Goal, A) -> throw(expected_success(Goal, A))
+  ; call(Goal, A)
+  ).
 
-check_database(Name, Header_1, Body_1, Type_1, Predicates_3) :-
+check_database(Name, Type_Data_2, Header_1, Predicates_3) :-
+  call(Type_Data_2, Ts, Bs),
+  cassert(length(Ts, L)),
   call(Header_1, H),
   length(H, L),
-  call(Type_1, Ts),
-  cassert(length(Ts, L)),
-  ( call(Body_1, B),
-    cassert(check_body(Ts, Name, B)),
-    false
-  ; true
-  ),
+  maplist(cassert(check_body(Ts, Name)), Bs),
   call(Predicates_3, SubN, SubEx, Ps),
   cassert(length(Ps, L)),
   cassert(SubN < L),

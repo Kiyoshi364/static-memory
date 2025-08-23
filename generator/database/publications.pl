@@ -1,14 +1,15 @@
 :- module(publications, [
-  publication_header/1, publication_body/1,
-  publication_type/1,
+  publication_type_data/2,
+  publication_header/1,
   publication_predicates/3
 ]).
 
-publication_header(["Type", "Date (yyyy-mm)", "Title", "Where", "Main Repository", "Slides"]).
-publication_body(publication(Type, Date, Title, Where, MainRepository, Slides)) :-
-  publication(Type, Date, Title, Where, MainRepository, Slides).
+publication_type_data(Type, Data) :-
+  type(Type),
+  G = publication(_Type, _Date, _Title, _Where, _MainRepository, _Slides),
+  findall(G, G, Data).
 
-publication_type([
+type([
   field(type, text),
   field(date, date),
   field(publication, link),
@@ -16,6 +17,8 @@ publication_type([
   field(main_repository, link),
   field(slides, link)
 ]).
+
+publication_header(["Type", "Date (yyyy-mm)", "Title", "Where", "Main Repository", "Slides"]).
 
 publication_predicates(3, text([
   lowercase, pospend(".pdf"), prepend("publications/"), local
