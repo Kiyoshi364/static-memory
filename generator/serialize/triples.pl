@@ -13,24 +13,20 @@
 :- use_module(text, [lowercase/2]).
 :- use_module(serialize, [
   link_normalized/3, proglang_normalized/3,
-  serialize_number//1, serialize_month//1
+  serialize_number//1, serialize_month//1,
+  foldlfn/6
 ]).
 
 triples_predicates(Fs, Ps, Me, SubN, SubEx, Func) -->
-  { functor(Func, _, Arity) },
   triple(Me, foaf:made, Sub),
-  triples_predicates_(Fs, Ps, SubN, SubEx, Sub, 0, Arity, Func).
+  foldlfn(triples_predicates_(SubN, SubEx, Sub), Fs, Ps, Func).
 
-triples_predicates_([], [], _, _, _, Arity, Arity, _) --> [].
-triples_predicates_([field(Name, T) | Fs], [P | Ps], SubN, SubEx, Sub, N, Arity, Func) -->
-  { N < Arity,
-    N1 is N+1, arg(N1, Func, Val),
-    type_val_resource(T, Val, Obj),
+triples_predicates_(SubN, SubEx, Sub, field(Name, T), P, Val, N1) -->
+  { type_val_resource(T, Val, Obj),
     ( SubN == N1 -> extract_subject(SubEx, Obj, Sub) ; true ),
     type_fieldname_predicates(T, Name, P, P1)
   },
-  triple_predicate(P1, Sub, Obj),
-  triples_predicates_(Fs, Ps, SubN, SubEx, Sub, N1, Arity, Func).
+  triple_predicate(P1, Sub, Obj).
 
 triple_predicate([], _, _) --> !.
 triple_predicate([P | Ps], Sub, Obj) --> !, triple_predicate(P, Sub, Obj), triple_predicate(Ps, Sub, Obj).

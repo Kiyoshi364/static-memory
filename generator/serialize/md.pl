@@ -7,7 +7,8 @@
 
 :- use_module(serialize, [
   link_normalized/3, proglang_normalized/3,
-  serialize_number//1, serialize_month//1
+  serialize_number//1, serialize_month//1,
+  foldlf/5
 ]).
 
 serialize_header(H) -->
@@ -24,18 +25,12 @@ serialize_header_align(H) -->
 serialize_header_align_(_) --> "|:---:".
 
 serialize_body(Fs, Func) -->
-  { functor(Func, _, Arity) },
-  serialize_body_(Fs, 0, Arity, Func),
+  foldlf(serialize_body_, Fs, Func),
   "|\n",
 [].
 
-serialize_body_([], Arity, Arity, _) --> [].
-serialize_body_([field(_, T) | Fs], N, Arity, Func) -->
-  { N < Arity,
-    N1 is N+1, arg(N1, Func, Val)
-  },
-  "|", serialize_type_val(T, Val),
-  serialize_body_(Fs, N1, Arity, Func).
+serialize_body_(field(_, T), Val) -->
+  "|", serialize_type_val(T, Val).
 
 serialize_type_val(text, literal(L)) --> !, seq(L).
 serialize_type_val(date, year_month(Y, M)) --> !, serialize_number(Y), "-", serialize_month(M).

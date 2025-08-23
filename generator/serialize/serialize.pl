@@ -1,6 +1,8 @@
 :- module(serialize, [
   link_normalized/3, proglang_normalized/3,
-  serialize_number//1, serialize_month//1
+  serialize_number//1, serialize_month//1,
+  foldlf/5,
+  foldlfn/6
 ]).
 
 :- use_module(library(lists), [append/3]).
@@ -30,3 +32,29 @@ proglang_normalized(PL, Text, Link) :- proglang_val(PL, Val), link_normalized(Va
 
 serialize_number(N) --> { number_chars(N, Cs) }, seq(Cs).
 serialize_month(M) --> ( { M < 10 } -> "0" ; [] ), serialize_number(M).
+
+:- meta_predicate(foldlf(4, ?, ?, ?, ?)).
+
+foldlf(G_4, L, F, X0, X) :-
+  functor(F, _, Arity),
+  foldlf_(L, G_4, 0, Arity, F, X0, X).
+
+foldlf_([], _, Arity, Arity, _, X, X).
+foldlf_([A | L], G_4, N, Arity, F, X0, X) :-
+  N < Arity,
+  N1 is N + 1, arg(N1, F, Val),
+  call(G_4, A, Val, X0, X1),
+  foldlf_(L, G_4, N1, Arity, F, X1, X).
+
+:- meta_predicate(foldlfn(6, ?, ?, ?, ?, ?)).
+
+foldlfn(G_6, L0, L, F, X0, X) :-
+  functor(F, _, Arity),
+  foldlfn_(L0, L, G_6, 0, Arity, F, X0, X).
+
+foldlfn_([], [], _, Arity, Arity, _, X, X).
+foldlfn_([A0 | L0], [A | L], G_6, N, Arity, F, X0, X) :-
+  N < Arity,
+  N1 is N + 1, arg(N1, F, Val),
+  call(G_6, A0, A, Val, N1, X0, X1),
+  foldlfn_(L0, L, G_6, N1, Arity, F, X1, X).
