@@ -1,6 +1,7 @@
 :- module(serialize, [
   link_normalized/3, proglang_normalized/3,
   serialize_number//1, serialize_month//1,
+  maplistfunc/3,
   foldlf/5,
   foldlfn/6
 ]).
@@ -32,6 +33,19 @@ proglang_normalized(PL, Text, Link) :- proglang_val(PL, Val), link_normalized(Va
 
 serialize_number(N) --> { number_chars(N, Cs) }, seq(Cs).
 serialize_month(M) --> ( { M < 10 } -> "0" ; [] ), serialize_number(M).
+
+:- meta_predicate(maplistfunc(2, ?, ?)).
+
+maplistfunc(G_2, L, F) :-
+  functor(F, _, Arity),
+  maplistfunc_(L, G_2, 0, Arity, F).
+
+maplistfunc_([], _, Arity, Arity, _).
+maplistfunc_([A | L], G_2, N, Arity, F) :-
+  N < Arity,
+  N1 is N + 1, arg(N1, F, Val),
+  call(G_2, A, Val),
+  maplistfunc_(L, G_2, N1, Arity, F).
 
 :- meta_predicate(foldlf(4, ?, ?, ?, ?)).
 

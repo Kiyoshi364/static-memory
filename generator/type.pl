@@ -7,7 +7,7 @@
 
 :- use_module(proglangs, [proglang/1]).
 
-check_field(field(N, T), F, Arg) :- type(T, field(N)), arg(Arg, F, Val), type_(T, Val, F-Arg).
+check_field(field(N, T), F, Val) :- type(T, field(N)), type_(T, Val, F).
 
 type(text, _) :- !.
 type(date, _) :- !.

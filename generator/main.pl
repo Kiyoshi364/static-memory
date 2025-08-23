@@ -9,6 +9,8 @@
 ]).
 :- use_module(type, [check_field/3]).
 
+:- use_module(serialize/serialize, [maplistfunc/3]).
+
 :- use_module(serialize/md, [serialize_header//1, serialize_body//2]).
 
 :- use_module(serialize/triples, [triples_predicates//6, check_triplification/4]).
@@ -253,15 +255,10 @@ check_database(Name, Type_Data_2, Header_1, Predicates_3) :-
   cassert(check_triplification(Ts, SubN, SubEx, Ps)).
 
 check_body(Ts, Name, B) :-
-  functor(B, Name, Arity),
-  check_body_(Ts, B, 1, Arity).
+  functor(B, Name, _),
+  maplistfunc(check_body_(B), Ts, B).
 
-check_body_([], _, N, Arity) :- N is Arity + 1.
-check_body_([T | Ts], B, N, Arity) :-
-  N =< Arity,
-  N1 is N + 1,
-  check_field(T, B, N),
-  check_body_(Ts, B, N1, Arity).
+check_body_(B, T, Val) :- check_field(T, B, Val).
 
 check_databases :-
   check_publications,
