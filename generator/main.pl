@@ -170,7 +170,7 @@ triples_database(Type_Data_2, Predicates_3) -->
 
 triples_preamble(SerDir, FileTtl) -->
   "\n### RDF Triples ([Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))\n\n",
-  "This data is also available at [", seq(SerDir), seq(FileTtl), "](./", seq(SerDir), seq(FileTtl), ").\n",
+  also_available_at(SerDir, FileTtl),
   "\n",
   "> [!WARNING]\n",
   "> I don't own a server,\n",
@@ -220,12 +220,16 @@ triples -->
   "\n",
   serialize_triples(Ts).
 
+%%%%%%%%%%%%%%%%%%%% HELPERS %%%%%%%%%%%%%%%%%%%%
+
 atom(A) --> { atom_chars(A, As) }, seq(As).
 
 open_details(Summary) --> "<details><summary>", seq(Summary), "</summary>\n\n".
 close_details --> "</details>\n".
 
-%%%%%%%%%%%%%%%%%%%% HELPERS %%%%%%%%%%%%%%%%%%%%
+also_available_at(SerDir, File) -->
+  "This data is also available at [", seq(SerDir), seq(File), "](./", seq(SerDir), seq(File), ").\n",
+[].
 
 serialize_database(Type_Data_2, Header_1) -->
   { call(Header_1, H) },
