@@ -2,30 +2,31 @@
 [ serialize_header//1, serialize_body//2
 ]).
 
-:- use_module(library(lists), [member/2, foldl/4]).
+:- use_module(library(lists), [member/2]).
 :- use_module(library(dcgs), [seq//1]).
 
 :- use_module(serialize,
 [ link_normalized/3, proglang_normalized/3
 , serialize_number//1, serialize_month//1
-, foldlf/5
+, ntfoldl//2
+, ntfoldlf//3
 ]).
 
 serialize_header(H) -->
   serialize_header_names(H), serialize_header_align(H).
 
 serialize_header_names(H) -->
-  foldl(serialize_header_name_, H), "|\n".
+  ntfoldl(serialize_header_name_, H), "|\n".
 
 serialize_header_name_(Name) --> "|", seq(Name).
 
 serialize_header_align(H) -->
-  foldl(serialize_header_align_, H), "|\n".
+  ntfoldl(serialize_header_align_, H), "|\n".
 
 serialize_header_align_(_) --> "|:---:".
 
 serialize_body(Fs, Func) -->
-  foldlf(serialize_body_, Fs, Func),
+  ntfoldlf(serialize_body_, Fs, Func),
   "|\n",
 [].
 

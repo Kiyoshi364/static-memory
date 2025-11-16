@@ -4,17 +4,18 @@
 ]).
 
 :- use_module(library(lists),
-[ member/2, append/3, foldl/4, maplist/3
+[ member/2, append/3, maplist/3
 ]).
 :- use_module(library(dcgs), [phrase/3]).
 
-:- use_module('..'/type, [string/1]).
+:- use_module(.. /type, [string/1]).
 
 :- use_module(text, [lowercase/2]).
 :- use_module(serialize,
 [ link_normalized/3, proglang_normalized/3
 , serialize_number//1, serialize_month//1
 , foldlfn/6
+, ntfoldl//2
 ]).
 
 triples_predicates(Fs, Ps, Me, SubN, SubEx, Func) -->
@@ -33,7 +34,7 @@ triple_predicate([P | Ps], Sub, Obj) --> !, triple_predicate(P, Sub, Obj), tripl
 triple_predicate(:(P), Sub, Obj) --> !, triple(Sub, :(P), Obj).
 triple_predicate(N:P, Sub, Obj) --> !, triple(Sub, N:P, Obj).
 triple_predicate(link(Tag, P), Sub, Obj) --> !, triple_predicate_link(Tag, P, Sub, Obj).
-triple_predicate(list_each(P), Sub, Objs) --> !, foldl(triple_predicate(P, Sub), Objs).
+triple_predicate(list_each(P), Sub, Objs) --> !, ntfoldl(triple_predicate(P, Sub), Objs).
 triple_predicate(or(Ps), Sub, Obj) --> !, triple_predicate_or(Obj, Ps, Sub).
 triple_predicate(Pred, Sub, Obj) -->
   { throw(unknown_triple_function_while_converting_to_triple(Pred, Sub, Obj)) }.

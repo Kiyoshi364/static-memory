@@ -3,13 +3,12 @@
   serialize_triples//1
 ]).
 
-:- use_module(library(lists), [foldl/4]).
 :- use_module(library(dcgs), [seq//1]).
 :- use_module(library(reif), [if_/3, (=)/3, memberd_t/3]).
 
-:- use_module(serialize, [serialize_number//1, serialize_month//1]).
+:- use_module(serialize, [serialize_number//1, serialize_month//1, ntfoldl//2]).
 
-serialize_prefixes(B, Ps) --> foldl(serialize_prefix, Ps), serialize_base_prefix(B).
+serialize_prefixes(B, Ps) --> ntfoldl(serialize_prefix, Ps), serialize_base_prefix(B).
 
 serialize_prefix(P-L) --> "@prefix ", name(P), ": <", iri(L), "> .\n".
 serialize_base_prefix(L) --> "@prefix : <", iri(L), "> .\n".
@@ -96,7 +95,8 @@ serialize_list([R | Rs]) --> "( ", serialize_list_(Rs, R), " )".
 serialize_list_([], R0) --> serialize_resource(R0).
 serialize_list_([R | Rs], R0) --> serialize_resource(R0), ", ", serialize_list_(Rs, R).
 
-iri(Iri) --> foldl(iri_, Iri).
+iri(Iri) --> ntfoldl(iri__, Iri).
+iri__(C) --> call(iri_(C)).
 iri_(C, S0, S) :-
   if_(memberd_t(C, "\x00\\x01\\x02\\x03\\x04\\x05\\x06\\x07\\x08\\x09\\x0a\\x0b\\x0c\\x0d\\x0e\\x0f\\x10\\x11\\x12\\x13\\x14\\x15\\x16\\x17\\x18\\x19\\x1a\\x1b\\x1c\\x1d\\x1e\\x1f\ <>\"{}|^`\\"),
     ( char_code(C, N), escape_ascii_u(N, S0, S) ),
@@ -125,7 +125,8 @@ name_after([C | Cs]) --> name_after_(Cs, C).
 name_after_([], C) --> name_(C).
 name_after_([C | Cs], C0) --> name_after_(C0), name_after_(Cs, C).
 
-str(Str) --> "\"", foldl(str_, Str), "\"".
+str(Str) --> "\"", ntfoldl(str__, Str), "\"".
+str__(C) --> call(str_(C)).
 str_(C, S0, S) :-
   if_(memberd_t(C, "\"\\"),
     S0 = [(\), C | S],

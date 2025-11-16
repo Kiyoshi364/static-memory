@@ -1,5 +1,5 @@
 :- use_module(library(dcgs), [phrase/3, seq//1]).
-:- use_module(library(lists), [append/3, foldl/4, length/2, maplist/2]).
+:- use_module(library(lists), [append/3, length/2, maplist/2]).
 :- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
@@ -9,7 +9,7 @@
 ]).
 :- use_module(type, [check_field/3]).
 
-:- use_module(serialize/serialize, [maplistfunc/3]).
+:- use_module(serialize/serialize, [maplistfunc/3, ntfoldl//2]).
 
 :- use_module(serialize/md, [serialize_header//1, serialize_body//2]).
 
@@ -166,7 +166,7 @@ triples_database(Type_Data_2, Predicates_3) -->
     call(Type_Data_2, T, Bs),
     rdf_me(Me)
   },
-  foldl(triples_predicates(T, Ps, Me, SubN, SubEx), Bs).
+  ntfoldl(triples_predicates(T, Ps, Me, SubN, SubEx), Bs).
 
 triples_preamble(SerDir, FileTtl) -->
   "\n### RDF Triples ([Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))\n\n",
@@ -235,7 +235,7 @@ serialize_database(Type_Data_2, Header_1) -->
   { call(Header_1, H) },
   serialize_header(H),
   { call(Type_Data_2, T, Bs) },
-  foldl(serialize_body(T), Bs),
+  ntfoldl(serialize_body(T), Bs),
 [].
 
 cassert(Goal) :-
