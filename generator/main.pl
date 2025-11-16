@@ -16,70 +16,19 @@
 :- use_module(serialize/triples, [triples_predicates//6, check_triplification/4]).
 :- use_module(serialize/ttl, [serialize_prefixes//2, serialize_triples//1]).
 
-%%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
-
-:- use_module(database/publications,
-[ publication_type_data/2
-, publication_header/1
-, publication_predicates/3
+databases(
+[ db(publication, publication_type_data, publication_header, publication_predicates)
+, db(project, project_type_data, project_header, project_predicates)
 ]).
 
-check_publications :-
-  check_database(
-    publication,
-    publication_type_data,
-    publication_header,
-    publication_predicates
-  ).
-
-publications_preamble -->
-  "\n## Publications\n\n",
-  "The link from _Title_ is local to the git repository.\n",
-  "The link from _Main Repository_ is to somewhere else,\n",
-  "you probably should use the link in this column to refer/cite/share.\n",
-  "\n",
-[].
-
-publications -->
-  publications_preamble,
-  serialize_database(publication_type_data, publication_header).
-
-publications_triples -->
-  triples_database(publication_type_data, publication_predicates).
-
-%%%%%%%%%%%%%%%%%%%% Projects %%%%%%%%%%%%%%%%%%%%
-
-:- use_module(database/projects,
-[ project_type_data/2
-, project_header/1
-, project_predicates/3
-]).
-
-check_projects :-
-  check_database(
-    project,
-    project_type_data,
-    project_header,
-    project_predicates
-  ).
-
-projects_preamble -->
-  "\n## Programming Projects\n\n",
-[].
-
-projects -->
-  projects_preamble,
-  serialize_database(project_type_data, project_header).
-
-projects_triples -->
-  triples_database(project_type_data, project_predicates).
+:- use_module(database/publications, [publication_type_data/2, publication_header/1, publication_predicates/3]).
+:- use_module(database/projects, [project_type_data/2, project_header/1, project_predicates/3]).
 
 %%%%%%%%%%%%%%%%%%%% Markdown %%%%%%%%%%%%%%%%%%%%
 
 markdown(SerDir, FileTtl) -->
   md_preamble,
-  publications,
-  projects,
+  md_databases,
   md_about(SerDir),
   md_serialization(SerDir, FileTtl),
 [].
@@ -89,6 +38,33 @@ md_preamble -->
   "# Static Memory\n\n",
   "This markdown is avaliable at [", seq(GITHUB), "/static-memory](", seq(GITHUB), "/static-memory).\n",
 [].
+
+md_databases -->
+  { databases(DBs) },
+  ntfoldl(md_database_db, DBs).
+
+md_database_db(db(Name, Type_Data_2, Header_1, _Predicates_3)) -->
+  md_preamble(Name),
+  md_database(Header_1, Type_Data_2).
+
+md_preamble(publication) --> !,
+  "\n## Publications\n\n",
+  "The link from _Title_ is local to the git repository.\n",
+  "The link from _Main Repository_ is to somewhere else,\n",
+  "you probably should use the link in this column to refer/cite/share.\n",
+  "\n",
+[].
+md_preamble(project) --> !,
+  "\n## Programming Projects\n\n",
+[].
+md_preamble(Name) -->
+  { throw(error(unknown_md_preamble(Name))) }.
+
+md_database(Header_1, Type_Data_2) -->
+  { call(Header_1, H) },
+  serialize_header(H),
+  { call(Type_Data_2, T, Bs) },
+  ntfoldl(serialize_body(T), Bs).
 
 md_about(SerDir) -->
   "\n## About ...\n",
@@ -161,6 +137,13 @@ md_serialization(SerDir, FileTtl) -->
 
 %%%%%%%%%%%%%%%%%%%% RDF %%%%%%%%%%%%%%%%%%%%
 
+triples_databases -->
+  { databases(DBs) },
+  ntfoldl(triples_database_db, DBs).
+
+triples_database_db(db(_Name, Type_Data_2, _Header_1, Predicates_3)) -->
+  triples_database(Type_Data_2, Predicates_3).
+
 triples_database(Type_Data_2, Predicates_3) -->
   { call(Predicates_3, SubN, SubEx, Ps),
     call(Type_Data_2, T, Bs),
@@ -209,10 +192,9 @@ triples_md(SerDir, FileTtl) -->
 
 triples -->
   { rdf_prefixes(B, Ps),
-    Body = (
-      me_triples,
-      publications_triples,
-      projects_triples
+    Body =
+    ( me_triples
+    , triples_databases
     ),
     phrase(Body, Ts, [])
   },
@@ -231,13 +213,6 @@ also_available_at(SerDir, File) -->
   "This data is also available at [", seq(SerDir), seq(File), "](./", seq(SerDir), seq(File), ").\n",
 [].
 
-serialize_database(Type_Data_2, Header_1) -->
-  { call(Header_1, H) },
-  serialize_header(H),
-  { call(Type_Data_2, T, Bs) },
-  ntfoldl(serialize_body(T), Bs),
-[].
-
 cassert(Goal) :-
   ( \+ call(Goal) -> throw(expected_success(Goal))
   ; call(Goal)
@@ -246,6 +221,13 @@ cassert(Goal, A) :-
   ( \+ call(Goal, A) -> throw(expected_success(Goal, A))
   ; call(Goal, A)
   ).
+
+check_databases :-
+  databases(DBs),
+  maplist(check_database_db, DBs).
+
+check_database_db(db(Name, Type_Data_2, Header_1, Predicates_3)) :-
+ check_database(Name, Type_Data_2, Header_1, Predicates_3).
 
 check_database(Name, Type_Data_2, Header_1, Predicates_3) :-
   call(Type_Data_2, Ts, Bs),
@@ -263,11 +245,6 @@ check_body(Ts, Name, B) :-
   maplistfunc(check_body_(B), Ts, B).
 
 check_body_(B, T, Val) :- check_field(T, B, Val).
-
-check_databases :-
-  check_publications,
-  check_projects,
-true.
 
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
