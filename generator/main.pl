@@ -1,4 +1,4 @@
-:- use_module(library(dcgs), [phrase/3, seq//1]).
+:- use_module(library(dcgs), [phrase/3, phrase//1, seq//1]).
 :- use_module(library(lists), [append/3, length/2, maplist/2]).
 :- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
@@ -16,6 +16,10 @@
 :- use_module(serialize/triples, [triples_predicates//6, check_triplification/4]).
 :- use_module(serialize/ttl, [serialize_prefixes//2, serialize_triples//1]).
 
+serializations(
+[ ser(triples_ttl, "ttl", "Turtle RDF Triples", triples)
+]).
+
 databases(
 [ db(publication, publication_type_data, publication_header, publication_predicates)
 , db(project, project_type_data, project_header, project_predicates)
@@ -26,11 +30,11 @@ databases(
 
 %%%%%%%%%%%%%%%%%%%% Markdown %%%%%%%%%%%%%%%%%%%%
 
-markdown(SerDir, FileTtl) -->
+markdown(SerDir, FilePrefix) -->
   md_preamble,
   md_databases,
   md_about(SerDir),
-  md_serialization(SerDir, FileTtl),
+  md_serializations(SerDir, FilePrefix),
 [].
 
 md_preamble -->
@@ -131,11 +135,43 @@ md_serialization_preamble(SerDir) -->
   "is available in [", seq(SerDir), "](./", seq(SerDir), ") folder.\n",
 [].
 
-md_serialization(SerDir, FileTtl) -->
+md_serializations(SerDir, FilePrefix) -->
+  { serializations(Sers) },
   md_serialization_preamble(SerDir),
-  triples_md(SerDir, FileTtl).
+  ntfoldl(md_serialization_ser(SerDir, FilePrefix), Sers).
+
+md_serialization_ser(SerDir, FilePrefix, ser(Name, FileExt, Details, NT__0)) -->
+  md_serialization(SerDir, FilePrefix, Name, FileExt, Details, NT__0).
+
+md_serialization(SerDir, FilePrefix, Name, FileExt, Details, NT__0) -->
+  { file_prefix_ext_name(FilePrefix, FileExt, FileName) },
+  md_serialization_specific_preamble(Name, SerDir, FileName),
+  open_details(Details),
+  "```", seq(FileExt), "\n",
+  phrase(NT__0),
+  "```\n",
+  close_details,
+[].
+
+md_serialization_specific_preamble(triples_ttl, SerDir, FileName) --> !,
+  triples_preamble(SerDir, FileName).
+md_serialization_specific_preamble(Name, SerDir, FileName) -->
+  { throw(error(unknown_md_serialization_specific_preamble(Name, SerDir, FileName))) }.
+
 
 %%%%%%%%%%%%%%%%%%%% RDF %%%%%%%%%%%%%%%%%%%%
+
+triples -->
+  { rdf_prefixes(B, Ps),
+    Body =
+    ( me_triples
+    , triples_databases
+    ),
+    phrase(Body, Ts, [])
+  },
+  serialize_prefixes(B, Ps),
+  "\n",
+  serialize_triples(Ts).
 
 triples_databases -->
   { databases(DBs) },
@@ -181,27 +217,6 @@ triples_preamble(SerDir, FileTtl) -->
   "\n",
 [].
 
-triples_md(SerDir, FileTtl) -->
-  triples_preamble(SerDir, FileTtl),
-  open_details("Turtle RDF Triples"),
-  "```ttl\n",
-  triples,
-  "```\n",
-  close_details,
-[].
-
-triples -->
-  { rdf_prefixes(B, Ps),
-    Body =
-    ( me_triples
-    , triples_databases
-    ),
-    phrase(Body, Ts, [])
-  },
-  serialize_prefixes(B, Ps),
-  "\n",
-  serialize_triples(Ts).
-
 %%%%%%%%%%%%%%%%%%%% HELPERS %%%%%%%%%%%%%%%%%%%%
 
 atom(A) --> { atom_chars(A, As) }, seq(As).
@@ -212,6 +227,9 @@ close_details --> "</details>\n".
 also_available_at(SerDir, File) -->
   "This data is also available at [", seq(SerDir), seq(File), "](./", seq(SerDir), seq(File), ").\n",
 [].
+
+file_prefix_ext_name(FilePrefix, FileExt, FileName) :-
+  append(FilePrefix, ['.' | FileExt], FileName).
 
 cassert(Goal) :-
   ( \+ call(Goal) -> throw(expected_success(Goal))
@@ -248,26 +266,29 @@ check_body_(B, T, Val) :- check_field(T, B, Val).
 
 %%%%%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%%%%%%
 
-main :- main_md_ttl('readme.md', "serializations/", "static-memory.ttl").
-main_md :- check_databases, current_output(S), run_md(S, "./",  "ttl.ttl").
-main_ttl :- check_databases, current_output(S), run_ttl(S).
+main :- main_md_all('readme.md', "serializations/", "static-memory").
 
-main_md_ttl(FileMd, SerDir, FileTtl) :-
+main_md_all(FileMd, SerDir, FilePrefix) :-
   check_databases,
   setup_call_cleanup(
-    open(FileMd, write, MD, []),
-    run_md(MD, SerDir, FileTtl),
-    close(MD)
+    open(FileMd, write, S, []),
+    run_md(S, SerDir, FilePrefix),
+    close(S)
   ),
-  append(SerDir, FileTtl, OpenPathTtl),
+  run_serializations(SerDir, FilePrefix).
+
+run_serializations(SerDir, FilePrefix) :-
+  serializations(Sers),
+  maplist(run_serialization(SerDir, FilePrefix), Sers).
+
+run_serialization(SerDir, FilePrefix, ser(_Name, FileExt, _Details, NT__0)) :-
+  append(SerDir, FileName, OpenPath),
+  file_prefix_ext_name(FilePrefix, FileExt, FileName),
   setup_call_cleanup(
-    open(OpenPathTtl, write, TTL, []),
-    run_ttl(TTL),
-    close(TTL)
+    open(OpenPath, write, S, []),
+    phrase_to_stream(NT__0, S),
+    close(S)
   ).
 
-run_md(S, SerDir, FileTtl) :-
-  phrase_to_stream(markdown(SerDir, FileTtl), S).
-
-run_ttl(S) :-
-  phrase_to_stream(triples, S).
+run_md(S, SerDir, FilePrefix) :-
+  phrase_to_stream(markdown(SerDir, FilePrefix), S).
