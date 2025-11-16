@@ -13,11 +13,14 @@
 
 :- use_module(serialize/md, [serialize_md_header//1, serialize_md_body//2]).
 
+:- use_module(serialize/typst, [serialize_typst_named_listof_dictionary//3]).
+
 :- use_module(serialize/triples, [triples_predicates//6, check_triplification/4]).
 :- use_module(serialize/ttl, [serialize_prefixes//2, serialize_triples//1]).
 
 serializations(
-[ ser(triples_ttl, "ttl", "Turtle RDF Triples", triples)
+[ ser(typst, "typ", "Typst", typst)
+, ser(triples_ttl, "ttl", "Turtle RDF Triples", triples)
 ]).
 
 databases(
@@ -153,11 +156,27 @@ md_serialization(SerDir, FilePrefix, Name, FileExt, Details, NT__0) -->
   close_details,
 [].
 
+md_serialization_specific_preamble(typst, SerDir, FileName) --> !,
+  "\n### [Typst](https://typst.app)\n\n",
+  also_available_at(SerDir, FileName),
+  "\n".
 md_serialization_specific_preamble(triples_ttl, SerDir, FileName) --> !,
   triples_preamble(SerDir, FileName).
 md_serialization_specific_preamble(Name, SerDir, FileName) -->
   { throw(error(unknown_md_serialization_specific_preamble(Name, SerDir, FileName))) }.
 
+%%%%%%%%%%%%%%%%%%%% TYPST %%%%%%%%%%%%%%%%%%%%
+
+typst -->
+  { databases(DBs) },
+  ntfoldl(typst_database_db, DBs).
+
+typst_database_db(db(Name, Type_Data_2, _Header_1, _Predicates_3)) -->
+  typst_database(Name, Type_Data_2).
+
+typst_database(Name, Type_Data_2) -->
+  { call(Type_Data_2, T, Bs) },
+  serialize_typst_named_listof_dictionary(Name, T, Bs).
 
 %%%%%%%%%%%%%%%%%%%% RDF %%%%%%%%%%%%%%%%%%%%
 

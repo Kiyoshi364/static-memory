@@ -55,7 +55,7 @@ serialize_list([Val0 | Vals], T, Join, End, _) --> serialize_list_(Vals, Val0, T
 
 serialize_list_([], Val0, T, _, End) --> serialize_type_val(T, Val0), seq(End).
 serialize_list_([Val1 | Vals], Val0, T, Join, End) -->
-  serialize_type_val(T, Val0), seq(Join), serialize_list(Vals, Val1, T, Join, End).
+  serialize_type_val(T, Val0), seq(Join), serialize_list_(Vals, Val1, T, Join, End).
 
 serialize_or(Cs, O) -->
   ( { O = or(Tag, Val), member(case(Tag, T), Cs) } -> serialize_type_val(T, Val)

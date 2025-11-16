@@ -91,6 +91,84 @@ Machine-readable data
 about what is in this `readme.md`
 is available in [serializations/](./serializations/) folder.
 
+### [Typst](https://typst.app)
+
+This data is also available at [serializations/static-memory.typ](./serializations/static-memory.typ).
+
+<details><summary>Typst</summary>
+
+```typ
+#let publication = (
+  (
+    type: "BSc Thesis",
+    date: date(year: 2024, month: 02),
+    publication: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again.pdf")[From Combinators to Concatenative and Back Again],
+    where: link("https://ufrj.br/en/")[UFRJ],
+    main_repository: link("http://hdl.handle.net/11422/22871")[Pantheon],
+    slides: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf")[slides pt-BR],
+  ), (
+    type: "Paper",
+    date: date(year: 2024, month: 09),
+    publication: link("file://./publications/Converting_Combinators_to_and_from_Concatenative.pdf")[Converting Combinators to and from Concatenative],
+    where: link("https://cbsoft.sbc.org.br/2024/sblp/?lang=en")[SBLP2024],
+    main_repository: link("https://doi.org/10.5753/sblp.2024.3460")[DOI(10.5753/sblp.2024.3460)],
+    slides: link("file://./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf")[slides],
+  ), 
+);
+#let project = (
+  (
+    name: ( tag: "text", type: "text", val: "wam",),
+    kind: "library/executable",
+    summary: "8-bit WAM interpreter, focusing on learning the abstract machine",
+    programming_language: link("https://en.wikipedia.org/wiki/C_(programming_language)")[C],
+    main_repository: link("https://github.com/Kiyoshi364/wam")[github.com/Kiyoshi364/wam],
+    mirrors: (),
+    last_updated: date(year: 2025, month: 03),
+  ), (
+    name: ( tag: "link", type: "link", val: link("https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl")[cbor.pl],),
+    kind: "file library",
+    summary: "A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)",
+    programming_language: link("https://en.wikipedia.org/wiki/Prolog")[Prolog],
+    main_repository: link("https://gitlab.com/Hashi364/cbor-pl")[gitlab.com/Hashi364/cbor-pl],
+    mirrors: ( link("https://github.com/Kiyoshi364/cbor-pl")[github.com/Kiyoshi364/cbor-pl], ),
+    last_updated: date(year: 2025, month: 02),
+  ), (
+    name: ( tag: "link", type: "link", val: link("https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl")[struct.pl],),
+    kind: "file library",
+    summary: "A prolog library for defining and using structs-like functors",
+    programming_language: link("https://en.wikipedia.org/wiki/Prolog")[Prolog],
+    main_repository: link("https://gitlab.com/Hashi364/struct-pl")[gitlab.com/Hashi364/struct-pl],
+    mirrors: ( link("https://github.com/Kiyoshi364/struct-pl")[github.com/Kiyoshi364/struct-pl], ),
+    last_updated: date(year: 2025, month: 02),
+  ), (
+    name: ( tag: "text", type: "text", val: "Yellowstone",),
+    kind: "executable",
+    summary: "A Minecraft's Redstone inspired simulation",
+    programming_language: link("https://ziglang.org/")[Zig],
+    main_repository: link("https://github.com/Kiyoshi364/yellowstone")[github.com/Kiyoshi364/yellowstone],
+    mirrors: (),
+    last_updated: date(year: 2024, month: 06),
+  ), (
+    name: ( tag: "text", type: "text", val: "Cutils",),
+    kind: "many executables",
+    summary: "Some self-contained small utilities written in C",
+    programming_language: link("https://en.wikipedia.org/wiki/C_(programming_language)")[C],
+    main_repository: link("https://github.com/Kiyoshi364/cutils")[github.com/Kiyoshi364/cutils],
+    mirrors: (),
+    last_updated: date(year: 2024, month: 06),
+  ), (
+    name: ( tag: "text", type: "text", val: "crlf",),
+    kind: "executable",
+    summary: "Converts files from linux to windows text file format or the other way around",
+    programming_language: link("https://ziglang.org/")[Zig],
+    main_repository: link("https://github.com/Kiyoshi364/crlf")[github.com/Kiyoshi364/crlf],
+    mirrors: (),
+    last_updated: date(year: 2022, month: 08),
+  ), 
+);
+```
+</details>
+
 ### RDF Triples ([Turtle](https://en.wikipedia.org/wiki/Turtle_(syntax)))
 
 This data is also available at [serializations/static-memory.ttl](./serializations/static-memory.ttl).
