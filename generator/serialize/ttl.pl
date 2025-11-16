@@ -68,7 +68,7 @@ finish(start, S, P, O) -->
 finish(s, _, P, O) -->
   " ;\n  ", serialize_resource(P),
   " ", serialize_resource(O),
-  " .\n".
+  " ;\n.\n".
 finish(sp, _, _, O) -->
   "\n  , ", serialize_resource(O),
   " .\n".

@@ -148,7 +148,8 @@ has some info on what I mean by this structural approach)
   foaf:publications <https://github.com/Kiyoshi364/static-memory> ;
   foaf:schoolHomepage <https://ppgi.ufrj.br/> ;
   rdf:type foaf:Person ;
-  rdfs:label "Daniel K Hashimoto"@pt-BR .
+  rdfs:label "Daniel K Hashimoto"@pt-BR ;
+.
 
 :projects\/cbor.pl
   :kind "file library"^^xsd:string ;
@@ -167,7 +168,8 @@ has some info on what I mean by this structural approach)
   foaf:page
     <https://github.com/Kiyoshi364/cbor-pl> ,
     <https://gitlab.com/Hashi364/cbor-pl> ;
-  rdfs:label "cbor.pl"^^xsd:string .
+  rdfs:label "cbor.pl"^^xsd:string ;
+.
 
 :projects\/crlf
   :kind "executable"^^xsd:string ;
@@ -181,7 +183,8 @@ has some info on what I mean by this structural approach)
   foaf:homePage <https://github.com/Kiyoshi364/crlf> ;
   foaf:name "crlf"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/crlf> ;
-  rdfs:label "crlf"^^xsd:string .
+  rdfs:label "crlf"^^xsd:string ;
+.
 
 :projects\/cutils
   :kind "many executables"^^xsd:string ;
@@ -195,7 +198,8 @@ has some info on what I mean by this structural approach)
   foaf:homePage <https://github.com/Kiyoshi364/cutils> ;
   foaf:name "Cutils"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/cutils> ;
-  rdfs:label "Cutils"^^xsd:string .
+  rdfs:label "Cutils"^^xsd:string ;
+.
 
 :projects\/struct.pl
   :kind "file library"^^xsd:string ;
@@ -214,7 +218,8 @@ has some info on what I mean by this structural approach)
   foaf:page
     <https://github.com/Kiyoshi364/struct-pl> ,
     <https://gitlab.com/Hashi364/struct-pl> ;
-  rdfs:label "struct.pl"^^xsd:string .
+  rdfs:label "struct.pl"^^xsd:string ;
+.
 
 :projects\/wam
   :kind "library/executable"^^xsd:string ;
@@ -228,7 +233,8 @@ has some info on what I mean by this structural approach)
   foaf:homePage <https://github.com/Kiyoshi364/wam> ;
   foaf:name "wam"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/wam> ;
-  rdfs:label "wam"^^xsd:string .
+  rdfs:label "wam"^^xsd:string ;
+.
 
 :projects\/yellowstone
   :kind "executable"^^xsd:string ;
@@ -242,7 +248,8 @@ has some info on what I mean by this structural approach)
   foaf:homePage <https://github.com/Kiyoshi364/yellowstone> ;
   foaf:name "Yellowstone"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/yellowstone> ;
-  rdfs:label "Yellowstone"^^xsd:string .
+  rdfs:label "Yellowstone"^^xsd:string ;
+.
 
 :publications\/converting%20combinators%20to%20and%20from%20concatenative.pdf
   :date "2024-09"^^xsd:gYearMonth ;
@@ -258,7 +265,8 @@ has some info on what I mean by this structural approach)
   foaf:homepage <https://doi.org/10.5753/sblp.2024.3460> ;
   foaf:name "Converting Combinators to and from Concatenative"^^xsd:string ;
   foaf:page <https://doi.org/10.5753/sblp.2024.3460> ;
-  rdfs:label "Converting Combinators to and from Concatenative"^^xsd:string .
+  rdfs:label "Converting Combinators to and from Concatenative"^^xsd:string ;
+.
 
 :publications\/from%20combinators%20to%20concatenative%20and%20back%20again.pdf
   :date "2024-02"^^xsd:gYearMonth ;
@@ -274,6 +282,7 @@ has some info on what I mean by this structural approach)
   foaf:homepage <http://hdl.handle.net/11422/22871> ;
   foaf:name "From Combinators to Concatenative and Back Again"^^xsd:string ;
   foaf:page <http://hdl.handle.net/11422/22871> ;
-  rdfs:label "From Combinators to Concatenative and Back Again"^^xsd:string .
+  rdfs:label "From Combinators to Concatenative and Back Again"^^xsd:string ;
+.
 ```
 </details>
