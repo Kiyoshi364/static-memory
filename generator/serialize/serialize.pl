@@ -1,16 +1,16 @@
-:- module(serialize, [
-  link_normalized/3, proglang_normalized/3,
-  serialize_number//1, serialize_month//1,
-  maplistfunc/3,
-  foldlf/5,
-  foldlfn/6
+:- module(serialize,
+[ link_normalized/3, proglang_normalized/3
+, serialize_number//1, serialize_month//1
+, maplistfunc/3
+, foldlf/5
+, foldlfn/6
 ]).
 
 :- use_module(library(lists), [append/3]).
 :- use_module(library(dcgs), [seq//1]).
 
-:- use_module('..'/proglangs, [proglang_val/2]).
-:- use_module('..'/me, [mygithub/1, mygitlab/1]).
+:- use_module(.. /proglangs, [proglang_val/2]).
+:- use_module(.. /me, [mygithub/1, mygitlab/1]).
 
 link_normalized(Val, Text, Link) :-
   ( Val = text_link(N, L) -> Text = N, linktarget_link(L, Link)

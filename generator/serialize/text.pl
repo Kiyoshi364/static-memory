@@ -1,5 +1,5 @@
-:- module(text, [
-  lowercase/2
+:- module(text,
+[ lowercase/2
 ]).
 
 :- use_module(library(lists), [maplist/3]).

@@ -1,5 +1,5 @@
-:- module(projects, [
-  project_type_data/2,
+:- module(projects,
+[ project_type_data/2,
   project_header/1,
   project_predicates/3
 ]).
@@ -9,29 +9,29 @@ project_type_data(Type, Data) :-
   G = project(_Name, _Kind, _Summary, _Language, _MainRepository, _Mirrors, _LastUpdated),
   findall(G, G, Data).
 
-type([
-  field(name, or([text, link])),
-  field(kind, text),
-  field(summary, text),
-  field(programming_language, proglang),
-  field(main_repository, link),
-  field(mirrors, list(link, ", ", "", "-")),
-  field(last_updated, date)
+type(
+[ field(name, or([text, link]))
+, field(kind, text)
+, field(summary, text)
+, field(programming_language, proglang)
+, field(main_repository, link)
+, field(mirrors, list(link, ", ", "", "-"))
+, field(last_updated, date)
 ]).
 
 project_header(["Name", "Kind", "Summary", "Language", "Main Repository", "Mirrors", "Last Updated"]).
 
-project_predicates(1, or([
-  text-[lowercase, prepend("projects/"), local],
-  link-text([lowercase, prepend("projects/"), local])
-]), [
-  or([text-[rdfs:label, foaf:name], link-link(text, [rdfs:label, foaf:name])]),
-  [],
-  [],
-  [],
-  link(ref, [foaf:homePage, foaf:page]),
-  list_each(link(ref, foaf:page)),
-  []
+project_predicates(1, or(
+[ text-[lowercase, prepend("projects/"), local]
+, link-text([lowercase, prepend("projects/"), local])
+]),
+[ or([text-[rdfs:label, foaf:name], link-link(text, [rdfs:label, foaf:name])])
+, []
+, []
+, []
+, link(ref, [foaf:homePage, foaf:page])
+, list_each(link(ref, foaf:page))
+, []
 ]).
 
 project(

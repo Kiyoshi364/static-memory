@@ -1,7 +1,7 @@
-:- module(publications, [
-  publication_type_data/2,
-  publication_header/1,
-  publication_predicates/3
+:- module(publications, 
+[ publication_type_data/2
+, publication_header/1
+, publication_predicates/3
 ]).
 
 publication_type_data(Type, Data) :-
@@ -9,26 +9,26 @@ publication_type_data(Type, Data) :-
   G = publication(_Type, _Date, _Title, _Where, _MainRepository, _Slides),
   findall(G, G, Data).
 
-type([
-  field(type, text),
-  field(date, date),
-  field(publication, link),
-  field(where, link),
-  field(main_repository, link),
-  field(slides, link)
+type(
+[ field(type, text)
+, field(date, date)
+, field(publication, link)
+, field(where, link)
+, field(main_repository, link)
+, field(slides, link)
 ]).
 
 publication_header(["Type", "Date (yyyy-mm)", "Title", "Where", "Main Repository", "Slides"]).
 
-publication_predicates(3, text([
-  lowercase, pospend(".pdf"), prepend("publications/"), local
-]), [
-  [],
-  [],
-  [link(text, [rdfs:label, foaf:name])],
-  [],
-  link(ref, [foaf:homepage, foaf:page]),
-  []
+publication_predicates(3, text(
+[ lowercase, pospend(".pdf"), prepend("publications/"), local
+]),
+[ []
+, []
+, [link(text, [rdfs:label, foaf:name])]
+, []
+, link(ref, [foaf:homepage, foaf:page])
+, []
 ]).
 
 publication(

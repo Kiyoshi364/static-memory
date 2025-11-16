@@ -1,6 +1,6 @@
-:- module(type, [
-  type/2, check_field/3,
-  string/1
+:- module(type,
+[ type/2, check_field/3
+, string/1
 ]).
 
 :- use_module(library(lists), [member/2]).

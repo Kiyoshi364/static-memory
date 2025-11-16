@@ -1,20 +1,20 @@
-:- module(triples, [
-  triples_predicates//6,
-  check_triplification/4
+:- module(triples,
+[ triples_predicates//6
+, check_triplification/4
 ]).
 
-:- use_module(library(lists), [
-  member/2, append/3, foldl/4, maplist/3
+:- use_module(library(lists),
+[ member/2, append/3, foldl/4, maplist/3
 ]).
 :- use_module(library(dcgs), [phrase/3]).
 
 :- use_module('..'/type, [string/1]).
 
 :- use_module(text, [lowercase/2]).
-:- use_module(serialize, [
-  link_normalized/3, proglang_normalized/3,
-  serialize_number//1, serialize_month//1,
-  foldlfn/6
+:- use_module(serialize,
+[ link_normalized/3, proglang_normalized/3
+, serialize_number//1, serialize_month//1
+, foldlfn/6
 ]).
 
 triples_predicates(Fs, Ps, Me, SubN, SubEx, Func) -->

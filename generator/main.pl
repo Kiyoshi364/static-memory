@@ -3,9 +3,9 @@
 :- use_module(library(pio), [phrase_to_stream/2]).
 :- use_module(library(iso_ext), [setup_call_cleanup/3]).
 
-:- use_module(me, [
-  rdf_me/1, rdf_prefixes/2, me_triples//0,
-  mygithub/1
+:- use_module(me,
+[ rdf_me/1, rdf_prefixes/2, me_triples//0
+, mygithub/1
 ]).
 :- use_module(type, [check_field/3]).
 
@@ -18,10 +18,10 @@
 
 %%%%%%%%%%%%%%%%%%%% Publications %%%%%%%%%%%%%%%%%%%%
 
-:- use_module(database/publications, [
-  publication_type_data/2,
-  publication_header/1,
-  publication_predicates/3
+:- use_module(database/publications,
+[ publication_type_data/2
+, publication_header/1
+, publication_predicates/3
 ]).
 
 check_publications :-
@@ -49,10 +49,10 @@ publications_triples -->
 
 %%%%%%%%%%%%%%%%%%%% Projects %%%%%%%%%%%%%%%%%%%%
 
-:- use_module(database/projects, [
-  project_type_data/2,
-  project_header/1,
-  project_predicates/3
+:- use_module(database/projects,
+[ project_type_data/2
+, project_header/1
+, project_predicates/3
 ]).
 
 check_projects :-

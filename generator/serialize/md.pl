@@ -1,14 +1,14 @@
-:- module(md, [
-  serialize_header//1, serialize_body//2
+:- module(md,
+[ serialize_header//1, serialize_body//2
 ]).
 
 :- use_module(library(lists), [member/2, foldl/4]).
 :- use_module(library(dcgs), [seq//1]).
 
-:- use_module(serialize, [
-  link_normalized/3, proglang_normalized/3,
-  serialize_number//1, serialize_month//1,
-  foldlf/5
+:- use_module(serialize,
+[ link_normalized/3, proglang_normalized/3
+, serialize_number//1, serialize_month//1
+, foldlf/5
 ]).
 
 serialize_header(H) -->
