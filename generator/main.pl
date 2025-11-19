@@ -19,8 +19,8 @@
 :- use_module(serialize/ttl, [serialize_prefixes//2, serialize_triples//1]).
 
 serializations(
-[ ser(typst, "typ", "Typst", typst)
-, ser(triples_ttl, "ttl", "Turtle RDF Triples", triples)
+[ ser(typst, "typ", text(typst, "Typst"))
+, ser(triples_ttl, "ttl", text(triples, "Turtle RDF Triples"))
 ]).
 
 databases(
@@ -143,12 +143,16 @@ md_serializations(SerDir, FilePrefix) -->
   md_serialization_preamble(SerDir),
   ntfoldl(md_serialization_ser(SerDir, FilePrefix), Sers).
 
-md_serialization_ser(SerDir, FilePrefix, ser(Name, FileExt, Details, NT__0)) -->
-  md_serialization(SerDir, FilePrefix, Name, FileExt, Details, NT__0).
+md_serialization_ser(SerDir, FilePrefix, ser(Name, FileExt, Encoding)) -->
+  md_serialization(SerDir, FilePrefix, Name, FileExt, Encoding).
 
-md_serialization(SerDir, FilePrefix, Name, FileExt, Details, NT__0) -->
+md_serialization(SerDir, FilePrefix, Name, FileExt, Encoding) -->
   { file_prefix_ext_name(FilePrefix, FileExt, FileName) },
   md_serialization_specific_preamble(Name, SerDir, FileName),
+  md_serialization_encoding(Encoding, FileExt),
+[].
+
+md_serialization_encoding(text(NT__0, Details), FileExt) -->
   open_details(Details),
   "```", seq(FileExt), "\n",
   phrase(NT__0),
@@ -298,9 +302,13 @@ run_serializations(SerDir, FilePrefix) :-
   serializations(Sers),
   maplist(run_serialization(SerDir, FilePrefix), Sers).
 
-run_serialization(SerDir, FilePrefix, ser(_Name, FileExt, _Details, NT__0)) :-
+run_serialization(SerDir, FilePrefix, ser(_Name, FileExt, Encoding)) :-
   append(SerDir, FileName, OpenPath),
   file_prefix_ext_name(FilePrefix, FileExt, FileName),
+  run_serialization_(Encoding, OpenPath),
+true.
+
+run_serialization_(text(NT__0, _), OpenPath) :-
   setup_call_cleanup(
     open(OpenPath, write, S, []),
     phrase_to_stream(NT__0, S),
