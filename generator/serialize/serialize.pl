@@ -60,7 +60,6 @@ maplistfunc_([A | L], G_2, N, Arity, F) :-
   call(G_2, A, Val),
   maplistfunc_(L, G_2, N1, Arity, F).
 
-/* NOTE: meta_predicate assumes DCG nonterminal//n expands to predicate/(n+2) */
 :- meta_predicate(foldlf(4, ?, ?, ?, ?)).
 
 foldlf(G_4, L, F, X0, X) :-
@@ -74,7 +73,6 @@ foldlf_([A | L], G_4, N, Arity, F, X0, X) :-
   call(G_4, A, Val, X0, X1),
   foldlf_(L, G_4, N1, Arity, F, X1, X).
 
-/* NOTE: meta_predicate assumes DCG nonterminal//n expands to predicate/(n+2) */
 :- meta_predicate(foldlfn(6, ?, ?, ?, ?, ?)).
 
 foldlfn(G_6, L0, L, F, X0, X) :-
