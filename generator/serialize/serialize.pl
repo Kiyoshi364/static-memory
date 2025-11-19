@@ -1,5 +1,6 @@
 :- module(serialize,
 [ link_normalized/3, proglang_normalized/3
+, serialize_atom//1
 , serialize_number//1, serialize_month//1
 , indent//1, nlindent//1
 , maplistfunc/3
@@ -34,6 +35,8 @@ linktarget_link(Link, _) :-
   throw(unknown_linktarget_while_normalizing(Link)).
 
 proglang_normalized(PL, Text, Link) :- proglang_val(PL, Val), link_normalized(Val, Text, Link).
+
+serialize_atom(A) --> { atom_chars(A, As) }, seq(As).
 
 serialize_number(N) --> { number_chars(N, Cs) }, seq(Cs).
 serialize_month(M) --> ( { M < 10 } -> "0" ; [] ), serialize_number(M).

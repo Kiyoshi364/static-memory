@@ -219,8 +219,6 @@ triples_preamble(SerDir, FileTtl) -->
 
 %%%%%%%%%%%%%%%%%%%% HELPERS %%%%%%%%%%%%%%%%%%%%
 
-atom(A) --> { atom_chars(A, As) }, seq(As).
-
 open_details(Summary) --> "<details><summary>", seq(Summary), "</summary>\n\n".
 close_details --> "</details>\n".
 
