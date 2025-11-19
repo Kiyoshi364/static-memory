@@ -11,7 +11,7 @@
 
 :- use_module(serialize/serialize, [maplistfunc/3, ntfoldl//2]).
 
-:- use_module(serialize/md, [serialize_header//1, serialize_body//2]).
+:- use_module(serialize/md, [serialize_md_header//1, serialize_md_body//2]).
 
 :- use_module(serialize/triples, [triples_predicates//6, check_triplification/4]).
 :- use_module(serialize/ttl, [serialize_prefixes//2, serialize_triples//1]).
@@ -66,9 +66,9 @@ md_preamble(Name) -->
 
 md_database(Header_1, Type_Data_2) -->
   { call(Header_1, H) },
-  serialize_header(H),
+  serialize_md_header(H),
   { call(Type_Data_2, T, Bs) },
-  ntfoldl(serialize_body(T), Bs).
+  ntfoldl(serialize_md_body(T), Bs).
 
 md_about(SerDir) -->
   "\n## About ...\n",

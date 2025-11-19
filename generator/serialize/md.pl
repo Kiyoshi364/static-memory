@@ -1,5 +1,5 @@
 :- module(md,
-[ serialize_header//1, serialize_body//2
+[ serialize_md_header//1, serialize_md_body//2
 ]).
 
 :- use_module(library(lists), [member/2]).
@@ -12,25 +12,25 @@
 , ntfoldlf//3
 ]).
 
-serialize_header(H) -->
-  serialize_header_names(H), serialize_header_align(H).
+serialize_md_header(H) -->
+  serialize_md_header_names(H), serialize_md_header_align(H).
 
-serialize_header_names(H) -->
-  ntfoldl(serialize_header_name_, H), "|\n".
+serialize_md_header_names(H) -->
+  ntfoldl(serialize_md_header_name_, H), "|\n".
 
-serialize_header_name_(Name) --> "|", seq(Name).
+serialize_md_header_name_(Name) --> "|", seq(Name).
 
-serialize_header_align(H) -->
-  ntfoldl(serialize_header_align_, H), "|\n".
+serialize_md_header_align(H) -->
+  ntfoldl(serialize_md_header_align_, H), "|\n".
 
-serialize_header_align_(_) --> "|:---:".
+serialize_md_header_align_(_) --> "|:---:".
 
-serialize_body(Fs, Func) -->
-  ntfoldlf(serialize_body_, Fs, Func),
+serialize_md_body(Fs, Func) -->
+  ntfoldlf(serialize_md_body_, Fs, Func),
   "|\n",
 [].
 
-serialize_body_(field(_, T), Val) -->
+serialize_md_body_(field(_, T), Val) -->
   "|", serialize_type_val(T, Val).
 
 serialize_type_val(text, literal(L)) --> !, seq(L).
