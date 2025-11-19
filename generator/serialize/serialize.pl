@@ -1,6 +1,7 @@
 :- module(serialize,
 [ link_normalized/3, proglang_normalized/3
 , serialize_number//1, serialize_month//1
+, indent//1, nlindent//1
 , maplistfunc/3
 , foldlf/5
 , foldlfn/6
@@ -36,6 +37,12 @@ proglang_normalized(PL, Text, Link) :- proglang_val(PL, Val), link_normalized(Va
 
 serialize_number(N) --> { number_chars(N, Cs) }, seq(Cs).
 serialize_month(M) --> ( { M < 10 } -> "0" ; [] ), serialize_number(M).
+
+indent(N) -->
+  ( { N == 0 } -> []
+  ; { 0 < N, N1 is N - 1 }, "  ", indent(N1)
+  ).
+nlindent(N) --> "\n", indent(N).
 
 :- meta_predicate(maplistfunc(2, ?, ?)).
 

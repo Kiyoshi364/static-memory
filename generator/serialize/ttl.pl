@@ -6,7 +6,11 @@
 :- use_module(library(dcgs), [seq//1]).
 :- use_module(library(reif), [if_/3, (=)/3, memberd_t/3]).
 
-:- use_module(serialize, [serialize_number//1, serialize_month//1, ntfoldl//2]).
+:- use_module(serialize,
+[ serialize_number//1, serialize_month//1
+, nlindent//1
+, ntfoldl//2
+]).
 
 serialize_prefixes(B, Ps) --> ntfoldl(serialize_prefix, Ps), serialize_base_prefix(B).
 
@@ -40,26 +44,26 @@ transition(sp   , A0, S0, P0, O0) --> transition_sp(A0, S0, P0, O0).
 
 transition_s(start, S, P, O) -->
   serialize_resource(S),
-  indent(1), serialize_resource(P),
+  nlindent(1), serialize_resource(P),
   " ", serialize_resource(O).
 transition_s(s, _, P, O) -->
   " ;",
-  indent(1), serialize_resource(P),
+  nlindent(1), serialize_resource(P),
   " ", serialize_resource(O).
 transition_s(sp, _, _, O) -->
   " ,",
-  indent(2), serialize_resource(O).
+  nlindent(2), serialize_resource(O).
 
 transition_sp(start, S, P, O) -->
   serialize_resource(S),
-  indent(1), serialize_resource(P),
-  indent(2), serialize_resource(O).
+  nlindent(1), serialize_resource(P),
+  nlindent(2), serialize_resource(O).
 transition_sp(s, _, P, O) -->
   " ;",
-  indent(1), serialize_resource(P),
-  indent(2), serialize_resource(O).
+  nlindent(1), serialize_resource(P),
+  nlindent(2), serialize_resource(O).
 transition_sp(sp, _, _, O) -->
-  " ,", indent(2), serialize_resource(O).
+  " ,", nlindent(2), serialize_resource(O).
 
 finish(start, S, P, O) -->
   serialize_resource(S), " ",
@@ -72,12 +76,6 @@ finish(s, _, P, O) -->
 finish(sp, _, _, O) -->
   "\n  , ", serialize_resource(O),
   " .\n".
-
-indent(N) --> "\n", indent_(N).
-indent_(N) -->
-  ( { N == 0 } -> []
-  ; { 0 < N, N1 is N - 1 }, "  ", indent_(N1)
-  ).
 
 serialize_resource(iri(Iri)) --> "<", iri(Iri), ">".
 serialize_resource(literal(Type, Repr)) --> serialize_repr(Repr, Type).
