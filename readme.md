@@ -8,7 +8,7 @@ The link from _Title_ is local to the git repository.
 The link from _Main Repository_ is to somewhere else,
 you probably should use the link in this column to refer/cite/share.
 
-|Type|Date (yyyy-mm)|Title|Where|Main Repository|Slides|
+|Type|Date (yyyy-mm)|Title|Where|Main Repository|Extras|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |BSc Thesis|2024-02|[From Combinators to Concatenative and Back Again](./publications/From_Combinators_to_Concatenative_and_Back_Again.pdf)|[UFRJ](https://ufrj.br/en/)|[Pantheon](http://hdl.handle.net/11422/22871)|[slides pt-BR](./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf)|
 |Paper|2024-09|[Converting Combinators to and from Concatenative](./publications/Converting_Combinators_to_and_from_Concatenative.pdf)|[SBLP2024](https://cbsoft.sbc.org.br/2024/sblp/?lang=en)|[DOI(10.5753/sblp.2024.3460)](https://doi.org/10.5753/sblp.2024.3460)|[slides](./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf)|
@@ -105,14 +105,14 @@ This data is also available at [serializations/static-memory.typ](./serializatio
     publication: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again.pdf")[From Combinators to Concatenative and Back Again],
     where: link("https://ufrj.br/en/")[UFRJ],
     main_repository: link("http://hdl.handle.net/11422/22871")[Pantheon],
-    slides: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf")[slides pt-BR],
+    extras: ( ( tag: "slides", type: "link", val: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf")[slides pt-BR],), ),
   ), (
     type: "Paper",
     date: date(year: 2024, month: 09),
     publication: link("file://./publications/Converting_Combinators_to_and_from_Concatenative.pdf")[Converting Combinators to and from Concatenative],
     where: link("https://cbsoft.sbc.org.br/2024/sblp/?lang=en")[SBLP2024],
     main_repository: link("https://doi.org/10.5753/sblp.2024.3460")[DOI(10.5753/sblp.2024.3460)],
-    slides: link("file://./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf")[slides],
+    extras: ( ( tag: "slides", type: "link", val: link("file://./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf")[slides],), ),
   ), 
 );
 #let project = (
@@ -331,12 +331,14 @@ has some info on what I mean by this structural approach)
 
 :publications\/converting%20combinators%20to%20and%20from%20concatenative.pdf
   :date "2024-09"^^xsd:gYearMonth ;
+  :extras_slides_link :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
+  :extras_slides_text "slides"^^xsd:string ;
   :main_repository_link <https://doi.org/10.5753/sblp.2024.3460> ;
   :main_repository_text "DOI(10.5753/sblp.2024.3460)"^^xsd:string ;
   :publication_link :publications\/Converting_Combinators_to_and_from_Concatenative.pdf ;
   :publication_text "Converting Combinators to and from Concatenative"^^xsd:string ;
   :slides_link :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
-  :slides_text "slides"^^xsd:string ;
+  :slides_name "slides"^^xsd:string ;
   :type "Paper"^^xsd:string ;
   :where_link <https://cbsoft.sbc.org.br/2024/sblp/?lang=en> ;
   :where_text "SBLP2024"^^xsd:string ;
@@ -348,12 +350,14 @@ has some info on what I mean by this structural approach)
 
 :publications\/from%20combinators%20to%20concatenative%20and%20back%20again.pdf
   :date "2024-02"^^xsd:gYearMonth ;
+  :extras_slides_link :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
+  :extras_slides_text "slides pt-BR"^^xsd:string ;
   :main_repository_link <http://hdl.handle.net/11422/22871> ;
   :main_repository_text "Pantheon"^^xsd:string ;
   :publication_link :publications\/From_Combinators_to_Concatenative_and_Back_Again.pdf ;
   :publication_text "From Combinators to Concatenative and Back Again"^^xsd:string ;
   :slides_link :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
-  :slides_text "slides pt-BR"^^xsd:string ;
+  :slides_name "slides pt-BR"^^xsd:string ;
   :type "BSc Thesis"^^xsd:string ;
   :where_link <https://ufrj.br/en/> ;
   :where_text "UFRJ"^^xsd:string ;

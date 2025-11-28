@@ -129,12 +129,14 @@
 
 :publications\/converting%20combinators%20to%20and%20from%20concatenative.pdf
   :date "2024-09"^^xsd:gYearMonth ;
+  :extras_slides_link :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
+  :extras_slides_text "slides"^^xsd:string ;
   :main_repository_link <https://doi.org/10.5753/sblp.2024.3460> ;
   :main_repository_text "DOI(10.5753/sblp.2024.3460)"^^xsd:string ;
   :publication_link :publications\/Converting_Combinators_to_and_from_Concatenative.pdf ;
   :publication_text "Converting Combinators to and from Concatenative"^^xsd:string ;
   :slides_link :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
-  :slides_text "slides"^^xsd:string ;
+  :slides_name "slides"^^xsd:string ;
   :type "Paper"^^xsd:string ;
   :where_link <https://cbsoft.sbc.org.br/2024/sblp/?lang=en> ;
   :where_text "SBLP2024"^^xsd:string ;
@@ -146,12 +148,14 @@
 
 :publications\/from%20combinators%20to%20concatenative%20and%20back%20again.pdf
   :date "2024-02"^^xsd:gYearMonth ;
+  :extras_slides_link :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
+  :extras_slides_text "slides pt-BR"^^xsd:string ;
   :main_repository_link <http://hdl.handle.net/11422/22871> ;
   :main_repository_text "Pantheon"^^xsd:string ;
   :publication_link :publications\/From_Combinators_to_Concatenative_and_Back_Again.pdf ;
   :publication_text "From Combinators to Concatenative and Back Again"^^xsd:string ;
   :slides_link :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
-  :slides_text "slides pt-BR"^^xsd:string ;
+  :slides_name "slides pt-BR"^^xsd:string ;
   :type "BSc Thesis"^^xsd:string ;
   :where_link <https://ufrj.br/en/> ;
   :where_text "UFRJ"^^xsd:string ;

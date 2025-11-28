@@ -5,14 +5,14 @@
     publication: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again.pdf")[From Combinators to Concatenative and Back Again],
     where: link("https://ufrj.br/en/")[UFRJ],
     main_repository: link("http://hdl.handle.net/11422/22871")[Pantheon],
-    slides: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf")[slides pt-BR],
+    extras: ( ( tag: "slides", type: "link", val: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf")[slides pt-BR],), ),
   ), (
     type: "Paper",
     date: date(year: 2024, month: 09),
     publication: link("file://./publications/Converting_Combinators_to_and_from_Concatenative.pdf")[Converting Combinators to and from Concatenative],
     where: link("https://cbsoft.sbc.org.br/2024/sblp/?lang=en")[SBLP2024],
     main_repository: link("https://doi.org/10.5753/sblp.2024.3460")[DOI(10.5753/sblp.2024.3460)],
-    slides: link("file://./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf")[slides],
+    extras: ( ( tag: "slides", type: "link", val: link("file://./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf")[slides],), ),
   ), 
 );
 #let project = (
