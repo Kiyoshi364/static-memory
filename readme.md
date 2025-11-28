@@ -154,12 +154,12 @@ has some info on what I mean by this structural approach)
 :projects\/cbor.pl
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
+  :link_link <https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl> ;
+  :link_name "cbor.pl"^^xsd:string ;
   :main_repository_link <https://gitlab.com/Hashi364/cbor-pl> ;
   :main_repository_name "gitlab.com/Hashi364/cbor-pl"^^xsd:string ;
   :mirrors_link <https://github.com/Kiyoshi364/cbor-pl> ;
   :mirrors_name "github.com/Kiyoshi364/cbor-pl"^^xsd:string ;
-  :name_link <https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl> ;
-  :name_name "cbor.pl"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
   :programming_language_name "Prolog"^^xsd:string ;
   :summary "A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"^^xsd:string ;
@@ -176,10 +176,10 @@ has some info on what I mean by this structural approach)
   :last_updated "2022-08"^^xsd:gYearMonth ;
   :main_repository_link <https://github.com/Kiyoshi364/crlf> ;
   :main_repository_name "github.com/Kiyoshi364/crlf"^^xsd:string ;
-  :name "crlf"^^xsd:string ;
   :programming_language_link <https://ziglang.org/> ;
   :programming_language_name "Zig"^^xsd:string ;
   :summary "Converts files from linux to windows text file format or the other way around"^^xsd:string ;
+  :text "crlf"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/crlf> ;
   foaf:name "crlf"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/crlf> ;
@@ -191,10 +191,10 @@ has some info on what I mean by this structural approach)
   :last_updated "2024-06"^^xsd:gYearMonth ;
   :main_repository_link <https://github.com/Kiyoshi364/cutils> ;
   :main_repository_name "github.com/Kiyoshi364/cutils"^^xsd:string ;
-  :name "Cutils"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
   :programming_language_name "C"^^xsd:string ;
   :summary "Some self-contained small utilities written in C"^^xsd:string ;
+  :text "Cutils"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/cutils> ;
   foaf:name "Cutils"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/cutils> ;
@@ -204,12 +204,12 @@ has some info on what I mean by this structural approach)
 :projects\/struct.pl
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
+  :link_link <https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl> ;
+  :link_name "struct.pl"^^xsd:string ;
   :main_repository_link <https://gitlab.com/Hashi364/struct-pl> ;
   :main_repository_name "gitlab.com/Hashi364/struct-pl"^^xsd:string ;
   :mirrors_link <https://github.com/Kiyoshi364/struct-pl> ;
   :mirrors_name "github.com/Kiyoshi364/struct-pl"^^xsd:string ;
-  :name_link <https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl> ;
-  :name_name "struct.pl"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
   :programming_language_name "Prolog"^^xsd:string ;
   :summary "A prolog library for defining and using structs-like functors"^^xsd:string ;
@@ -226,10 +226,10 @@ has some info on what I mean by this structural approach)
   :last_updated "2025-03"^^xsd:gYearMonth ;
   :main_repository_link <https://github.com/Kiyoshi364/wam> ;
   :main_repository_name "github.com/Kiyoshi364/wam"^^xsd:string ;
-  :name "wam"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
   :programming_language_name "C"^^xsd:string ;
   :summary "8-bit WAM interpreter, focusing on learning the abstract machine"^^xsd:string ;
+  :text "wam"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/wam> ;
   foaf:name "wam"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/wam> ;
@@ -241,10 +241,10 @@ has some info on what I mean by this structural approach)
   :last_updated "2024-06"^^xsd:gYearMonth ;
   :main_repository_link <https://github.com/Kiyoshi364/yellowstone> ;
   :main_repository_name "github.com/Kiyoshi364/yellowstone"^^xsd:string ;
-  :name "Yellowstone"^^xsd:string ;
   :programming_language_link <https://ziglang.org/> ;
   :programming_language_name "Zig"^^xsd:string ;
   :summary "A Minecraft's Redstone inspired simulation"^^xsd:string ;
+  :text "Yellowstone"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/yellowstone> ;
   foaf:name "Yellowstone"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/yellowstone> ;

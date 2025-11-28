@@ -10,7 +10,7 @@ project_type_data(Type, Data) :-
   findall(G, G, Data).
 
 type(
-[ field(name, or([text, link]))
+[ field(name, or([case(text, text), case(link, link)]))
 , field(kind, text)
 , field(summary, text)
 , field(programming_language, proglang)

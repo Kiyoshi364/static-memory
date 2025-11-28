@@ -14,14 +14,15 @@ type(date, _) :- !.
 type(link, _) :- !.
 type(proglang, _) :- !.
 type(list(T, _, _, _), Ctx) :- !, type(T, list(Ctx)).
-type(or(Ts), Ctx) :- !, typeor(Ts, 0, Ctx).
+type(or(Cs), Ctx) :- !, typeor(Cs, 0, Ctx).
 type(T, Ctx) :- throw(unknown_type_while_checking(T, Ctx)).
 
 typeor([], _, _).
-typeor([T | Ts], N, Ctx) :-
+typeor([case(Tag, T) | Cs], N, Ctx) :-
+  check_(atom, Tag, or(N, Ctx)),
   type(T, or(N, Ctx)),
   N1 is N + 1,
-  typeor(Ts, N1, Ctx).
+  typeor(Cs, N1, Ctx).
 
 type_(_, to_be_filled, _) :- !.
 type_(text, Val, Ctx) :-
@@ -61,7 +62,7 @@ type_(proglang, Val, Ctx) :-
   ; check_error(proglang, Val, Ctx)
   ).
 type_(list(T, J, E, N), Val, Ctx) :- type_list(T, J, E, N, Val, Ctx).
-type_(or(Ts), Val, Ctx) :- type_or(Ts, Val, Ctx).
+type_(or(Cs), Val, Ctx) :- type_or(Cs, Val, Ctx).
 
 type_list(Type, Join, End, None, List, Ctx) :-
   ( List = [H | _] -> check_type(Type, H, List, Ctx) ; true ),
@@ -74,9 +75,9 @@ type_list_([], _, _).
 type_list_([Val | Vals], Type, Ctx) :-
   type_(Type, Val, Ctx), type_list_(Vals, Type, Ctx).
 
-type_or(Ts, Val, Ctx) :-
-  ( Val = or(T, V), member(T, Ts) -> type_(T, V, Ctx)
-  ; check_error(or(Ts), Val, Ctx)
+type_or(Cs, Val, Ctx) :-
+  ( Val = or(Tag, V), member(case(Tag, T), Cs) -> type_(T, V, Ctx)
+  ; check_error(or(Cs), Val, Ctx)
   ).
 
 string(V) :-
@@ -90,7 +91,7 @@ check_(Pred, Val, Ctx) :- ( call(Pred, Val) -> true ; check_error(Pred, Val, Ctx
 
 check_type(T, Val, ErrVal, Ctx) :-
   ( type_(T, Val, Ctx) -> true
-  ; throw(unknown_type_while_checking(T, ErrVal))
+  ; throw(unknown_type_while_checking_list(T, ErrVal))
   ).
 
 check_error(Expected, Found, F-Arg) :-

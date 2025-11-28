@@ -47,7 +47,7 @@ triple_predicate_link(Tag, P, Sub, link(Text, Ref)) -->
   triple_predicate(P, Sub, Obj).
 
 triple_predicate_or(O, Ps, Sub) -->
-  ( { O = or(T, Obj), member(T-P, Ps) } -> triple_predicate(P, Sub, Obj)
+  ( { O = or(Tag, Obj), member(Tag-P, Ps) } -> triple_predicate(P, Sub, Obj)
   ; { throw(unknown_or_tag_while_converting_to_triple(O, Ps, Sub)) }
   ).
 
@@ -58,21 +58,21 @@ type_fieldname_predicates(date, N, Ps0, [:(N) | Ps0]) :- !.
 type_fieldname_predicates(link, N, Ps0, [link(text, :(NT)), link(ref, :(NR)) | Ps0]) :- !, atom_concat(N, '_name', NT), atom_concat(N, '_link', NR).
 type_fieldname_predicates(proglang, N, Ps0, [link(text, :(NT)), link(ref, :(NR)) | Ps0]) :- !, atom_concat(N, '_name', NT), atom_concat(N, '_link', NR).
 type_fieldname_predicates(list(T, _, _, _), N, Ps0, [list_each(P) | Ps0]) :- !, type_fieldname_predicates(T, N, [], P).
-type_fieldname_predicates(or(Ts), N, Ps0, [or(P) | Ps0]) :- !, type_fieldname_predicates_or(Ts, N, P).
+type_fieldname_predicates(or(Cs), _, Ps0, [or(P) | Ps0]) :- !, type_fieldname_predicates_or(Cs, P).
 type_fieldname_predicates(T, N, Ps0, _) :-
   throw(unknown_type_fieldname_while_adding_default_predicate(T, N, Ps0)).
 
-type_fieldname_predicates_or([], _, []).
-type_fieldname_predicates_or([T | Ts], N, [T-P | Ps]) :-
-  type_fieldname_predicates(T, N, [], P),
-  type_fieldname_predicates_or(Ts, N, Ps).
+type_fieldname_predicates_or([], []).
+type_fieldname_predicates_or([case(Tag, T) | Cs], [Tag-P | Ps]) :-
+  type_fieldname_predicates(T, Tag, [], P),
+  type_fieldname_predicates_or(Cs, Ps).
 
 type_val_resource(text, literal(L), literal(xsd:string, L)) :- !.
 type_val_resource(date, year_month(Y, M), literal(xsd:gYearMonth, S)) :- !, format_year_month(Y, M, S).
 type_val_resource(link, Val, link(literal(xsd:string, Text), Ref)) :- !, link_normalized(Val, Text, Link), linktarget_resource(Link, Ref).
 type_val_resource(proglang, proglang(PL), link(literal(xsd:string, Text), Ref)) :- !, proglang_normalized(PL, Text, Link), linktarget_resource(Link, Ref).
 type_val_resource(list(T, _, _, _), L, Res) :- !, maplist(type_val_resource(T), L, Res).
-type_val_resource(or(Ts), O, Res) :- !, or_resource(Ts, O, Res).
+type_val_resource(or(Cs), O, Res) :- !, or_resource(Cs, O, Res).
 type_val_resource(T, Val, Res) :-
   throw(unknown_type_val_while_converting_to_resource(T, Val, Res)).
 
@@ -85,9 +85,9 @@ linktarget_resource(external(L), iri(L)) :- !.
 linktarget_resource(Link, _) :- !,
   throw(unknown_linktarget_while_converting_to_resource(Link)).
 
-or_resource(Ts, O, or(T, Res)) :-
-  ( O = or(T, Val), member(T, Ts) -> type_val_resource(T, Val, Res)
-  ; throw(unknown_or_tag_while_converting_to_resource(Ts, Val))
+or_resource(Cs, O, or(Tag, Res)) :-
+  ( O = or(Tag, Val), member(case(Tag, T), Cs) -> type_val_resource(T, Val, Res)
+  ; throw(unknown_or_tag_while_converting_to_resource(Cs, Val))
   ).
 
 extract_subject([Ex | Exs], Obj, Sub) :-
@@ -135,7 +135,7 @@ check_predicate(date, P, Ctx) :- !, check_predicate_simple(P, Ctx).
 check_predicate(link, P, Ctx) :- !, check_predicate_link(P, Ctx).
 check_predicate(proglang, P, Ctx) :- !, check_predicate_link(P, Ctx).
 check_predicate(list(T, _, _, _), P, Ctx) :- !, check_predicate_list(T, P, Ctx).
-check_predicate(or(Ts), P, Ctx) :- !, check_predicate_or(Ts, P, Ctx).
+check_predicate(or(Cs), P, Ctx) :- !, check_predicate_or(Cs, P, Ctx).
 check_predicate(T, P, Ctx) :- throw(unknown_type_while_checking_triplification(T, P, Ctx)).
 
 check_predicate_simple([], _) :- !.
@@ -166,22 +166,22 @@ check_predicate_list(T, PL, Ctx) :-
   ; check_error(list_predicate, PL, Ctx)
   ).
 
-check_predicate_or(Ts, PO, Ctx) :-
+check_predicate_or(Cs, PO, Ctx) :-
   ( PO = or(Ps) ->
-    check_predicate_or_(Ts, Ps, Ctx)
+    check_predicate_or_(Cs, Ps, Ctx)
   ; check_error(or_predicate, PO, Ctx)
   ).
 
 check_predicate_or_([], [], _).
-check_predicate_or_([T | Ts], Ps0, Ctx) :-
+check_predicate_or_([case(Tag, T) | Cs], Ps0, Ctx) :-
   ( Ps0 = [P0 | Ps] ->
-    ( P0 = T-P ->
-      check_predicate(T, P, ctx_inside(T-P, Ctx))
-    ; check_error(or_case(T), P0, Ctx)
+    ( P0 = Tag-P ->
+      check_predicate(T, P, ctx_inside(Tag-P, Ctx))
+    ; check_error(or_case(Tag, T), P0, Ctx)
     )
-  ; check_error(or_case_list(T), Ps0, Ctx)
+  ; check_error(or_case_list(case(Tag, T)), Ps0, Ctx)
   ),
-  check_predicate_or_(Ts, Ps, Ctx).
+  check_predicate_or_(Cs, Ps, Ctx).
 
 check_extract(T, Ex, SubN) :-
   ( check_extract_(T, Ex, SubN) -> true
@@ -197,7 +197,7 @@ check_extract_(link, Ex, SubN) :- !,
   ).
 check_extract_(proglang, Ex, SubN) :- !, check_extract_(link, Ex, SubN).
 check_extract_(list(_, _, _, _), _, _) :- !, false.
-check_extract_(or(Ts), Ex, SubN) :- !, check_extract_or(Ts, Ex, SubN).
+check_extract_(or(Cs), Ex, SubN) :- !, check_extract_or(Cs, Ex, SubN).
 check_extract_(T, Ex, SubN) :- throw(unknown_type_while_checking_extraction(T, Ex, SubN)).
 
 check_extract_text([], Ctx) :- throw(text_extraction_unfinished_while_checking_triplification(Ctx)).
@@ -213,24 +213,24 @@ check_extract_text([Ex | Exs], Ctx) :-
 check_extract_text_finished(Exs, Ctx) :-
   ( Exs = [] -> true ; throw(text_extraction_finished_early(Exs, Ctx)) ).
 
-check_extract_or(Ts, Ex, SubN) :-
+check_extract_or(Cs, Ex, SubN) :-
   ( Ex = or(Exs) -> true
   ; check_error(or_case_list, Ex, SubN)
   ),
-  check_extract_or_(Ts, Exs, extract_or(Ts, Ex, SubN)).
+  check_extract_or_(Cs, Exs, extract_or(Cs, Ex, SubN)).
 
 check_extract_or_([], [], _).
-check_extract_or_([T | Ts], Exs0, Ctx) :-
+check_extract_or_([case(Tag, T) | Cs], Exs0, Ctx) :-
   ( Exs0 = [Ex0 | Exs] ->
-    ( Ex0 = T-Ex ->
+    ( Ex0 = Tag-Ex ->
       ( check_extract_(T, Ex, Ctx)
-      ; throw(invalid_extraction_inside_or_while_checking_triplification(T, Ex, Ctx))
+      ; throw(invalid_extraction_inside_or_while_checking_triplification(Tag, Ex, Ctx))
       )
-    ; check_error(or_case(T), Ex0, Ctx)
+    ; check_error(or_case(Tag, T), Ex0, Ctx)
     )
-  ; check_error(or_case_list(T), Exs0, Ctx)
+  ; check_error(or_case_list(Tag, T), Exs0, Ctx)
   ),
-  check_extract_or_(Ts, Exs, Ctx).
+  check_extract_or_(Cs, Exs, Ctx).
 
 check_(Pred, Val, Ctx) :- ( call(Pred, Val) -> true ; check_error(Pred, Val, Ctx) ).
 

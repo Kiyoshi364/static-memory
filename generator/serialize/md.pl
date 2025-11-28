@@ -38,7 +38,7 @@ serialize_type_val(date, year_month(Y, M)) --> !, serialize_number(Y), "-", seri
 serialize_type_val(link, Val) --> !, { link_normalized(Val, Text, Link) }, serialize_link(Text, Link).
 serialize_type_val(proglang, proglang(PL)) --> !, { proglang_normalized(PL, Text, Link) }, serialize_link(Text, Link).
 serialize_type_val(list(T, J, E, N), L) --> !, serialize_list(L, T, J, E, N).
-serialize_type_val(or(Ts), O) --> !, serialize_or(Ts, O).
+serialize_type_val(or(Cs), O) --> !, serialize_or(Cs, O).
 serialize_type_val(_, to_be_filled) --> !, "???".
 serialize_type_val(T, Val) -->
   { throw(unknown_type_val_while_serializing(T, Val)) }.
@@ -57,7 +57,7 @@ serialize_list_([], Val0, T, _, End) --> serialize_type_val(T, Val0), seq(End).
 serialize_list_([Val1 | Vals], Val0, T, Join, End) -->
   serialize_type_val(T, Val0), seq(Join), serialize_list(Vals, Val1, T, Join, End).
 
-serialize_or(Ts, O) -->
-  ( { O = or(T, Val), member(T, Ts) } -> serialize_type_val(T, Val)
-  ; { throw(unknown_or_while_serializing(Ts, Val)) }
+serialize_or(Cs, O) -->
+  ( { O = or(Tag, Val), member(case(Tag, T), Cs) } -> serialize_type_val(T, Val)
+  ; { throw(unknown_or_while_serializing(Cs, Val)) }
   ).
