@@ -55,17 +55,20 @@ triple(Sub, Pred, Obj) --> [t(Sub, Pred, Obj)].
 
 type_fieldname_predicates(text, N, Ps0, [:(N) | Ps0]) :- !.
 type_fieldname_predicates(date, N, Ps0, [:(N) | Ps0]) :- !.
-type_fieldname_predicates(link, N, Ps0, [link(text, :(NT)), link(ref, :(NR)) | Ps0]) :- !, atom_concat(N, '_name', NT), atom_concat(N, '_link', NR).
-type_fieldname_predicates(proglang, N, Ps0, [link(text, :(NT)), link(ref, :(NR)) | Ps0]) :- !, atom_concat(N, '_name', NT), atom_concat(N, '_link', NR).
+type_fieldname_predicates(link, N, Ps0, [link(text, :(NT)), link(ref, :(NR)) | Ps0]) :- !, atom_concat(N, '_text', NT), atom_concat(N, '_link', NR).
+type_fieldname_predicates(proglang, N, Ps0, [link(text, :(NT)), link(ref, :(NR)) | Ps0]) :- !, atom_concat(N, '_text', NT), atom_concat(N, '_link', NR).
 type_fieldname_predicates(list(T, _, _, _), N, Ps0, [list_each(P) | Ps0]) :- !, type_fieldname_predicates(T, N, [], P).
-type_fieldname_predicates(or(Cs), _, Ps0, [or(P) | Ps0]) :- !, type_fieldname_predicates_or(Cs, P).
+type_fieldname_predicates(or(Cs), N, Ps0, [or(P) | Ps0]) :- !, atom_chars(N, Nchs), type_fieldname_predicates_or(Cs, Nchs, P).
 type_fieldname_predicates(T, N, Ps0, _) :-
   throw(unknown_type_fieldname_while_adding_default_predicate(T, N, Ps0)).
 
-type_fieldname_predicates_or([], []).
-type_fieldname_predicates_or([case(Tag, T) | Cs], [Tag-P | Ps]) :-
-  type_fieldname_predicates(T, Tag, [], P),
-  type_fieldname_predicates_or(Cs, Ps).
+type_fieldname_predicates_or([], _, []).
+type_fieldname_predicates_or([case(Tag, T) | Cs], Nchs, [Tag-P | Ps]) :-
+  atom_chars(Tag, Tagchs),
+  append(Nchs, ['_' | Tagchs], Namechs),
+  atom_chars(Name, Namechs),
+  type_fieldname_predicates(T, Name, [], P),
+  type_fieldname_predicates_or(Cs, Nchs, Ps).
 
 type_val_resource(text, literal(L), literal(xsd:string, L)) :- !.
 type_val_resource(date, year_month(Y, M), literal(xsd:gYearMonth, S)) :- !, format_year_month(Y, M, S).
