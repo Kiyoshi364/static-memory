@@ -13,7 +13,7 @@
     where: link("https://cbsoft.sbc.org.br/2024/sblp/?lang=en")[SBLP2024],
     main_repository: link("https://doi.org/10.5753/sblp.2024.3460")[DOI(10.5753/sblp.2024.3460)],
     extras: ( ( tag: "slides", type: "link", val: link("file://./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf")[slides],), ),
-  ), 
+  ),
 );
 #let talk = (
   (
@@ -34,7 +34,7 @@
     location: "TalTech, Tallinn, Estonia",
     slides: link("file://./talks/Connections_Between_Applicative_and_Concatenative_Tacit_Programming.pdf")[PDF],
     extras: (),
-  ), 
+  ),
 );
 #let project = (
   (
@@ -85,5 +85,5 @@
     main_repository: link("https://github.com/Kiyoshi364/crlf")[github.com/Kiyoshi364/crlf],
     mirrors: (),
     last_updated: date(year: 2022, month: 08),
-  ), 
+  ),
 );

@@ -23,13 +23,22 @@ serialize_typst_named_listof_dictionary(Name, T, Bs) -->
 serialize_typst_listof_dictionary(Indent, T, Bs) -->
   { Indent_1 is Indent - 1 },
   "(", nlindent(Indent),
-  ntfoldl(serialize_typst_listof_dictionary_(Indent, T), Bs),
+serialize_typst_listof_dictionary_(Bs, Indent, T),
   nlindent(Indent_1), ")",
 [].
 
-serialize_typst_listof_dictionary_(Indent, T, B) -->
-  serialize_typst_dictionary(Indent, T, B),
+serialize_typst_listof_dictionary_([], _, _) --> [].
+serialize_typst_listof_dictionary_([B | Bs], Indent, T) -->
+  serialize_typst_listof_dictionary__(Bs, B, Indent, T).
+
+serialize_typst_listof_dictionary__([], B0, Indent, T) -->
+  serialize_typst_dictionary(Indent, T, B0),
+  ",",
+[].
+serialize_typst_listof_dictionary__([B | Bs], B0, Indent, T) -->
+  serialize_typst_dictionary(Indent, T, B0),
   ", ",
+  serialize_typst_listof_dictionary__(Bs, B, Indent, T),
 [].
 
 serialize_typst_dictionary(Indent, T, B) -->
