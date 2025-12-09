@@ -17,7 +17,7 @@ you probably should use the link in this column to refer/cite/share.
 
 |Kind|Date (yyyy-mm[-dd])|Title|Place|Location|Slides|Extras|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Meetup|2025-11-14|Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog|[3rd Scryer Prolog Meetup](https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/)|Hochschule Düsseldorf, Düsseldorf, Germany|[PDF](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf)|[image generators](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/), [repo](https://gitlab.com/Hashi364/semweb)|
+|Meetup|2025-11-14|Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog|[3rd Scryer Prolog Meetup](https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/)|Hochschule Düsseldorf, Düsseldorf, Germany|[PDF](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf)|[image generators](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/), [repo](https://gitlab.com/Hashi364/semweb), [meetup discussion](https://github.com/mthom/scryer-prolog/discussions/2948)|
 |Invited|2025-11-27|Connections Between Applicative and Concatenative Tacit Programming|[TallCat Seminars](https://compose.ioc.ee)|TalTech, Tallinn, Estonia|[PDF](./talks/Connections_Between_Applicative_and_Concatenative_Tacit_Programming.pdf)||
 
 ## Programming Projects
@@ -130,7 +130,7 @@ This data is also available at [serializations/static-memory.typ](./serializatio
     place: link("https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/")[3rd Scryer Prolog Meetup],
     location: "Hochschule Düsseldorf, Düsseldorf, Germany",
     slides: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf")[PDF],
-    extras: ( ( tag: "internal_ref", type: "link", val: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/")[image generators],), ( tag: "external_ref", type: "link", val: link("https://gitlab.com/Hashi364/semweb")[repo],), ),
+    extras: ( ( tag: "internal_ref", type: "link", val: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/")[image generators],), ( tag: "external_ref", type: "link", val: link("https://gitlab.com/Hashi364/semweb")[repo],), ( tag: "external_ref", type: "link", val: link("https://github.com/mthom/scryer-prolog/discussions/2948")[meetup discussion],), ),
   ), (
     kind: "Invited",
     date: date(year: 2025, month: 11, day: 27),
@@ -410,8 +410,12 @@ has some info on what I mean by this structural approach)
 
 :talks\/towards%20an%20implementation\-independent%20interface%20for%20reasoning%20about%20semantic%20web%20in%20prolog.pdf
   :date "2025-11-14"^^xsd:date ;
-  :extras_external_ref_link <https://gitlab.com/Hashi364/semweb> ;
-  :extras_external_ref_text "repo"^^xsd:string ;
+  :extras_external_ref_link
+    <https://github.com/mthom/scryer-prolog/discussions/2948> ,
+    <https://gitlab.com/Hashi364/semweb> ;
+  :extras_external_ref_text
+    "meetup discussion"^^xsd:string ,
+    "repo"^^xsd:string ;
   :extras_internal_ref_link :talks\/Towards_an_Implementation\-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog\/ ;
   :extras_internal_ref_text "image generators"^^xsd:string ;
   :kind "Meetup"^^xsd:string ;

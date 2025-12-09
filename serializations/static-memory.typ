@@ -23,7 +23,7 @@
     place: link("https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/")[3rd Scryer Prolog Meetup],
     location: "Hochschule Düsseldorf, Düsseldorf, Germany",
     slides: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf")[PDF],
-    extras: ( ( tag: "internal_ref", type: "link", val: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/")[image generators],), ( tag: "external_ref", type: "link", val: link("https://gitlab.com/Hashi364/semweb")[repo],), ),
+    extras: ( ( tag: "internal_ref", type: "link", val: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/")[image generators],), ( tag: "external_ref", type: "link", val: link("https://gitlab.com/Hashi364/semweb")[repo],), ( tag: "external_ref", type: "link", val: link("https://github.com/mthom/scryer-prolog/discussions/2948")[meetup discussion],), ),
   ), (
     kind: "Invited",
     date: date(year: 2025, month: 11, day: 27),

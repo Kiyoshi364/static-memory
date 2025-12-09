@@ -182,8 +182,12 @@
 
 :talks\/towards%20an%20implementation\-independent%20interface%20for%20reasoning%20about%20semantic%20web%20in%20prolog.pdf
   :date "2025-11-14"^^xsd:date ;
-  :extras_external_ref_link <https://gitlab.com/Hashi364/semweb> ;
-  :extras_external_ref_text "repo"^^xsd:string ;
+  :extras_external_ref_link
+    <https://github.com/mthom/scryer-prolog/discussions/2948> ,
+    <https://gitlab.com/Hashi364/semweb> ;
+  :extras_external_ref_text
+    "meetup discussion"^^xsd:string ,
+    "repo"^^xsd:string ;
   :extras_internal_ref_link :talks\/Towards_an_Implementation\-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog\/ ;
   :extras_internal_ref_text "image generators"^^xsd:string ;
   :kind "Meetup"^^xsd:string ;

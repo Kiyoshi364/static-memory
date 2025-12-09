@@ -53,6 +53,7 @@ talk(
   text_link("PDF", talks("Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf")),
   [ or(internal_ref, text_link("image generators", talks("Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/")))
   , or(external_ref, text_link("repo", mygitlab("semweb")))
+  , or(external_ref, text_link("meetup discussion", https("github.com/mthom/scryer-prolog/discussions/2948")))
   ]
 ).
 
