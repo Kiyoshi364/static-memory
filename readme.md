@@ -13,6 +13,13 @@ you probably should use the link in this column to refer/cite/share.
 |BSc Thesis|2024-02|[From Combinators to Concatenative and Back Again](./publications/From_Combinators_to_Concatenative_and_Back_Again.pdf)|[UFRJ](https://ufrj.br/en/)|[Pantheon](http://hdl.handle.net/11422/22871)|[slides pt-BR](./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf)|
 |Paper|2024-09|[Converting Combinators to and from Concatenative](./publications/Converting_Combinators_to_and_from_Concatenative.pdf)|[SBLP2024](https://cbsoft.sbc.org.br/2024/sblp/?lang=en)|[DOI(10.5753/sblp.2024.3460)](https://doi.org/10.5753/sblp.2024.3460)|[slides](./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf)|
 
+## Talks
+
+|Kind|Date (yyyy-mm[-dd])|Title|Place|Location|Slides|Extras|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|Meetup|2025-11-14|Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog|[3rd Scryer Prolog Meetup](https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/)|Hochschule Düsseldorf, Düsseldorf, Germany|[PDF](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf)|[image generators](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/), [repo](https://gitlab.com/Hashi364/semweb)|
+|Invited|2025-11-27|Connections Between Applicative and Concatenative Tacit Programming|[TallCat Seminars](https://compose.ioc.ee)|TalTech, Tallinn, Estonia|[PDF](./talks/Connections_Between_Applicative_and_Concatenative_Tacit_Programming.pdf)||
+
 ## Programming Projects
 
 |Name|Kind|Summary|Language|Main Repository|Mirrors|Last Updated|
@@ -113,6 +120,25 @@ This data is also available at [serializations/static-memory.typ](./serializatio
     where: link("https://cbsoft.sbc.org.br/2024/sblp/?lang=en")[SBLP2024],
     main_repository: link("https://doi.org/10.5753/sblp.2024.3460")[DOI(10.5753/sblp.2024.3460)],
     extras: ( ( tag: "slides", type: "link", val: link("file://./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf")[slides],), ),
+  ), 
+);
+#let talk = (
+  (
+    kind: "Meetup",
+    date: date(year: 2025, month: 11, day: 14),
+    title: "Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog",
+    place: link("https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/")[3rd Scryer Prolog Meetup],
+    location: "Hochschule Düsseldorf, Düsseldorf, Germany",
+    slides: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf")[PDF],
+    extras: ( ( tag: "internal_ref", type: "link", val: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/")[image generators],), ( tag: "external_ref", type: "link", val: link("https://gitlab.com/Hashi364/semweb")[repo],), ),
+  ), (
+    kind: "Invited",
+    date: date(year: 2025, month: 11, day: 27),
+    title: "Connections Between Applicative and Concatenative Tacit Programming",
+    place: link("https://compose.ioc.ee")[TallCat Seminars],
+    location: "TalTech, Tallinn, Estonia",
+    slides: link("file://./talks/Connections_Between_Applicative_and_Concatenative_Tacit_Programming.pdf")[PDF],
+    extras: (),
   ), 
 );
 #let project = (
@@ -217,7 +243,9 @@ has some info on what I mean by this structural approach)
     :projects\/wam ,
     :projects\/yellowstone ,
     :publications\/converting%20combinators%20to%20and%20from%20concatenative.pdf ,
-    :publications\/from%20combinators%20to%20concatenative%20and%20back%20again.pdf ;
+    :publications\/from%20combinators%20to%20concatenative%20and%20back%20again.pdf ,
+    :talks\/connections%20between%20applicative%20and%20concatenative%20tacit%20programming.pdf ,
+    :talks\/towards%20an%20implementation\-independent%20interface%20for%20reasoning%20about%20semantic%20web%20in%20prolog.pdf ;
   foaf:mbox_sha1sum "a638c7eafa7ba4bbe8b9cab7281113798d09da13"^^xsd:hexBinary ;
   foaf:name "Daniel K Hashimoto"@pt-BR ;
   foaf:nick
@@ -365,6 +393,36 @@ has some info on what I mean by this structural approach)
   foaf:name "From Combinators to Concatenative and Back Again"^^xsd:string ;
   foaf:page <http://hdl.handle.net/11422/22871> ;
   rdfs:label "From Combinators to Concatenative and Back Again"^^xsd:string ;
+.
+
+:talks\/connections%20between%20applicative%20and%20concatenative%20tacit%20programming.pdf
+  :date "2025-11-27"^^xsd:date ;
+  :kind "Invited"^^xsd:string ;
+  :location "TalTech, Tallinn, Estonia"^^xsd:string ;
+  :place_link <https://compose.ioc.ee> ;
+  :place_text "TallCat Seminars"^^xsd:string ;
+  :slides_link :talks\/Connections_Between_Applicative_and_Concatenative_Tacit_Programming.pdf ;
+  :slides_text "PDF"^^xsd:string ;
+  :title "Connections Between Applicative and Concatenative Tacit Programming"^^xsd:string ;
+  foaf:name "TallCat Seminars"^^xsd:string ;
+  rdfs:label "TallCat Seminars"^^xsd:string ;
+.
+
+:talks\/towards%20an%20implementation\-independent%20interface%20for%20reasoning%20about%20semantic%20web%20in%20prolog.pdf
+  :date "2025-11-14"^^xsd:date ;
+  :extras_external_ref_link <https://gitlab.com/Hashi364/semweb> ;
+  :extras_external_ref_text "repo"^^xsd:string ;
+  :extras_internal_ref_link :talks\/Towards_an_Implementation\-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog\/ ;
+  :extras_internal_ref_text "image generators"^^xsd:string ;
+  :kind "Meetup"^^xsd:string ;
+  :location "Hochschule Düsseldorf, Düsseldorf, Germany"^^xsd:string ;
+  :place_link <https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/> ;
+  :place_text "3rd Scryer Prolog Meetup"^^xsd:string ;
+  :slides_link :talks\/Towards_an_Implementation\-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf ;
+  :slides_text "PDF"^^xsd:string ;
+  :title "Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog"^^xsd:string ;
+  foaf:name "3rd Scryer Prolog Meetup"^^xsd:string ;
+  rdfs:label "3rd Scryer Prolog Meetup"^^xsd:string ;
 .
 ```
 </details>

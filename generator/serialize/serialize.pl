@@ -1,7 +1,7 @@
 :- module(serialize,
 [ link_normalized/3, proglang_normalized/3
 , serialize_atom//1
-, serialize_number//1, serialize_month//1
+, serialize_number//1, serialize_month//1, serialize_day//1
 , indent//1, nlindent//1
 , maplistfunc/3
 , foldlf/5
@@ -26,6 +26,7 @@ link_normalized(Val, Text, Link) :-
   ).
 
 linktarget_link(publications(L), publications(L)) :- !.
+linktarget_link(talks(L), talks(L)) :- !.
 linktarget_link(https(L), external(Iri)) :- !, append("https://", L, Iri).
 linktarget_link(http(L), external(Iri)) :- !, append("http://", L, Iri).
 linktarget_link(doi(ID), external(Iri)) :- !, append("https://doi.org/", ID, Iri).
@@ -40,6 +41,7 @@ serialize_atom(A) --> { atom_chars(A, As) }, seq(As).
 
 serialize_number(N) --> { number_chars(N, Cs) }, seq(Cs).
 serialize_month(M) --> ( { M < 10 } -> "0" ; [] ), serialize_number(M).
+serialize_day(D) --> ( { D < 10 } -> "0" ; [] ), serialize_number(D).
 
 indent(N) -->
   ( { N == 0 } -> []

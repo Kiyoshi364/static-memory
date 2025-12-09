@@ -33,7 +33,11 @@ type_(date, Val, Ctx) :-
   ( Val = year_month(Y, M) ->
     check_(integer, Y, Ctx),
     check_(integer, M, Ctx)
-  ; check_error(year_month, Val, Ctx)
+  ; Val = year_month_day(Y, M, D),
+    check_(integer, Y, Ctx),
+    check_(integer, M, Ctx),
+    check_(integer, D, Ctx)
+  ; check_error(date, Val, Ctx)
   ).
 type_(link, Val, Ctx) :-
   ( Val = text_link(_, _) -> type_(text_link, Val, Ctx)
@@ -50,6 +54,7 @@ type_(text_link, Val, Ctx) :-
   ).
 type_(link_target, Val, Ctx) :-
   ( Val = publications(Path) -> check_(string, Path, Ctx)
+  ; Val = talks(Path)        -> check_(string, Path, Ctx)
   ; Val = https(Path)        -> check_(string, Path, Ctx)
   ; Val = http(Path)         -> check_(string, Path, Ctx)
   ; Val = doi(Path)          -> check_(string, Path, Ctx)
@@ -94,5 +99,5 @@ check_type(T, Val, ErrVal, Ctx) :-
   ; throw(unknown_type_while_checking_list(T, ErrVal))
   ).
 
-check_error(Expected, Found, F-Arg) :-
-  throw(error(expected_found_functor_colunm(Expected, Found, F, Arg))).
+check_error(Expected, Found, Ctx) :-
+  throw(error(expected_found_ctx(Expected, Found, Ctx))).

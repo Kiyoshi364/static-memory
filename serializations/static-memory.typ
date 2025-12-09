@@ -15,6 +15,25 @@
     extras: ( ( tag: "slides", type: "link", val: link("file://./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf")[slides],), ),
   ), 
 );
+#let talk = (
+  (
+    kind: "Meetup",
+    date: date(year: 2025, month: 11, day: 14),
+    title: "Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog",
+    place: link("https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/")[3rd Scryer Prolog Meetup],
+    location: "Hochschule Düsseldorf, Düsseldorf, Germany",
+    slides: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf")[PDF],
+    extras: ( ( tag: "internal_ref", type: "link", val: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/")[image generators],), ( tag: "external_ref", type: "link", val: link("https://gitlab.com/Hashi364/semweb")[repo],), ),
+  ), (
+    kind: "Invited",
+    date: date(year: 2025, month: 11, day: 27),
+    title: "Connections Between Applicative and Concatenative Tacit Programming",
+    place: link("https://compose.ioc.ee")[TallCat Seminars],
+    location: "TalTech, Tallinn, Estonia",
+    slides: link("file://./talks/Connections_Between_Applicative_and_Concatenative_Tacit_Programming.pdf")[PDF],
+    extras: (),
+  ), 
+);
 #let project = (
   (
     name: ( tag: "text", type: "text", val: "wam",),

@@ -8,7 +8,7 @@
 :- use_module(serialize,
 [ link_normalized/3, proglang_normalized/3
 , serialize_atom//1
-, serialize_number//1, serialize_month//1
+, serialize_number//1, serialize_month//1, serialize_day//1
 , nlindent//1
 , ntfoldl//2
 , ntfoldlf//3
@@ -49,7 +49,7 @@ serialize_typst_dictionary_key_value(Indent, field(K, T), Val) -->
 [].
 
 serialize_type_val(text, literal(L)) --> !, quoted(L).
-serialize_type_val(date, year_month(Y, M)) --> !, "date(year: ", serialize_number(Y), ", month: ", serialize_month(M), ")".
+serialize_type_val(date, Date) --> !, serialize_date(Date).
 serialize_type_val(link, Val) --> !, { link_normalized(Val, Text, Link) }, serialize_link(Text, Link).
 serialize_type_val(proglang, proglang(PL)) --> !, { proglang_normalized(PL, Text, Link) }, serialize_link(Text, Link).
 serialize_type_val(list(T, _, _, _), L) --> !, serialize_list(L, T).
@@ -58,9 +58,13 @@ serialize_type_val(_, to_be_filled) --> !, "text[To Be Filled]".
 serialize_type_val(T, Val) -->
   { throw(unknown_type_val_while_serializing_typst(T, Val)) }.
 
+serialize_date(year_month(Y, M)) --> "date(year: ", serialize_number(Y), ", month: ", serialize_month(M), ")".
+serialize_date(year_month_day(Y, M, D)) --> "date(year: ", serialize_number(Y), ", month: ", serialize_month(M), ", day: ", serialize_day(D), ")".
+
 serialize_link(Text, Link) --> "link(\"", serialize_linktarget(Link), "\")[", seq(Text), "]".
 
 serialize_linktarget(publications(L)) --> !, "file://./publications/", seq(L).
+serialize_linktarget(talks(L)) --> !, "file://./talks/", seq(L).
 serialize_linktarget(external(L)) --> !, seq(L).
 serialize_linktarget(Link) -->
   { throw(unknown_linktarget_while_serializing_typst(Link)) }.

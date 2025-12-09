@@ -23,12 +23,15 @@ serializations(
 , ser(triples_ttl, "ttl", text(triples, "Turtle RDF Triples"))
 ]).
 
+% db(Name, Type_Data_2, Header_1, Predicates_3)
 databases(
 [ db(publication, publication_type_data, publication_header, publication_predicates)
+, db(talk, talk_type_data, talk_header, talk_predicates)
 , db(project, project_type_data, project_header, project_predicates)
 ]).
 
 :- use_module(database/publications, [publication_type_data/2, publication_header/1, publication_predicates/3]).
+:- use_module(database/talks, [talk_type_data/2, talk_header/1, talk_predicates/3]).
 :- use_module(database/projects, [project_type_data/2, project_header/1, project_predicates/3]).
 
 %%%%%%%%%%%%%%%%%%%% Markdown %%%%%%%%%%%%%%%%%%%%
@@ -60,6 +63,9 @@ md_preamble(publication) --> !,
   "The link from _Main Repository_ is to somewhere else,\n",
   "you probably should use the link in this column to refer/cite/share.\n",
   "\n",
+[].
+md_preamble(talk) --> !,
+  "\n## Talks\n\n",
 [].
 md_preamble(project) --> !,
   "\n## Programming Projects\n\n",

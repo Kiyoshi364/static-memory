@@ -33,8 +33,8 @@ publication_predicates(3, text(
 , [link(text, [rdfs:label, foaf:name])]
 , []
 , link(ref, [foaf:homepage, foaf:page])
-, list_each(or([
-    slides-[link(text, :(slides_name)), link(ref, :(slides_link))]
+, list_each(or(
+  [ slides-[link(text, :(slides_name)), link(ref, :(slides_link))]
   ]))
 ]).
 

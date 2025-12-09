@@ -7,7 +7,7 @@
 
 :- use_module(serialize,
 [ link_normalized/3, proglang_normalized/3
-, serialize_number//1, serialize_month//1
+, serialize_number//1, serialize_month//1, serialize_day//1
 , ntfoldl//2
 , ntfoldlf//3
 ]).
@@ -35,6 +35,7 @@ serialize_md_body_(field(_, T), Val) -->
 
 serialize_type_val(text, literal(L)) --> !, seq(L).
 serialize_type_val(date, year_month(Y, M)) --> !, serialize_number(Y), "-", serialize_month(M).
+serialize_type_val(date, year_month_day(Y, M, D)) --> !, serialize_number(Y), "-", serialize_month(M), "-", serialize_day(D).
 serialize_type_val(link, Val) --> !, { link_normalized(Val, Text, Link) }, serialize_link(Text, Link).
 serialize_type_val(proglang, proglang(PL)) --> !, { proglang_normalized(PL, Text, Link) }, serialize_link(Text, Link).
 serialize_type_val(list(T, J, E, N), L) --> !, serialize_list(L, T, J, E, N).
@@ -46,6 +47,7 @@ serialize_type_val(T, Val) -->
 serialize_link(Text, Link) --> "[", seq(Text), "](", serialize_linktarget(Link), ")".
 
 serialize_linktarget(publications(L)) --> !, "./publications/", seq(L).
+serialize_linktarget(talks(L)) --> !, "./talks/", seq(L).
 serialize_linktarget(external(L)) --> !, seq(L).
 serialize_linktarget(Link) -->
   { throw(unknown_linktarget_while_serializing(Link)) }.

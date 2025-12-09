@@ -13,7 +13,7 @@
 :- use_module(text, [lowercase/2]).
 :- use_module(serialize,
 [ link_normalized/3, proglang_normalized/3
-, serialize_number//1, serialize_month//1
+, serialize_number//1, serialize_month//1, serialize_day//1
 , foldlfn/6
 , ntfoldl//2
 ]).
@@ -71,7 +71,7 @@ type_fieldname_predicates_or([case(Tag, T) | Cs], Nchs, [Tag-P | Ps]) :-
   type_fieldname_predicates_or(Cs, Nchs, Ps).
 
 type_val_resource(text, literal(L), literal(xsd:string, L)) :- !.
-type_val_resource(date, year_month(Y, M), literal(xsd:gYearMonth, S)) :- !, format_year_month(Y, M, S).
+type_val_resource(date, Date, Res) :- !, date_resource(Date, Res).
 type_val_resource(link, Val, link(literal(xsd:string, Text), Ref)) :- !, link_normalized(Val, Text, Link), linktarget_resource(Link, Ref).
 type_val_resource(proglang, proglang(PL), link(literal(xsd:string, Text), Ref)) :- !, proglang_normalized(PL, Text, Link), linktarget_resource(Link, Ref).
 type_val_resource(list(T, _, _, _), L, Res) :- !, maplist(type_val_resource(T), L, Res).
@@ -79,11 +79,19 @@ type_val_resource(or(Cs), O, Res) :- !, or_resource(Cs, O, Res).
 type_val_resource(T, Val, Res) :-
   throw(unknown_type_val_while_converting_to_resource(T, Val, Res)).
 
+date_resource(year_month(Y, M), literal(xsd:gYearMonth, S)) :- format_year_month(Y, M, S).
+date_resource(year_month_day(Y, M, D), literal(xsd:date, S)) :- format_year_month_day(Y, M, D, S).
+
 format_year_month(Y, M, S) :-
   Body = ( serialize_number(Y), "-", serialize_month(M) ),
   phrase(Body, S, []).
 
+format_year_month_day(Y, M, D, S) :-
+  Body = ( serialize_number(Y), "-", serialize_month(M), "-", serialize_day(D) ),
+  phrase(Body, S, []).
+
 linktarget_resource(publications(L), :(A)) :- !, append("publications/", L, Iri), atom_chars(A, Iri).
+linktarget_resource(talks(L), :(A)) :- !, append("talks/", L, Iri), atom_chars(A, Iri).
 linktarget_resource(external(L), iri(L)) :- !.
 linktarget_resource(Link, _) :- !,
   throw(unknown_linktarget_while_converting_to_resource(Link)).
