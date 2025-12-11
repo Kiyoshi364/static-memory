@@ -15,10 +15,10 @@ you probably should use the link in this column to refer/cite/share.
 
 ## Talks
 
-|Kind|Date (yyyy-mm[-dd])|Title|Place|Location|Slides|Extras|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Meetup|2025-11-14|Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog|[3rd Scryer Prolog Meetup](https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/)|Hochschule Düsseldorf, Düsseldorf, Germany|[PDF](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf)|[image generators](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/), [repo](https://gitlab.com/Hashi364/semweb), [meetup discussion](https://github.com/mthom/scryer-prolog/discussions/2948)|
-|Invited|2025-11-27|Connections Between Applicative and Concatenative Tacit Programming|[TallCat Seminars](https://compose.ioc.ee)|TalTech, Tallinn, Estonia|[PDF](./talks/Connections_Between_Applicative_and_Concatenative_Tacit_Programming.pdf)||
+|Kind|Date (yyyy-mm[-dd])|Title|Keywords|Place|Location|Slides|Extras|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|Meetup|2025-11-14|Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog|prolog; semantic web|[3rd Scryer Prolog Meetup](https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/)|Hochschule Düsseldorf, Düsseldorf, Germany|[PDF](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf)|[image generators](./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog/), [repo](https://gitlab.com/Hashi364/semweb), [meetup discussion](https://github.com/mthom/scryer-prolog/discussions/2948)|
+|Invited|2025-11-27|Connections Between Applicative and Concatenative Tacit Programming|tacit programming; point-free programming; concatenative calculus; stack languages; combinatory logic; simulation|[TallCat Seminars](https://compose.ioc.ee)|TalTech, Tallinn, Estonia|[PDF](./talks/Connections_Between_Applicative_and_Concatenative_Tacit_Programming.pdf)||
 
 ## Programming Projects
 
@@ -127,6 +127,7 @@ This data is also available at [serializations/static-memory.typ](./serializatio
     kind: "Meetup",
     date: date(year: 2025, month: 11, day: 14),
     title: "Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog",
+    keywords: ( "prolog", "semantic web", ),
     place: link("https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/")[3rd Scryer Prolog Meetup],
     location: "Hochschule Düsseldorf, Düsseldorf, Germany",
     slides: link("file://./talks/Towards_an_Implementation-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog.pdf")[PDF],
@@ -135,6 +136,7 @@ This data is also available at [serializations/static-memory.typ](./serializatio
     kind: "Invited",
     date: date(year: 2025, month: 11, day: 27),
     title: "Connections Between Applicative and Concatenative Tacit Programming",
+    keywords: ( "tacit programming", "point-free programming", "concatenative calculus", "stack languages", "combinatory logic", "simulation", ),
     place: link("https://compose.ioc.ee")[TallCat Seminars],
     location: "TalTech, Tallinn, Estonia",
     slides: link("file://./talks/Connections_Between_Applicative_and_Concatenative_Tacit_Programming.pdf")[PDF],
@@ -397,6 +399,13 @@ has some info on what I mean by this structural approach)
 
 :talks\/connections%20between%20applicative%20and%20concatenative%20tacit%20programming.pdf
   :date "2025-11-27"^^xsd:date ;
+  :keywords
+    "combinatory logic"^^xsd:string ,
+    "concatenative calculus"^^xsd:string ,
+    "point-free programming"^^xsd:string ,
+    "simulation"^^xsd:string ,
+    "stack languages"^^xsd:string ,
+    "tacit programming"^^xsd:string ;
   :kind "Invited"^^xsd:string ;
   :location "TalTech, Tallinn, Estonia"^^xsd:string ;
   :place_link <https://compose.ioc.ee> ;
@@ -418,6 +427,9 @@ has some info on what I mean by this structural approach)
     "repo"^^xsd:string ;
   :extras_internal_ref_link :talks\/Towards_an_Implementation\-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog\/ ;
   :extras_internal_ref_text "image generators"^^xsd:string ;
+  :keywords
+    "prolog"^^xsd:string ,
+    "semantic web"^^xsd:string ;
   :kind "Meetup"^^xsd:string ;
   :location "Hochschule Düsseldorf, Düsseldorf, Germany"^^xsd:string ;
   :place_link <https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/> ;

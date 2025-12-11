@@ -169,6 +169,13 @@
 
 :talks\/connections%20between%20applicative%20and%20concatenative%20tacit%20programming.pdf
   :date "2025-11-27"^^xsd:date ;
+  :keywords
+    "combinatory logic"^^xsd:string ,
+    "concatenative calculus"^^xsd:string ,
+    "point-free programming"^^xsd:string ,
+    "simulation"^^xsd:string ,
+    "stack languages"^^xsd:string ,
+    "tacit programming"^^xsd:string ;
   :kind "Invited"^^xsd:string ;
   :location "TalTech, Tallinn, Estonia"^^xsd:string ;
   :place_link <https://compose.ioc.ee> ;
@@ -190,6 +197,9 @@
     "repo"^^xsd:string ;
   :extras_internal_ref_link :talks\/Towards_an_Implementation\-Independent_Interface_for_Reasoning_about_Semantic_Web_in_Prolog\/ ;
   :extras_internal_ref_text "image generators"^^xsd:string ;
+  :keywords
+    "prolog"^^xsd:string ,
+    "semantic web"^^xsd:string ;
   :kind "Meetup"^^xsd:string ;
   :location "Hochschule Düsseldorf, Düsseldorf, Germany"^^xsd:string ;
   :place_link <https://hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/> ;

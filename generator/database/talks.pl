@@ -5,13 +5,14 @@
 ]).
 talk_type_data(Type, Data) :-
   type(Type),
-  G = talk(_Type, _Date, _Title, _Place, _Location, _Slides, _Extras),
+  G = talk(_Type, _Date, _Title, _Keywords, _Place, _Location, _Slides, _Extras),
   findall(G, G, Data).
 
 type(
 [ field(kind, text)
 , field(date, date)
 , field(title, text)
+, field(keywords, list(text, "; ", "", ""))
 , field(place, link)
 , field(location, text)
 , field(slides, link)
@@ -24,7 +25,7 @@ type(
   ))
 ]).
 
-talk_header(["Kind", "Date (yyyy-mm[-dd])", "Title", "Place", "Location", "Slides", "Extras"]).
+talk_header(["Kind", "Date (yyyy-mm[-dd])", "Title", "Keywords", "Place", "Location", "Slides", "Extras"]).
 
 talk_predicates(3,
 [ lowercase, pospend(".pdf"), prepend("talks/"), local
@@ -32,6 +33,7 @@ talk_predicates(3,
 [ []
 , []
 , []
+, list_each([])
 , [link(text, [rdfs:label, foaf:name])]
 , []
 , []
@@ -45,6 +47,9 @@ talk(
   literal("Meetup"),
   year_month_day(2025, 11, 14),
   literal("Towards an Implementation-Independent Interface for Reasoning about Semantic Web in Prolog"),
+  [ literal("prolog")
+  , literal("semantic web")
+  ],
   text_link(
     "3rd Scryer Prolog Meetup",
     https("hsd-pbsa.de/veranstaltung/scryer-prolog-meetup-2025/")
@@ -61,6 +66,13 @@ talk(
   literal("Invited"),
   year_month_day(2025, 11, 27),
   literal("Connections Between Applicative and Concatenative Tacit Programming"),
+  [ literal("tacit programming")
+  , literal("point-free programming")
+  , literal("concatenative calculus")
+  , literal("stack languages")
+  , literal("combinatory logic")
+  , literal("simulation")
+  ],
   text_link(
     "TallCat Seminars",
     https("compose.ioc.ee")
