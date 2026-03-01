@@ -85,6 +85,16 @@ project(
 ).
 
 project(
+  or(text, literal("Queue Simulator")),
+  literal("undergrad group assignment"),
+  literal("Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator"),
+  proglang(c),
+  text_link("github.com/PolyTadeu/TrabFinalAD", https("github.com/PolyTadeu/TrabFinalAD")),
+  [],
+  year_month(2022, 08)
+).
+
+project(
   or(text, literal("crlf")),
   literal("executable"),
   literal("Converts files from linux to windows text file format or the other way around"),

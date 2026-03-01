@@ -22,6 +22,8 @@ you probably should use the link in this column to refer/cite/share.
 
 ## Programming Projects
 
+The list is non-exhaustive.
+
 |Name|Kind|Summary|Language|Main Repository|Mirrors|Last Updated|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |wam|library/executable|8-bit WAM interpreter, focusing on learning the abstract machine|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/Kiyoshi364/wam](https://github.com/Kiyoshi364/wam)|-|2025-03|
@@ -29,6 +31,7 @@ you probably should use the link in this column to refer/cite/share.
 |[struct.pl](https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl)|file library|A prolog library for defining and using structs-like functors|[Prolog](https://en.wikipedia.org/wiki/Prolog)|[gitlab.com/Hashi364/struct-pl](https://gitlab.com/Hashi364/struct-pl)|[github.com/Kiyoshi364/struct-pl](https://github.com/Kiyoshi364/struct-pl)|2025-02|
 |Yellowstone|executable|A Minecraft's Redstone inspired simulation|[Zig](https://ziglang.org/)|[github.com/Kiyoshi364/yellowstone](https://github.com/Kiyoshi364/yellowstone)|-|2024-06|
 |Cutils|many executables|Some self-contained small utilities written in C|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/Kiyoshi364/cutils](https://github.com/Kiyoshi364/cutils)|-|2024-06|
+|Queue Simulator|undergrad group assignment|Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/PolyTadeu/TrabFinalAD](https://github.com/PolyTadeu/TrabFinalAD)|-|2022-08|
 |crlf|executable|Converts files from linux to windows text file format or the other way around|[Zig](https://ziglang.org/)|[github.com/Kiyoshi364/crlf](https://github.com/Kiyoshi364/crlf)|-|2022-08|
 
 ## About ...
@@ -187,6 +190,14 @@ This data is also available at [serializations/static-memory.typ](./serializatio
     mirrors: (),
     last_updated: date(year: 2024, month: 06),
   ), (
+    name: ( tag: "text", type: "text", val: "Queue Simulator",),
+    kind: "undergrad group assignment",
+    summary: "Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator",
+    programming_language: link("https://en.wikipedia.org/wiki/C_(programming_language)")[C],
+    main_repository: link("https://github.com/PolyTadeu/TrabFinalAD")[github.com/PolyTadeu/TrabFinalAD],
+    mirrors: (),
+    last_updated: date(year: 2022, month: 08),
+  ), (
     name: ( tag: "text", type: "text", val: "crlf",),
     kind: "executable",
     summary: "Converts files from linux to windows text file format or the other way around",
@@ -243,6 +254,7 @@ has some info on what I mean by this structural approach)
     :projects\/cbor.pl ,
     :projects\/crlf ,
     :projects\/cutils ,
+    :projects\/queue%20simulator ,
     :projects\/struct.pl ,
     :projects\/wam ,
     :projects\/yellowstone ,
@@ -309,6 +321,21 @@ has some info on what I mean by this structural approach)
   foaf:name "Cutils"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/cutils> ;
   rdfs:label "Cutils"^^xsd:string ;
+.
+
+:projects\/queue%20simulator
+  :kind "undergrad group assignment"^^xsd:string ;
+  :last_updated "2022-08"^^xsd:gYearMonth ;
+  :main_repository_link <https://github.com/PolyTadeu/TrabFinalAD> ;
+  :main_repository_text "github.com/PolyTadeu/TrabFinalAD"^^xsd:string ;
+  :name_text "Queue Simulator"^^xsd:string ;
+  :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
+  :programming_language_text "C"^^xsd:string ;
+  :summary "Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator"^^xsd:string ;
+  foaf:homePage <https://github.com/PolyTadeu/TrabFinalAD> ;
+  foaf:name "Queue Simulator"^^xsd:string ;
+  foaf:page <https://github.com/PolyTadeu/TrabFinalAD> ;
+  rdfs:label "Queue Simulator"^^xsd:string ;
 .
 
 :projects\/struct.pl

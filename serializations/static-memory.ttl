@@ -11,6 +11,7 @@
     :projects\/cbor.pl ,
     :projects\/crlf ,
     :projects\/cutils ,
+    :projects\/queue%20simulator ,
     :projects\/struct.pl ,
     :projects\/wam ,
     :projects\/yellowstone ,
@@ -77,6 +78,21 @@
   foaf:name "Cutils"^^xsd:string ;
   foaf:page <https://github.com/Kiyoshi364/cutils> ;
   rdfs:label "Cutils"^^xsd:string ;
+.
+
+:projects\/queue%20simulator
+  :kind "undergrad group assignment"^^xsd:string ;
+  :last_updated "2022-08"^^xsd:gYearMonth ;
+  :main_repository_link <https://github.com/PolyTadeu/TrabFinalAD> ;
+  :main_repository_text "github.com/PolyTadeu/TrabFinalAD"^^xsd:string ;
+  :name_text "Queue Simulator"^^xsd:string ;
+  :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
+  :programming_language_text "C"^^xsd:string ;
+  :summary "Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator"^^xsd:string ;
+  foaf:homePage <https://github.com/PolyTadeu/TrabFinalAD> ;
+  foaf:name "Queue Simulator"^^xsd:string ;
+  foaf:page <https://github.com/PolyTadeu/TrabFinalAD> ;
+  rdfs:label "Queue Simulator"^^xsd:string ;
 .
 
 :projects\/struct.pl

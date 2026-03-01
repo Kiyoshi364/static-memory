@@ -69,6 +69,8 @@ md_preamble(talk) --> !,
 [].
 md_preamble(project) --> !,
   "\n## Programming Projects\n\n",
+  "The list is non-exhaustive.\n",
+  "\n",
 [].
 md_preamble(Name) -->
   { throw(error(unknown_md_preamble(Name))) }.

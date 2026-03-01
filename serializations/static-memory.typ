@@ -80,6 +80,14 @@
     mirrors: (),
     last_updated: date(year: 2024, month: 06),
   ), (
+    name: ( tag: "text", type: "text", val: "Queue Simulator",),
+    kind: "undergrad group assignment",
+    summary: "Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator",
+    programming_language: link("https://en.wikipedia.org/wiki/C_(programming_language)")[C],
+    main_repository: link("https://github.com/PolyTadeu/TrabFinalAD")[github.com/PolyTadeu/TrabFinalAD],
+    mirrors: (),
+    last_updated: date(year: 2022, month: 08),
+  ), (
     name: ( tag: "text", type: "text", val: "crlf",),
     kind: "executable",
     summary: "Converts files from linux to windows text file format or the other way around",
