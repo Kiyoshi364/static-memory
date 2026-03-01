@@ -1,0 +1,22 @@
+hashi-2024-fc2cba:
+  type: Thesis
+  title: From Combinatory to Concatenative and Back Again
+  author: Hashimoto, Daniel Kiyoshi, Vouzella de Andrade
+  date: 2024-02-06
+  genre: Bachelor's Thesis
+  organization: Universidade Federal do Rio de Janeiro
+  abstract:
+    "A programação tácita ou point-free é um estilo de programação que evita nomear variáveis, através do uso de combinadores para compor funções menores. Dois modelos de programação tácita são o cálculo concatenativo e a lógica combinatória. O cálculo concatenativo está relacionado às linguagens de programação baseadas em pilha, estas usadas em diversos contextos, incluindo bytecode para máquinas virtuais e sistemas embarcados. A lógica combinatória é um modelo computacional aplicativo mais semelhante ao cálculo lambda. Ambos estes modelos tácitos são frequentemente comparados entre si. Os combinadores elementares da lógica combinatória são comumente casados com instruções de manipulação de pilha: por exemplo, C se parece com o swap, e W se parece com o dup. Neste trabalho, nós generalizamos esta conexão para todos os combinadores e todos os programas de pilha. Nós descrevemos três algorítmos que convertem de um modelo tácito para o outro. O primeiro algorítmo traduz qualquer combinador da lógica combinatória para uma expressão do cálculo concatenativo usando ou a estratégia de redução call-by-name ou a call-by-value. O segundo algorítmo é especializado para um subconjunto de combinadores que recebe uma função callback como seu primeiro argumento. Ele produz programas de pilha menores e mais intuitivos. Por último, o terceiro algorítmo é uma versão reversa do segundo, e converte qualquer programa de pilha de volta para uma expressão da lógica combinatória. Como nossos algorítmos preservam a ordem da redução, nós mostramos que cada modelo é capaz de simular o outro."
+  affiliated:
+    - role: collaborator
+      names: Gualandi, Hugo Musso
+  url:
+    value: http://hdl.handle.net/11422/22871
+    date: 2024-06
+  parent:
+    - type: Original
+      title: Pantheon
+    - type: Repository
+      title: Static-Memory
+      url: https://github.com/Kiyoshi364/static-memory
+      archive-location: https://raw.githubusercontent.com/Kiyoshi364/static-memory/main/publications/From_Combinators_to_Concatenative_and_Back_Again.pdf

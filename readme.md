@@ -8,10 +8,10 @@ The link from _Title_ is local to the git repository.
 The link from _Main Repository_ is to somewhere else,
 you probably should use the link in this column to refer/cite/share.
 
-|Type|Date (yyyy-mm)|Title|Where|Main Repository|Extras|
-|:---:|:---:|:---:|:---:|:---:|:---:|
-|BSc Thesis|2024-02|[From Combinators to Concatenative and Back Again](./publications/From_Combinators_to_Concatenative_and_Back_Again.pdf)|[UFRJ](https://ufrj.br/en/)|[Pantheon](http://hdl.handle.net/11422/22871)|[slides pt-BR](./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf)|
-|Paper|2024-09|[Converting Combinators to and from Concatenative](./publications/Converting_Combinators_to_and_from_Concatenative.pdf)|[SBLP2024](https://cbsoft.sbc.org.br/2024/sblp/?lang=en)|[DOI(10.5753/sblp.2024.3460)](https://doi.org/10.5753/sblp.2024.3460)|[slides](./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf)|
+|Type|Date (yyyy-mm)|Title|Where|Main Repository|Citation|Extras|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|BSc Thesis|2024-02|[From Combinators to Concatenative and Back Again](./publications/From_Combinators_to_Concatenative_and_Back_Again.pdf)|[UFRJ](https://ufrj.br/en/)|[Pantheon](http://hdl.handle.net/11422/22871)|[bibtex](./publications/From_Combinators_to_Concatenative_and_Back_Again.bib), [hayagriva (typst)](./publications/From_Combinators_to_Concatenative_and_Back_Again.yml)|[slides pt-BR](./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf)|
+|Paper|2024-09|[Converting Combinators to and from Concatenative](./publications/Converting_Combinators_to_and_from_Concatenative.pdf)|[SBLP2024](https://cbsoft.sbc.org.br/2024/sblp/?lang=en)|[DOI(10.5753/sblp.2024.3460)](https://doi.org/10.5753/sblp.2024.3460)|[bibtex](./publications/Converting_Combinators_to_and_from_Concatenative.bib), [hayagriva (typst)](./publications/Converting_Combinators_to_and_from_Concatenative.yml)|[slides](./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf)|
 
 ## Talks
 
@@ -112,6 +112,7 @@ This data is also available at [serializations/static-memory.typ](./serializatio
     publication: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again.pdf")[From Combinators to Concatenative and Back Again],
     where: link("https://ufrj.br/en/")[UFRJ],
     main_repository: link("http://hdl.handle.net/11422/22871")[Pantheon],
+    citation: ( ( tag: "bibtex", type: "link", val: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again.bib")[bibtex],), ( tag: "hayagriva", type: "link", val: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again.yml")[hayagriva (typst)],), ),
     extras: ( ( tag: "slides", type: "link", val: link("file://./publications/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf")[slides pt-BR],), ),
   ), (
     type: "Paper",
@@ -119,6 +120,7 @@ This data is also available at [serializations/static-memory.typ](./serializatio
     publication: link("file://./publications/Converting_Combinators_to_and_from_Concatenative.pdf")[Converting Combinators to and from Concatenative],
     where: link("https://cbsoft.sbc.org.br/2024/sblp/?lang=en")[SBLP2024],
     main_repository: link("https://doi.org/10.5753/sblp.2024.3460")[DOI(10.5753/sblp.2024.3460)],
+    citation: ( ( tag: "bibtex", type: "link", val: link("file://./publications/Converting_Combinators_to_and_from_Concatenative.bib")[bibtex],), ( tag: "hayagriva", type: "link", val: link("file://./publications/Converting_Combinators_to_and_from_Concatenative.yml")[hayagriva (typst)],), ),
     extras: ( ( tag: "slides", type: "link", val: link("file://./publications/Converting_Combinators_to_and_from_Concatenative_slides.pdf")[slides],), ),
   ),
 );
@@ -360,6 +362,10 @@ has some info on what I mean by this structural approach)
 .
 
 :publications\/converting%20combinators%20to%20and%20from%20concatenative.pdf
+  :citation_bibtex_link :publications\/Converting_Combinators_to_and_from_Concatenative.bib ;
+  :citation_bibtex_text "bibtex"^^xsd:string ;
+  :citation_hayagriva_link :publications\/Converting_Combinators_to_and_from_Concatenative.yml ;
+  :citation_hayagriva_text "hayagriva (typst)"^^xsd:string ;
   :date "2024-09"^^xsd:gYearMonth ;
   :extras_slides_link :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
   :extras_slides_text "slides"^^xsd:string ;
@@ -379,6 +385,10 @@ has some info on what I mean by this structural approach)
 .
 
 :publications\/from%20combinators%20to%20concatenative%20and%20back%20again.pdf
+  :citation_bibtex_link :publications\/From_Combinators_to_Concatenative_and_Back_Again.bib ;
+  :citation_bibtex_text "bibtex"^^xsd:string ;
+  :citation_hayagriva_link :publications\/From_Combinators_to_Concatenative_and_Back_Again.yml ;
+  :citation_hayagriva_text "hayagriva (typst)"^^xsd:string ;
   :date "2024-02"^^xsd:gYearMonth ;
   :extras_slides_link :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
   :extras_slides_text "slides pt-BR"^^xsd:string ;

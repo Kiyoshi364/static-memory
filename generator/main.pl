@@ -278,7 +278,7 @@ check_database(Name, Type_Data_2, Header_1, Predicates_3) :-
   call(Type_Data_2, Ts, Bs),
   cassert(length(Ts, L)),
   call(Header_1, H),
-  length(H, L),
+  cassert(length(H, L)),
   maplist(cassert(check_body(Ts, Name)), Bs),
   call(Predicates_3, SubN, SubEx, Ps),
   cassert(length(Ps, L)),

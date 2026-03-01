@@ -130,6 +130,10 @@
 .
 
 :publications\/converting%20combinators%20to%20and%20from%20concatenative.pdf
+  :citation_bibtex_link :publications\/Converting_Combinators_to_and_from_Concatenative.bib ;
+  :citation_bibtex_text "bibtex"^^xsd:string ;
+  :citation_hayagriva_link :publications\/Converting_Combinators_to_and_from_Concatenative.yml ;
+  :citation_hayagriva_text "hayagriva (typst)"^^xsd:string ;
   :date "2024-09"^^xsd:gYearMonth ;
   :extras_slides_link :publications\/Converting_Combinators_to_and_from_Concatenative_slides.pdf ;
   :extras_slides_text "slides"^^xsd:string ;
@@ -149,6 +153,10 @@
 .
 
 :publications\/from%20combinators%20to%20concatenative%20and%20back%20again.pdf
+  :citation_bibtex_link :publications\/From_Combinators_to_Concatenative_and_Back_Again.bib ;
+  :citation_bibtex_text "bibtex"^^xsd:string ;
+  :citation_hayagriva_link :publications\/From_Combinators_to_Concatenative_and_Back_Again.yml ;
+  :citation_hayagriva_text "hayagriva (typst)"^^xsd:string ;
   :date "2024-02"^^xsd:gYearMonth ;
   :extras_slides_link :publications\/From_Combinators_to_Concatenative_and_Back_Again_slides.pdf ;
   :extras_slides_text "slides pt-BR"^^xsd:string ;

@@ -1,0 +1,25 @@
+hashi-2024-ccl24cc:
+  type: Article
+  title: Converting Combinatory Logic to and from Concatenative Calculus
+  author:
+    - Hashimoto, Daniel Kiyoshi, Vouzella de Andrade
+    - Gualandi, Hugo Musso
+  date: 2024-09-30
+  page-range: 17-25
+  url:
+    value: https://sol.sbc.org.br/index.php/sblp/article/view/30253
+    date: 2024-10-17
+  serial-number:
+    doi: 10.5753/sblp.2024.3460
+  parent:
+    - type: Proceedings
+      title: Anais do XXVIII Simp{ó}sio Brasileiro de Linguagens de Programa{ç}{ã}o
+      location: Curitiba/PR
+      publisher:
+        name: Sociedade Brasileira de Computação
+        location: Porto Alegre
+    - type: Repository
+      title: Static-Memory
+      url:
+        value: https://raw.githubusercontent.com/Kiyoshi364/static-memory/main/publications/From_Combinators_to_Concatenative_and_Back_Again.pdf
+        date: 2024-10-01

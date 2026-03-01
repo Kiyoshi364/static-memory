@@ -6,7 +6,7 @@
 
 publication_type_data(Type, Data) :-
   type(Type),
-  G = publication(_Type, _Date, _Title, _Where, _MainRepository, _Extras),
+  G = publication(_Type, _Date, _Title, _Where, _MainRepository, _Citation, _Extras),
   findall(G, G, Data).
 
 type(
@@ -15,6 +15,13 @@ type(
 , field(publication, link)
 , field(where, link)
 , field(main_repository, link)
+, field(citation, list(
+  or(
+    [ case(bibtex, link)
+    , case(hayagriva, link)
+    ]),
+  ", ", "", ""
+  ))
 , field(extras, list(
   or(
     [ case(slides, link)
@@ -23,7 +30,7 @@ type(
   ))
 ]).
 
-publication_header(["Type", "Date (yyyy-mm)", "Title", "Where", "Main Repository", "Extras"]).
+publication_header(["Type", "Date (yyyy-mm)", "Title", "Where", "Main Repository", "Citation", "Extras"]).
 
 publication_predicates(3, text(
 [ lowercase, pospend(".pdf"), prepend("publications/"), local
@@ -33,6 +40,10 @@ publication_predicates(3, text(
 , [link(text, [rdfs:label, foaf:name])]
 , []
 , link(ref, [foaf:homepage, foaf:page])
+, list_each(or(
+  [ bibtex-[]
+  , hayagriva-[]
+  ]))
 , list_each(or(
   [ slides-[link(text, :(slides_name)), link(ref, :(slides_link))]
   ]))
@@ -47,6 +58,9 @@ publication(
   ),
   text_link("UFRJ", https("ufrj.br/en/")),
   text_link("Pantheon", http("hdl.handle.net/11422/22871")),
+  [ or(bibtex, text_link("bibtex", publications("From_Combinators_to_Concatenative_and_Back_Again.bib")))
+  , or(hayagriva, text_link("hayagriva (typst)", publications("From_Combinators_to_Concatenative_and_Back_Again.yml")))
+  ],
   [ or(slides, text_link("slides pt-BR",
       publications("From_Combinators_to_Concatenative_and_Back_Again_slides.pdf")
     ))
@@ -62,6 +76,9 @@ publication(
   ),
   text_link("SBLP2024", https("cbsoft.sbc.org.br/2024/sblp/?lang=en")),
   doi("10.5753/sblp.2024.3460"),
+  [ or(bibtex, text_link("bibtex", publications("Converting_Combinators_to_and_from_Concatenative.bib")))
+  , or(hayagriva, text_link("hayagriva (typst)", publications("Converting_Combinators_to_and_from_Concatenative.yml")))
+  ],
   [ or(slides, text_link(
       "slides",
       publications("Converting_Combinators_to_and_from_Concatenative_slides.pdf")
