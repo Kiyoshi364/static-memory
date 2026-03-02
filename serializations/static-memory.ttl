@@ -33,31 +33,27 @@
 :projects\/cbor.pl
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
-  :main_repository_link <https://gitlab.com/Hashi364/cbor-pl> ;
-  :main_repository_text "gitlab.com/Hashi364/cbor-pl"^^xsd:string ;
-  :mirrors_link <https://github.com/Kiyoshi364/cbor-pl> ;
-  :mirrors_text "github.com/Kiyoshi364/cbor-pl"^^xsd:string ;
   :name_link_link <https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl> ;
   :name_link_text "cbor.pl"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
   :programming_language_text "Prolog"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/cbor-pl> ;
+  :repositories_main_text "github.com/Kiyoshi364/cbor-pl"^^xsd:string ;
   :summary "A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"^^xsd:string ;
-  foaf:homePage <https://gitlab.com/Hashi364/cbor-pl> ;
+  foaf:homePage <https://github.com/Kiyoshi364/cbor-pl> ;
   foaf:name "cbor.pl"^^xsd:string ;
-  foaf:page
-    <https://github.com/Kiyoshi364/cbor-pl> ,
-    <https://gitlab.com/Hashi364/cbor-pl> ;
+  foaf:page <https://github.com/Kiyoshi364/cbor-pl> ;
   rdfs:label "cbor.pl"^^xsd:string ;
 .
 
 :projects\/crlf
   :kind "executable"^^xsd:string ;
   :last_updated "2022-08"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/Kiyoshi364/crlf> ;
-  :main_repository_text "github.com/Kiyoshi364/crlf"^^xsd:string ;
   :name_text "crlf"^^xsd:string ;
   :programming_language_link <https://ziglang.org/> ;
   :programming_language_text "Zig"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/crlf> ;
+  :repositories_main_text "github.com/Kiyoshi364/crlf"^^xsd:string ;
   :summary "Converts files from linux to windows text file format or the other way around"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/crlf> ;
   foaf:name "crlf"^^xsd:string ;
@@ -68,11 +64,11 @@
 :projects\/cutils
   :kind "many executables"^^xsd:string ;
   :last_updated "2024-06"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/Kiyoshi364/cutils> ;
-  :main_repository_text "github.com/Kiyoshi364/cutils"^^xsd:string ;
   :name_text "Cutils"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
   :programming_language_text "C"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/cutils> ;
+  :repositories_main_text "github.com/Kiyoshi364/cutils"^^xsd:string ;
   :summary "Some self-contained small utilities written in C"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/cutils> ;
   foaf:name "Cutils"^^xsd:string ;
@@ -83,11 +79,11 @@
 :projects\/queue%20simulator
   :kind "undergrad group assignment"^^xsd:string ;
   :last_updated "2022-08"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/PolyTadeu/TrabFinalAD> ;
-  :main_repository_text "github.com/PolyTadeu/TrabFinalAD"^^xsd:string ;
   :name_text "Queue Simulator"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
   :programming_language_text "C"^^xsd:string ;
+  :repositories_main_link <https://github.com/PolyTadeu/TrabFinalAD> ;
+  :repositories_main_text "github.com/PolyTadeu/TrabFinalAD"^^xsd:string ;
   :summary "Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator"^^xsd:string ;
   foaf:homePage <https://github.com/PolyTadeu/TrabFinalAD> ;
   foaf:name "Queue Simulator"^^xsd:string ;
@@ -98,14 +94,14 @@
 :projects\/struct.pl
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
-  :main_repository_link <https://gitlab.com/Hashi364/struct-pl> ;
-  :main_repository_text "gitlab.com/Hashi364/struct-pl"^^xsd:string ;
-  :mirrors_link <https://github.com/Kiyoshi364/struct-pl> ;
-  :mirrors_text "github.com/Kiyoshi364/struct-pl"^^xsd:string ;
   :name_link_link <https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl> ;
   :name_link_text "struct.pl"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
   :programming_language_text "Prolog"^^xsd:string ;
+  :repositories_main_link <https://gitlab.com/Hashi364/struct-pl> ;
+  :repositories_main_text "gitlab.com/Hashi364/struct-pl"^^xsd:string ;
+  :repositories_mirror_link <https://github.com/Kiyoshi364/struct-pl> ;
+  :repositories_mirror_text "github.com/Kiyoshi364/struct-pl"^^xsd:string ;
   :summary "A prolog library for defining and using structs-like functors"^^xsd:string ;
   foaf:homePage <https://gitlab.com/Hashi364/struct-pl> ;
   foaf:name "struct.pl"^^xsd:string ;
@@ -118,11 +114,11 @@
 :projects\/wam
   :kind "library/executable"^^xsd:string ;
   :last_updated "2025-03"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/Kiyoshi364/wam> ;
-  :main_repository_text "github.com/Kiyoshi364/wam"^^xsd:string ;
   :name_text "wam"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
   :programming_language_text "C"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/wam> ;
+  :repositories_main_text "github.com/Kiyoshi364/wam"^^xsd:string ;
   :summary "8-bit WAM interpreter, focusing on learning the abstract machine"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/wam> ;
   foaf:name "wam"^^xsd:string ;
@@ -133,11 +129,11 @@
 :projects\/yellowstone
   :kind "executable"^^xsd:string ;
   :last_updated "2024-06"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/Kiyoshi364/yellowstone> ;
-  :main_repository_text "github.com/Kiyoshi364/yellowstone"^^xsd:string ;
   :name_text "Yellowstone"^^xsd:string ;
   :programming_language_link <https://ziglang.org/> ;
   :programming_language_text "Zig"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/yellowstone> ;
+  :repositories_main_text "github.com/Kiyoshi364/yellowstone"^^xsd:string ;
   :summary "A Minecraft's Redstone inspired simulation"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/yellowstone> ;
   foaf:name "Yellowstone"^^xsd:string ;

@@ -24,15 +24,15 @@ you probably should use the link in this column to refer/cite/share.
 
 The list is non-exhaustive.
 
-|Name|Kind|Summary|Language|Main Repository|Mirrors|Last Updated|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|wam|library/executable|8-bit WAM interpreter, focusing on learning the abstract machine|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/Kiyoshi364/wam](https://github.com/Kiyoshi364/wam)|-|2025-03|
-|[cbor.pl](https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl)|file library|A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)|[Prolog](https://en.wikipedia.org/wiki/Prolog)|[gitlab.com/Hashi364/cbor-pl](https://gitlab.com/Hashi364/cbor-pl)|[github.com/Kiyoshi364/cbor-pl](https://github.com/Kiyoshi364/cbor-pl)|2025-02|
-|[struct.pl](https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl)|file library|A prolog library for defining and using structs-like functors|[Prolog](https://en.wikipedia.org/wiki/Prolog)|[gitlab.com/Hashi364/struct-pl](https://gitlab.com/Hashi364/struct-pl)|[github.com/Kiyoshi364/struct-pl](https://github.com/Kiyoshi364/struct-pl)|2025-02|
-|Yellowstone|executable|A Minecraft's Redstone inspired simulation|[Zig](https://ziglang.org/)|[github.com/Kiyoshi364/yellowstone](https://github.com/Kiyoshi364/yellowstone)|-|2024-06|
-|Cutils|many executables|Some self-contained small utilities written in C|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/Kiyoshi364/cutils](https://github.com/Kiyoshi364/cutils)|-|2024-06|
-|Queue Simulator|undergrad group assignment|Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/PolyTadeu/TrabFinalAD](https://github.com/PolyTadeu/TrabFinalAD)|-|2022-08|
-|crlf|executable|Converts files from linux to windows text file format or the other way around|[Zig](https://ziglang.org/)|[github.com/Kiyoshi364/crlf](https://github.com/Kiyoshi364/crlf)|-|2022-08|
+|Name|Kind|Summary|Language|Repositories|Last Updated|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|wam|library/executable|8-bit WAM interpreter, focusing on learning the abstract machine|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/Kiyoshi364/wam](https://github.com/Kiyoshi364/wam)|2025-03|
+|[cbor.pl](https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl)|file library|A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)|[Prolog](https://en.wikipedia.org/wiki/Prolog)|[github.com/Kiyoshi364/cbor-pl](https://github.com/Kiyoshi364/cbor-pl)|2025-02|
+|[struct.pl](https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl)|file library|A prolog library for defining and using structs-like functors|[Prolog](https://en.wikipedia.org/wiki/Prolog)|[gitlab.com/Hashi364/struct-pl](https://gitlab.com/Hashi364/struct-pl), [github.com/Kiyoshi364/struct-pl](https://github.com/Kiyoshi364/struct-pl)|2025-02|
+|Yellowstone|executable|A Minecraft's Redstone inspired simulation|[Zig](https://ziglang.org/)|[github.com/Kiyoshi364/yellowstone](https://github.com/Kiyoshi364/yellowstone)|2024-06|
+|Cutils|many executables|Some self-contained small utilities written in C|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/Kiyoshi364/cutils](https://github.com/Kiyoshi364/cutils)|2024-06|
+|Queue Simulator|undergrad group assignment|Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator|[C](https://en.wikipedia.org/wiki/C_(programming_language))|[github.com/PolyTadeu/TrabFinalAD](https://github.com/PolyTadeu/TrabFinalAD)|2022-08|
+|crlf|executable|Converts files from linux to windows text file format or the other way around|[Zig](https://ziglang.org/)|[github.com/Kiyoshi364/crlf](https://github.com/Kiyoshi364/crlf)|2022-08|
 
 ## About ...
 
@@ -154,56 +154,49 @@ This data is also available at [serializations/static-memory.typ](./serializatio
     kind: "library/executable",
     summary: "8-bit WAM interpreter, focusing on learning the abstract machine",
     programming_language: link("https://en.wikipedia.org/wiki/C_(programming_language)")[C],
-    main_repository: link("https://github.com/Kiyoshi364/wam")[github.com/Kiyoshi364/wam],
-    mirrors: (),
+    repositories: ( ( tag: "main", type: "link", val: link("https://github.com/Kiyoshi364/wam")[github.com/Kiyoshi364/wam],), ),
     last_updated: date(year: 2025, month: 03),
   ), (
     name: ( tag: "link", type: "link", val: link("https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl")[cbor.pl],),
     kind: "file library",
     summary: "A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)",
     programming_language: link("https://en.wikipedia.org/wiki/Prolog")[Prolog],
-    main_repository: link("https://gitlab.com/Hashi364/cbor-pl")[gitlab.com/Hashi364/cbor-pl],
-    mirrors: ( link("https://github.com/Kiyoshi364/cbor-pl")[github.com/Kiyoshi364/cbor-pl], ),
+    repositories: ( ( tag: "main", type: "link", val: link("https://github.com/Kiyoshi364/cbor-pl")[github.com/Kiyoshi364/cbor-pl],), ),
     last_updated: date(year: 2025, month: 02),
   ), (
     name: ( tag: "link", type: "link", val: link("https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl")[struct.pl],),
     kind: "file library",
     summary: "A prolog library for defining and using structs-like functors",
     programming_language: link("https://en.wikipedia.org/wiki/Prolog")[Prolog],
-    main_repository: link("https://gitlab.com/Hashi364/struct-pl")[gitlab.com/Hashi364/struct-pl],
-    mirrors: ( link("https://github.com/Kiyoshi364/struct-pl")[github.com/Kiyoshi364/struct-pl], ),
+    repositories: ( ( tag: "main", type: "link", val: link("https://gitlab.com/Hashi364/struct-pl")[gitlab.com/Hashi364/struct-pl],), ( tag: "mirror", type: "link", val: link("https://github.com/Kiyoshi364/struct-pl")[github.com/Kiyoshi364/struct-pl],), ),
     last_updated: date(year: 2025, month: 02),
   ), (
     name: ( tag: "text", type: "text", val: "Yellowstone",),
     kind: "executable",
     summary: "A Minecraft's Redstone inspired simulation",
     programming_language: link("https://ziglang.org/")[Zig],
-    main_repository: link("https://github.com/Kiyoshi364/yellowstone")[github.com/Kiyoshi364/yellowstone],
-    mirrors: (),
+    repositories: ( ( tag: "main", type: "link", val: link("https://github.com/Kiyoshi364/yellowstone")[github.com/Kiyoshi364/yellowstone],), ),
     last_updated: date(year: 2024, month: 06),
   ), (
     name: ( tag: "text", type: "text", val: "Cutils",),
     kind: "many executables",
     summary: "Some self-contained small utilities written in C",
     programming_language: link("https://en.wikipedia.org/wiki/C_(programming_language)")[C],
-    main_repository: link("https://github.com/Kiyoshi364/cutils")[github.com/Kiyoshi364/cutils],
-    mirrors: (),
+    repositories: ( ( tag: "main", type: "link", val: link("https://github.com/Kiyoshi364/cutils")[github.com/Kiyoshi364/cutils],), ),
     last_updated: date(year: 2024, month: 06),
   ), (
     name: ( tag: "text", type: "text", val: "Queue Simulator",),
     kind: "undergrad group assignment",
     summary: "Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator",
     programming_language: link("https://en.wikipedia.org/wiki/C_(programming_language)")[C],
-    main_repository: link("https://github.com/PolyTadeu/TrabFinalAD")[github.com/PolyTadeu/TrabFinalAD],
-    mirrors: (),
+    repositories: ( ( tag: "main", type: "link", val: link("https://github.com/PolyTadeu/TrabFinalAD")[github.com/PolyTadeu/TrabFinalAD],), ),
     last_updated: date(year: 2022, month: 08),
   ), (
     name: ( tag: "text", type: "text", val: "crlf",),
     kind: "executable",
     summary: "Converts files from linux to windows text file format or the other way around",
     programming_language: link("https://ziglang.org/")[Zig],
-    main_repository: link("https://github.com/Kiyoshi364/crlf")[github.com/Kiyoshi364/crlf],
-    mirrors: (),
+    repositories: ( ( tag: "main", type: "link", val: link("https://github.com/Kiyoshi364/crlf")[github.com/Kiyoshi364/crlf],), ),
     last_updated: date(year: 2022, month: 08),
   ),
 );
@@ -276,31 +269,27 @@ has some info on what I mean by this structural approach)
 :projects\/cbor.pl
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
-  :main_repository_link <https://gitlab.com/Hashi364/cbor-pl> ;
-  :main_repository_text "gitlab.com/Hashi364/cbor-pl"^^xsd:string ;
-  :mirrors_link <https://github.com/Kiyoshi364/cbor-pl> ;
-  :mirrors_text "github.com/Kiyoshi364/cbor-pl"^^xsd:string ;
   :name_link_link <https://gitlab.com/Hashi364/cbor-pl/blob/main/cbor.pl> ;
   :name_link_text "cbor.pl"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
   :programming_language_text "Prolog"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/cbor-pl> ;
+  :repositories_main_text "github.com/Kiyoshi364/cbor-pl"^^xsd:string ;
   :summary "A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"^^xsd:string ;
-  foaf:homePage <https://gitlab.com/Hashi364/cbor-pl> ;
+  foaf:homePage <https://github.com/Kiyoshi364/cbor-pl> ;
   foaf:name "cbor.pl"^^xsd:string ;
-  foaf:page
-    <https://github.com/Kiyoshi364/cbor-pl> ,
-    <https://gitlab.com/Hashi364/cbor-pl> ;
+  foaf:page <https://github.com/Kiyoshi364/cbor-pl> ;
   rdfs:label "cbor.pl"^^xsd:string ;
 .
 
 :projects\/crlf
   :kind "executable"^^xsd:string ;
   :last_updated "2022-08"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/Kiyoshi364/crlf> ;
-  :main_repository_text "github.com/Kiyoshi364/crlf"^^xsd:string ;
   :name_text "crlf"^^xsd:string ;
   :programming_language_link <https://ziglang.org/> ;
   :programming_language_text "Zig"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/crlf> ;
+  :repositories_main_text "github.com/Kiyoshi364/crlf"^^xsd:string ;
   :summary "Converts files from linux to windows text file format or the other way around"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/crlf> ;
   foaf:name "crlf"^^xsd:string ;
@@ -311,11 +300,11 @@ has some info on what I mean by this structural approach)
 :projects\/cutils
   :kind "many executables"^^xsd:string ;
   :last_updated "2024-06"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/Kiyoshi364/cutils> ;
-  :main_repository_text "github.com/Kiyoshi364/cutils"^^xsd:string ;
   :name_text "Cutils"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
   :programming_language_text "C"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/cutils> ;
+  :repositories_main_text "github.com/Kiyoshi364/cutils"^^xsd:string ;
   :summary "Some self-contained small utilities written in C"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/cutils> ;
   foaf:name "Cutils"^^xsd:string ;
@@ -326,11 +315,11 @@ has some info on what I mean by this structural approach)
 :projects\/queue%20simulator
   :kind "undergrad group assignment"^^xsd:string ;
   :last_updated "2022-08"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/PolyTadeu/TrabFinalAD> ;
-  :main_repository_text "github.com/PolyTadeu/TrabFinalAD"^^xsd:string ;
   :name_text "Queue Simulator"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
   :programming_language_text "C"^^xsd:string ;
+  :repositories_main_link <https://github.com/PolyTadeu/TrabFinalAD> ;
+  :repositories_main_text "github.com/PolyTadeu/TrabFinalAD"^^xsd:string ;
   :summary "Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator"^^xsd:string ;
   foaf:homePage <https://github.com/PolyTadeu/TrabFinalAD> ;
   foaf:name "Queue Simulator"^^xsd:string ;
@@ -341,14 +330,14 @@ has some info on what I mean by this structural approach)
 :projects\/struct.pl
   :kind "file library"^^xsd:string ;
   :last_updated "2025-02"^^xsd:gYearMonth ;
-  :main_repository_link <https://gitlab.com/Hashi364/struct-pl> ;
-  :main_repository_text "gitlab.com/Hashi364/struct-pl"^^xsd:string ;
-  :mirrors_link <https://github.com/Kiyoshi364/struct-pl> ;
-  :mirrors_text "github.com/Kiyoshi364/struct-pl"^^xsd:string ;
   :name_link_link <https://gitlab.com/Hashi364/struct-pl/blob/main/struct.pl> ;
   :name_link_text "struct.pl"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/Prolog> ;
   :programming_language_text "Prolog"^^xsd:string ;
+  :repositories_main_link <https://gitlab.com/Hashi364/struct-pl> ;
+  :repositories_main_text "gitlab.com/Hashi364/struct-pl"^^xsd:string ;
+  :repositories_mirror_link <https://github.com/Kiyoshi364/struct-pl> ;
+  :repositories_mirror_text "github.com/Kiyoshi364/struct-pl"^^xsd:string ;
   :summary "A prolog library for defining and using structs-like functors"^^xsd:string ;
   foaf:homePage <https://gitlab.com/Hashi364/struct-pl> ;
   foaf:name "struct.pl"^^xsd:string ;
@@ -361,11 +350,11 @@ has some info on what I mean by this structural approach)
 :projects\/wam
   :kind "library/executable"^^xsd:string ;
   :last_updated "2025-03"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/Kiyoshi364/wam> ;
-  :main_repository_text "github.com/Kiyoshi364/wam"^^xsd:string ;
   :name_text "wam"^^xsd:string ;
   :programming_language_link <https://en.wikipedia.org/wiki/C_(programming_language)> ;
   :programming_language_text "C"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/wam> ;
+  :repositories_main_text "github.com/Kiyoshi364/wam"^^xsd:string ;
   :summary "8-bit WAM interpreter, focusing on learning the abstract machine"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/wam> ;
   foaf:name "wam"^^xsd:string ;
@@ -376,11 +365,11 @@ has some info on what I mean by this structural approach)
 :projects\/yellowstone
   :kind "executable"^^xsd:string ;
   :last_updated "2024-06"^^xsd:gYearMonth ;
-  :main_repository_link <https://github.com/Kiyoshi364/yellowstone> ;
-  :main_repository_text "github.com/Kiyoshi364/yellowstone"^^xsd:string ;
   :name_text "Yellowstone"^^xsd:string ;
   :programming_language_link <https://ziglang.org/> ;
   :programming_language_text "Zig"^^xsd:string ;
+  :repositories_main_link <https://github.com/Kiyoshi364/yellowstone> ;
+  :repositories_main_text "github.com/Kiyoshi364/yellowstone"^^xsd:string ;
   :summary "A Minecraft's Redstone inspired simulation"^^xsd:string ;
   foaf:homePage <https://github.com/Kiyoshi364/yellowstone> ;
   foaf:name "Yellowstone"^^xsd:string ;

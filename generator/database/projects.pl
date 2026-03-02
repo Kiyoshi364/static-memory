@@ -6,7 +6,7 @@
 
 project_type_data(Type, Data) :-
   type(Type),
-  G = project(_Name, _Kind, _Summary, _Language, _MainRepository, _Mirrors, _LastUpdated),
+  G = project(_Name, _Kind, _Summary, _Language, _Repositories, _LastUpdated),
   findall(G, G, Data).
 
 type(
@@ -14,12 +14,16 @@ type(
 , field(kind, text)
 , field(summary, text)
 , field(programming_language, proglang)
-, field(main_repository, link)
-, field(mirrors, list(link, ", ", "", "-"))
+, field(repositories, list(
+  or(
+    [ case(main, link)
+    , case(mirror, link)
+    ]),
+  ", ", "", "-"))
 , field(last_updated, date)
 ]).
 
-project_header(["Name", "Kind", "Summary", "Language", "Main Repository", "Mirrors", "Last Updated"]).
+project_header(["Name", "Kind", "Summary", "Language", "Repositories", "Last Updated"]).
 
 project_predicates(1, or(
 [ text-[lowercase, prepend("projects/"), local]
@@ -29,8 +33,10 @@ project_predicates(1, or(
 , []
 , []
 , []
-, link(ref, [foaf:homePage, foaf:page])
-, list_each(link(ref, foaf:page))
+, list_each(or(
+  [ main-[link(ref, foaf:page), link(ref, foaf:homePage)]
+  , mirror-[link(ref, foaf:page)]
+  ]))
 , []
 ]).
 
@@ -39,8 +45,8 @@ project(
   literal("library/executable"),
   literal("8-bit WAM interpreter, focusing on learning the abstract machine"),
   proglang(c),
-  mygithub("wam"),
-  [],
+  [ or(main, mygithub("wam"))
+  ],
   year_month(2025, 03)
 ).
 
@@ -49,8 +55,8 @@ project(
   literal("file library"),
   literal("A prolog library for reasoning about [CBOR](https://en.wikipedia.org/wiki/CBOR)"),
   proglang(prolog),
-  mygitlab("cbor-pl"),
-  [mygithub("cbor-pl")],
+  [ or(main, mygithub("cbor-pl"))
+  ],
   year_month(2025, 02)
 ).
 
@@ -59,8 +65,9 @@ project(
   literal("file library"),
   literal("A prolog library for defining and using structs-like functors"),
   proglang(prolog),
-  mygitlab("struct-pl"),
-  [mygithub("struct-pl")],
+  [ or(main, mygitlab("struct-pl"))
+  , or(mirror, mygithub("struct-pl"))
+  ],
   year_month(2025, 02)
 ).
 
@@ -69,8 +76,8 @@ project(
   literal("executable"),
   literal("A Minecraft\'s Redstone inspired simulation"),
   proglang(zig),
-  mygithub("yellowstone"),
-  [],
+  [ or(main, mygithub("yellowstone"))
+  ],
   year_month(2024, 06)
 ).
 
@@ -79,8 +86,8 @@ project(
   literal("many executables"),
   literal("Some self-contained small utilities written in C"),
   proglang(c),
-  mygithub("cutils"),
-  [],
+  [ or(main, mygithub("cutils"))
+  ],
   year_month(2024, 06)
 ).
 
@@ -89,8 +96,8 @@ project(
   literal("undergrad group assignment"),
   literal("Discrete-event simulator for [queue](https://en.wikipedia.org/wiki/Queueing_theory) statistics. I did the design and implementation of the simulator"),
   proglang(c),
-  text_link("github.com/PolyTadeu/TrabFinalAD", https("github.com/PolyTadeu/TrabFinalAD")),
-  [],
+  [ or(main, text_link("github.com/PolyTadeu/TrabFinalAD", https("github.com/PolyTadeu/TrabFinalAD")))
+  ],
   year_month(2022, 08)
 ).
 
@@ -99,7 +106,7 @@ project(
   literal("executable"),
   literal("Converts files from linux to windows text file format or the other way around"),
   proglang(zig),
-  mygithub("crlf"),
-  [],
+  [ or(main, mygithub("crlf"))
+  ],
   year_month(2022, 08)
 ).
